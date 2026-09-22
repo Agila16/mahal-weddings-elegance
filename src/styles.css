@@ -2,6 +2,14 @@
 @source "../src";
 @import "tw-animate-css";
 
+@font-face {
+  font-family: "Malisha";
+  src: url("/fonts/Malisha.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
 @custom-variant dark (&:is(.dark *));
 
 /*
@@ -20,7 +28,8 @@
 
 @theme inline {
   --font-display: var(--font-malisha);
-  --font-body: var(--font-sans);
+  --font-body: var(--body-font);
+  --font-ui: var(--ui-font);
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
@@ -65,8 +74,11 @@
 
 :root {
   --radius: 0.25rem;
-  --font-malisha: "Malisha", "Italiana", Georgia, serif;
-  --font-sans: "DM Sans", Arial, sans-serif;
+  --heading-font: "Malisha", "Italiana", Georgia, serif;
+  --body-font: "DM Sans", Arial, sans-serif;
+  --ui-font: "Manrope", "DM Sans", Arial, sans-serif;
+  --font-malisha: var(--heading-font);
+  --font-sans: var(--body-font);
   --background: oklch(0.993 0.008 76);
   --foreground: oklch(0.25 0.012 24);
   --card: oklch(1 0.004 75);
@@ -155,9 +167,16 @@
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);
-    font-family: var(--font-sans);
+    font-family: var(--body-font);
     letter-spacing: 0;
   }
+  h1, h2, h3, .section-title {
+    font-family: var(--heading-font);
+    font-weight: 400;
+    letter-spacing: 0.02em;
+  }
+  p, li { font-family: var(--body-font); }
+  nav, button, a, .stat-number { font-family: var(--ui-font); }
   html { scroll-behavior: smooth; }
   button, a, input, select { outline-offset: 4px; }
   :focus-visible { outline: 2px solid var(--ring); }
