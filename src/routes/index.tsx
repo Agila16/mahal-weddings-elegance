@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState, type FormEvent } from "react";
 import {
   Building2, CalendarDays, CarFront, Check, ChevronDown, Droplets, Gem,
-  Mail, MapPin, Menu, Phone, Power, Sparkles, Star, Users, Utensils,
+  HeartHandshake, Landmark, Mail, MapPin, Menu, Phone, Power, Sparkles, Star, Users, Utensils, Zap,
   Wind, X,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -26,12 +26,12 @@ export const Route = createFileRoute("/")({
 const nav = [["About","about"],["Halls","halls"],["Availability","enquiry"],["Gallery","gallery"]] as const;
 const eventTypes = ["Weddings & Receptions","Engagements & Muhurtham Functions","Birthday Parties","Seemantham & Baby Showers","Corporate & Cultural Events","Family Gatherings","Stall showcasing"];
 const benefits = [
-  [Gem,"Traditional & Modern Architecture","Blend of classic elegance and contemporary design"],
+  [Landmark,"Traditional & Modern Architecture","Blend of classic elegance and contemporary design"],
   [Utensils,"Separate Dining & Function Areas","Spacious and well-organized spaces"],
-  [Power,"Power Backup & Generator Support","Uninterrupted power supply for your events"],
+  [Zap,"Power Backup & Generator Support","Uninterrupted power supply for your events"],
   [CarFront,"Spacious 360 Parking Facility","Ample parking space for all your guests"],
   [MapPin,"Easy Access Location Near NH85","Conveniently located with easy accessibility"],
-  [Users,"Friendly Management & Event Support","Dedicated team to assist you throughout"],
+  [HeartHandshake,"Friendly Management & Event Support","Dedicated team to assist you throughout"],
 ] as const;
 const facilities = [
   [Power,"Generator Backup","Uninterrupted power supply throughout your event"],
@@ -66,7 +66,7 @@ function Header() {
 function SectionTitle({children,light=false}:{children:string;light?:boolean}) { return <h2 className={`display-heading text-[clamp(2.7rem,6vw,5.8rem)] ${light?"text-primary-foreground":"text-primary"}`}>{children}</h2> }
 
 function Index() {
-  const [lightbox,setLightbox]=useState<number|null>(null); const [success,setSuccess]=useState(false);
+  const [lightbox,setLightbox]=useState<number|null>(null); const [success,setSuccess]=useState(false); const [bookingChoice,setBookingChoice]=useState<"mahal"|"mini">("mahal");
   useEffect(()=>{if(lightbox===null)return;const fn=(e:KeyboardEvent)=>{if(e.key==="Escape")setLightbox(null)};document.addEventListener("keydown",fn);return()=>document.removeEventListener("keydown",fn)},[lightbox]);
   const submit=(e:FormEvent<HTMLFormElement>)=>{e.preventDefault();if(e.currentTarget.reportValidity())setSuccess(true)};
   const hallFeatures=[
@@ -79,19 +79,30 @@ function Index() {
   ] as const;
   const selectedGallery = lightbox === null ? undefined : gallery[lightbox];
   return <div id="top" className="overflow-x-hidden bg-background"><Header/>
-    <section className="relative min-h-dvh bg-primary px-5 pb-8 pt-24 text-primary-foreground md:px-8 md:pb-8 md:pt-28">
-      <div className="relative mx-auto min-h-[calc(100dvh-8rem)] max-w-[1500px] overflow-hidden border border-gold/50">
-        <img src={heroImage} alt="Warm decorated MRD Mahal wedding hall" width={1920} height={1280} className="absolute inset-0 size-full object-cover"/>
-        <div className="absolute inset-0 bg-primary/35 md:bg-primary/20"/>
-        <div className="absolute inset-x-0 bottom-0 h-3/4 bg-gradient-to-t from-primary via-primary/55 to-transparent"/>
-        <div className="relative flex min-h-[calc(100dvh-8rem)] flex-col justify-end p-6 md:p-14 lg:p-20">
-          <div className="max-w-5xl"><div className="mb-7 flex items-center gap-5"><span className="h-px w-20 bg-gold"/><Building2 className="size-5 text-gold"/></div>
-            <h1 className="display-heading text-[clamp(4.5rem,12vw,11rem)] leading-[.88]">MRD Mahal</h1>
-            <div className="mt-8 grid gap-8 border-t border-primary-foreground/30 pt-7 md:grid-cols-[1fr_auto] md:items-end"><div><p className="max-w-xl text-lg text-primary-foreground/85 md:text-2xl">Your Dream Moments in Our Grand venues</p><div className="mt-6 flex flex-wrap gap-x-7 gap-y-2 text-xs uppercase"><span>25+ Years</span><span>1000+ Guests</span><span>7+ Rooms</span><span>60+ Parking</span></div></div><Button onClick={()=>scrollTo("enquiry")} size="lg" className="h-14 rounded-none bg-gold px-10 text-primary hover:bg-background">Book a Visit</Button></div>
-            <div className="mt-6 flex flex-wrap gap-x-8 gap-y-2 text-sm text-primary-foreground/70"><span>Book Mahal for wedding</span><span>Book Minihall for Meeting</span></div>
+    <section className="relative bg-primary pt-20 text-primary-foreground md:min-h-dvh md:pt-0">
+      <div className="grid md:min-h-dvh md:grid-cols-[42%_58%]">
+        <div className="relative order-2 flex border-t border-gold bg-primary px-6 py-12 md:order-1 md:border-r md:border-t-0 md:px-10 md:pb-14 md:pt-32 lg:px-16 xl:px-20">
+          <div className="my-auto w-full max-w-xl animate-fade-in">
+            <div className="mb-7 h-px w-20 bg-gold"/>
+            <h1 className="display-heading text-[clamp(4rem,8vw,7.5rem)] leading-[.92] text-primary-foreground">MRD Mahal</h1>
+            <p className="mt-6 max-w-md text-base leading-7 text-primary-foreground/80 md:text-lg">Your Dream Moments in Our Grand venues</p>
+            <div className="mt-9 grid grid-cols-2 border-y border-gold/45 py-1">
+              {["25+ Years","1000+ Guests","7+ Rooms","60+ Parking"].map((stat,index)=><span key={stat} className={`stat-number flex min-h-14 items-center px-3 text-xs font-semibold uppercase text-primary-foreground sm:px-4 ${index%2===0?"border-r border-gold/35":""} ${index<2?"border-b border-gold/35":""}`}>{stat}</span>)}
+            </div>
+            <div className="mt-8 grid gap-3" role="group" aria-label="Hall booking selection">
+              <Button type="button" variant="outline" aria-pressed={bookingChoice==="mahal"} onClick={()=>setBookingChoice("mahal")} className={`min-h-12 justify-start rounded-none border-gold/55 px-4 text-left text-sm transition-all ${bookingChoice==="mahal"?"bg-gold text-primary hover:bg-gold/90":"bg-transparent text-primary-foreground hover:bg-primary-foreground/10 hover:text-primary-foreground"}`}>Book Mahal for wedding</Button>
+              <Button type="button" variant="outline" aria-pressed={bookingChoice==="mini"} onClick={()=>setBookingChoice("mini")} className={`min-h-12 justify-start rounded-none border-gold/55 px-4 text-left text-sm transition-all ${bookingChoice==="mini"?"bg-gold text-primary hover:bg-gold/90":"bg-transparent text-primary-foreground hover:bg-primary-foreground/10 hover:text-primary-foreground"}`}>Book Minihall for Meeting</Button>
+            </div>
+            <Button onClick={()=>scrollTo("enquiry")} size="lg" className="mt-5 h-14 w-full rounded-none bg-gold px-8 text-primary shadow-lg hover:bg-background">Book a Visit</Button>
           </div>
         </div>
-      </div><div className="scroll-mark absolute bottom-5 right-1/2 h-10 w-px bg-gold"/>
+        <div className="relative order-1 min-h-[54dvh] overflow-hidden md:order-2 md:min-h-dvh">
+          <img src={heroImage} alt="Warm decorated MRD Mahal wedding hall" width={1920} height={1280} className="absolute inset-0 size-full object-cover object-center transition-transform duration-700 hover:scale-[1.015]"/>
+          <div className="absolute inset-0 bg-primary/15"/>
+          <div className="absolute inset-y-0 left-0 hidden w-24 bg-gradient-to-r from-primary/20 to-transparent md:block"/>
+        </div>
+      </div>
+      <div className="scroll-mark absolute bottom-5 right-6 hidden h-10 w-px bg-gold md:block"/>
     </section>
 
     <section id="about" className="paper-texture px-5 py-28 md:py-44"><div className="reveal mx-auto max-w-5xl text-center">
@@ -99,13 +110,18 @@ function Index() {
       <p className="mx-auto mt-12 max-w-4xl text-base leading-8 text-muted-foreground md:text-xl md:leading-10">Founded in 2001, MRD Mahal — Maharajan Ambalam Rajammal Thirumana Maaligai — Began with a vision to create a welcoming space where families could celebrate their most special moments. Over the past 25 years, MRD Mahal has grown into a trusted celebration destination in Madurai, hosting countless weddings, receptions and family occasions. Blending Tamil tradition with modern comfort, we continue to create memorable experiences while carrying forward the values of trust, hospitality and togetherness. 25 Years of Trust. Thousands of Celebrations. One MRD Family.</p>
     </div></section>
 
-    <section id="halls" className="bg-primary px-5 py-24 text-primary-foreground md:py-36"><div className="mx-auto max-w-[1500px]"><SectionTitle light>Our Halls</SectionTitle>
-      <div className="mt-16 space-y-10">{hallFeatures.map((hall,i)=><article key={hall.name} className="reveal relative min-h-[720px] overflow-hidden border border-gold/40 md:min-h-[780px]">
-        <img loading="lazy" src={hall.image} alt={hall.alt} width={i?1600:1920} height={i?1200:1280} className="absolute inset-0 size-full object-cover"/><div className="absolute inset-0 bg-gradient-to-t from-primary via-primary/25 to-transparent"/>
-        <div className={`absolute inset-x-0 bottom-0 p-7 md:p-14 lg:w-[62%] ${i?"lg:left-auto lg:right-0":""}`}><span className="inline-block border border-gold px-4 py-2 text-xs uppercase text-primary-foreground">{hall.name}</span><h3 className="display-heading mt-5 text-[clamp(3.5rem,7vw,7rem)] text-primary-foreground">{hall.name}</h3><p className="mt-2 text-xl text-gold">{hall.subtitle}</p><p className="mt-6 max-w-2xl leading-7 text-primary-foreground/85">{hall.desc}</p><div className="mt-7 grid gap-3 md:grid-cols-2"><p className="font-semibold text-gold">Key Features:</p>{hall.features.map(f=><p key={f} className="flex gap-3 text-sm"><Check className="mt-0.5 size-4 shrink-0 text-gold" aria-hidden="true"/>{f}</p>)}</div></div>
+    <section id="halls" className="paper-texture bg-parchment px-5 py-24 md:py-36"><div className="mx-auto max-w-[1400px]"><SectionTitle>Our Halls</SectionTitle>
+      <div className="mt-16 space-y-16 md:mt-20 md:space-y-24">{hallFeatures.map((hall,i)=><article key={hall.name} className="reveal grid items-center lg:grid-cols-[1.08fr_.92fr]">
+        <div className={`group relative z-10 min-h-[360px] overflow-hidden rounded-2xl border border-gold/60 shadow-xl md:min-h-[520px] lg:min-h-[620px] ${i?"lg:order-2 lg:-ml-8 lg:translate-y-8":"lg:mr-[-2rem]"}`}>
+          <img loading="lazy" src={hall.image} alt={hall.alt} width={i?1600:1920} height={i?1200:1280} className="absolute inset-0 size-full object-cover transition duration-700 ease-out group-hover:scale-[1.035]"/><div className="absolute inset-0 bg-primary/10"/>
+        </div>
+        <div className={`relative rounded-2xl border border-gold/35 bg-background px-7 py-10 shadow-lg md:px-12 md:py-14 lg:px-16 lg:py-20 ${i?"lg:order-1 lg:mr-[-2rem]":"lg:ml-[-2rem]"}`}>
+          <div className="border-l border-gold pl-6"><span className="inline-block border border-primary/45 bg-parchment px-4 py-2 text-xs uppercase text-primary">{hall.name}</span><h3 className="display-heading mt-5 text-[clamp(3.25rem,6vw,6.5rem)] text-primary">{hall.name}</h3><p className="mt-3 text-lg font-medium text-accent md:text-xl">{hall.subtitle}</p></div>
+          <p className="mt-7 leading-7 text-muted-foreground">{hall.desc}</p><div className="mt-8 border-t border-gold/45 pt-6"><p className="font-semibold text-primary">Key Features:</p><div className="mt-4 space-y-3">{hall.features.map(f=><p key={f} className="reveal flex gap-3 text-sm leading-6 text-foreground"><Check className="mt-1 size-4 shrink-0 text-gold" aria-hidden="true"/>{f}</p>)}</div></div>
+        </div>
       </article>)}</div></div></section>
 
-    <section className="px-5 py-28 md:py-44"><div className="mx-auto max-w-7xl"><div className="max-w-3xl"><SectionTitle>Why Choose MRD Mahal?</SectionTitle></div><div className="mt-16 border-t border-primary">{benefits.map(([Icon,title,text],i)=><article key={title} className="reveal grid gap-5 border-b border-primary/30 py-8 md:grid-cols-[70px_1fr_1fr] md:items-center"><span className="display-heading text-3xl text-gold">0{i+1}</span><div className="flex items-center gap-5"><Icon className="size-7 shrink-0 text-gold" strokeWidth={1.4}/><h3 className="display-heading text-2xl text-primary md:text-3xl">{title}</h3></div><p className="text-sm leading-6 text-muted-foreground md:pl-10">{text}</p></article>)}</div></div></section>
+    <section className="bg-primary px-5 py-24 text-primary-foreground md:py-36"><div className="mx-auto grid max-w-7xl gap-14 lg:grid-cols-[.72fr_1.28fr] lg:gap-20"><div className="lg:sticky lg:top-32 lg:self-start"><SectionTitle light>Why Choose MRD Mahal?</SectionTitle><div className="mt-8 h-px w-24 bg-gold"/></div><div className="border-t border-gold/45">{benefits.map(([ReasonIcon,title,text],i)=><article key={title} tabIndex={0} className="reveal group grid gap-4 border-b border-gold/35 py-7 transition-transform duration-300 hover:translate-x-1 focus-visible:translate-x-1 sm:grid-cols-[48px_minmax(0,1fr)] sm:gap-6"><span className="flex size-12 shrink-0 items-center justify-center border border-primary-foreground/25 text-primary-foreground transition-colors group-hover:border-gold group-hover:text-gold group-focus-visible:border-gold group-focus-visible:text-gold"><ReasonIcon className="size-6" strokeWidth={1.8} aria-hidden="true"/></span><div className="min-w-0"><div className="flex items-baseline gap-4"><span className="stat-number text-xs text-gold">0{i+1}</span><h3 className="display-heading text-2xl text-primary-foreground md:text-3xl">{title}</h3></div><p className="mt-3 text-sm leading-6 text-primary-foreground/70">{text}</p></div></article>)}</div></div></section>
 
     <section className="paper-texture bg-blush px-5 py-24"><div className="mx-auto max-w-7xl"><SectionTitle>Event Types We Host</SectionTitle><div className="mt-12 grid gap-4 md:grid-cols-2">{eventTypes.map((item,i)=><div key={item} className={`reveal flex items-center gap-5 border border-primary/30 bg-background/50 px-6 py-5 ${i%2?"md:translate-y-5":""}`}><CalendarDays className="size-5 shrink-0 text-gold"/><span>{item}</span></div>)}</div></div></section>
 
