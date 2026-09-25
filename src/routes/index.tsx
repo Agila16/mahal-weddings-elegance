@@ -82,7 +82,7 @@ function Index() {
   const selectedGallery = lightbox === null ? undefined : gallery[lightbox];
   return <div id="top" className="overflow-x-hidden bg-background"><Header/>
     <section aria-labelledby="hero-title" className="relative isolate flex min-h-[860px] flex-col justify-between overflow-hidden bg-primary text-primary-foreground md:min-h-[min(980px,100svh)]">
-      <img src={heroImage} alt="" aria-hidden="true" width={1920} height={1280} fetchPriority="high" className="absolute inset-0 size-full object-cover object-center transition-transform duration-[1800ms] hover:scale-[1.025] motion-reduce:transform-none"/>
+      <img src={heroImage} alt="Ornate wedding stage at MRD Mahal with floral decorations, a central loveseat, and guest chairs" width={1920} height={1280} fetchPriority="high" className="absolute inset-0 size-full object-cover object-center transition-transform duration-[1800ms] hover:scale-[1.025] motion-reduce:transform-none"/>
       <div className="absolute inset-0 bg-gradient-to-b from-primary/70 via-primary/20 to-primary/95" aria-hidden="true"/>
       <div className="relative z-10 mx-auto w-full max-w-6xl px-5 pb-8 pt-32 text-center sm:px-8 md:pt-36">
         <div className="mx-auto mb-5 h-px w-16 bg-gold" aria-hidden="true"/>
