@@ -93,7 +93,7 @@ function Index() {
       </div>
       <div className="relative z-10 mx-auto w-full max-w-5xl px-5 pb-12 text-center sm:px-8 md:pb-16">
         <p className="display-heading mb-3 text-3xl text-primary-foreground sm:text-4xl">MRD Mahal</p>
-        <p className="stat-number mx-auto max-w-3xl text-xs font-semibold uppercase leading-6 tracking-[0.08em] text-primary-foreground/90 sm:text-sm">25+ Years | 1000+ Guests | 7+ Rooms | 60+ Parking</p>
+        <p className="stat-number mx-auto max-w-3xl text-xs font-semibold leading-6 text-primary-foreground/90 sm:text-sm">25+ Years | 1000+ Guests | 7+ Rooms | 60+ Parking</p>
         <div className="mx-auto mt-6 grid max-w-lg gap-3 sm:grid-cols-2" role="group" aria-label="Hall booking selection">
           <Button type="button" variant="outline" aria-pressed={bookingChoice==="mahal"} onClick={()=>setBookingChoice("mahal")} className={`min-h-12 rounded-md border-gold px-5 text-sm transition-all ${bookingChoice==="mahal"?"bg-gold text-primary hover:bg-gold/90":"bg-foreground/90 text-background hover:bg-foreground hover:text-background"}`}>Book Mahal for wedding</Button>
           <Button type="button" variant="outline" aria-pressed={bookingChoice==="mini"} onClick={()=>setBookingChoice("mini")} className={`min-h-12 rounded-md border-gold px-5 text-sm transition-all ${bookingChoice==="mini"?"bg-gold text-primary hover:bg-gold/90":"bg-foreground/90 text-background hover:bg-foreground hover:text-background"}`}>Book Minihall for Meeting</Button>
