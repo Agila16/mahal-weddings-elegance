@@ -58,7 +58,7 @@ function Header() {
     <div className="mx-auto flex max-w-7xl items-center justify-between px-5">
       <a href="#top" className="flex items-center gap-2 text-primary" aria-label="MRD Mahal home"><Building2 className="size-5"/><span className="display-heading text-2xl">MRD Mahal</span></a>
       <nav className="hidden items-center gap-8 md:flex" aria-label="Main navigation">{nav.map(([label,id])=><a key={id} href={`#${id}`} className={`text-sm transition-colors hover:text-primary ${active===id?"text-primary":"text-foreground"}`}>{label}</a>)}</nav>
-      <Button onClick={()=>scrollTo("enquiry")} className="hidden h-11 rounded-none px-6 md:inline-flex">Get offer</Button>
+       <Button onClick={()=>scrollTo("enquiry")} className="hidden h-11 rounded-none px-6 md:inline-flex">Get quote</Button>
       <Button variant="ghost" size="icon" className="min-h-11 min-w-11 md:hidden" aria-label={open?"Close menu":"Open menu"} onClick={()=>setOpen(!open)}>{open?<X/>:<Menu/>}</Button>
     </div>
     {open&&<nav className="border-t border-border bg-background px-5 py-5 md:hidden" aria-label="Mobile navigation">{nav.map(([label,id])=><a key={id} href={`#${id}`} onClick={()=>setOpen(false)} className="block border-b border-border py-3 text-primary">{label}</a>)}<Button onClick={()=>{setOpen(false);scrollTo("enquiry")}} className="mt-5 h-11 w-full rounded-none">Get offer</Button></nav>}
