@@ -1,9 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState, type FormEvent } from "react";
 import {
-  Building2, CalendarDays, CarFront, Check, ChevronDown, Droplets, Gem,
-  HeartHandshake, Landmark, Mail, MapPin, Menu, Phone, Power, Sparkles, Star, Users, Utensils, Zap,
-  Wind, X,
+  Baby, Building2, CakeSlice, CalendarDays, CarFront, Check, ChevronDown, Droplets, Facebook, Gem,
+  HeartHandshake, Instagram, Landmark, Linkedin, Mail, MapPin, Menu, MessageCircle, Phone, Power,
+  Sparkles, Star, Store, Users, UsersRound, Utensils, Wind, X, Youtube, Zap,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import heroImage from "@/assets/mrd-grand-hall.jpg";
@@ -25,6 +25,8 @@ export const Route = createFileRoute("/")({
 
 const nav = [["About","about"],["Halls","halls"],["Availability","enquiry"],["Gallery","gallery"]] as const;
 const eventTypes = ["Weddings & Receptions","Engagements & Muhurtham Functions","Birthday Parties","Seemantham & Baby Showers","Corporate & Cultural Events","Family Gatherings","Stall showcasing"];
+const eventIcons = [HeartHandshake, Sparkles, CakeSlice, Baby, Building2, UsersRound, Store] as const;
+const socialLinks = [[Facebook,"Facebook","facebook"],[Instagram,"Instagram","instagram"],[Youtube,"YouTube","youtube"],[Linkedin,"LinkedIn","linkedin"],[null,"Pinterest","pinterest"]] as const;
 const benefits = [
   [Landmark,"Traditional & Modern Architecture","Blend of classic elegance and contemporary design"],
   [Utensils,"Separate Dining & Function Areas","Spacious and well-organized spaces"],
@@ -70,8 +72,8 @@ function Index() {
   useEffect(()=>{if(lightbox===null)return;const fn=(e:KeyboardEvent)=>{if(e.key==="Escape")setLightbox(null)};document.addEventListener("keydown",fn);return()=>document.removeEventListener("keydown",fn)},[lightbox]);
   const submit=(e:FormEvent<HTMLFormElement>)=>{e.preventDefault();if(e.currentTarget.reportValidity())setSuccess(true)};
   const hallFeatures=[
-    {name:"MRD Max Hall",subtitle:"Grand Celebrations Made Perfect",desc:"Our Max Hall is ideal for large-scale weddings, receptions, and cultural events. Designed to accommodate grand gatherings comfortably, this hall enhances every celebration with its spacious layout and elegant interiors.",features:["Seating Capacity: 1000 for large gatherings","Grand Stage Setup","Centralized Lighting & Decoration Flexibility","700+ peoples Separate Dining Area","Premium Ventilation & Ambience"],image:heroImage,alt:"Main hall stage and seating decorated for a wedding"},
-    {name:"MRD Mini Hall",subtitle:"Intimate & Elegant Functions",desc:"Perfect for smaller functions such as engagement ceremonies, birthdays, and family gatherings, the Mini Hall offers a warm and elegant atmosphere while maintaining the same quality standards as our main hall.",features:["200 seats for small & medium gatherings","Compact yet elegant interiors","Budget-friendly option","Same premium facilities"],image:miniHallImage,alt:"MRD Mini Hall arranged for an intimate function"}
+    {name:"MRD Max Hall",label:"MRD Mahal",heading:"Max Hall",subtitle:"Grand Celebrations Made Perfect",desc:"Our Max Hall is ideal for large-scale weddings, receptions, and cultural events. Designed to accommodate grand gatherings comfortably, this hall enhances every celebration with its spacious layout and elegant interiors.",features:["Seating Capacity: 1000 for large gatherings","Grand Stage Setup","Centralized Lighting & Decoration Flexibility","700+ peoples Separate Dining Area","Premium Ventilation & Ambience"],image:heroImage,alt:"MRD Max Hall grand wedding and function hall interior"},
+    {name:"MRD Mini Hall",label:"MRD Mini Hall",heading:"MRD Mini Hall",subtitle:"Intimate & Elegant Functions",desc:"Perfect for smaller functions such as engagement ceremonies, birthdays, and family gatherings, the Mini Hall offers a warm and elegant atmosphere while maintaining the same quality standards as our main hall.",features:["200 seats for small & medium gatherings","Compact yet elegant interiors","Budget-friendly option","Same premium facilities"],image:miniHallImage,alt:"MRD Mini Hall intimate wedding and function hall interior"}
   ];
   const gallery=[
     [galleryOne,"Venue exterior"],[galleryOne,"Wedding couple"],[galleryOne,"Interior corridor"],
@@ -79,30 +81,26 @@ function Index() {
   ] as const;
   const selectedGallery = lightbox === null ? undefined : gallery[lightbox];
   return <div id="top" className="overflow-x-hidden bg-background"><Header/>
-    <section className="relative bg-primary pt-20 text-primary-foreground md:min-h-dvh md:pt-0">
-      <div className="grid md:min-h-dvh md:grid-cols-[42%_58%]">
-        <div className="relative order-2 flex border-t border-gold bg-primary px-6 py-12 md:order-1 md:border-r md:border-t-0 md:px-10 md:pb-14 md:pt-32 lg:px-16 xl:px-20">
-          <div className="my-auto w-full max-w-xl animate-fade-in">
-            <div className="mb-7 h-px w-20 bg-gold"/>
-            <h1 className="display-heading text-[clamp(4rem,8vw,7.5rem)] leading-[.92] text-primary-foreground">MRD Mahal</h1>
-            <p className="mt-6 max-w-md text-base leading-7 text-primary-foreground/80 md:text-lg">Your Dream Moments in Our Grand venues</p>
-            <div className="mt-9 grid grid-cols-2 border-y border-gold/45 py-1">
-              {["25+ Years","1000+ Guests","7+ Rooms","60+ Parking"].map((stat,index)=><span key={stat} className={`stat-number flex min-h-14 items-center px-3 text-xs font-semibold uppercase text-primary-foreground sm:px-4 ${index%2===0?"border-r border-gold/35":""} ${index<2?"border-b border-gold/35":""}`}>{stat}</span>)}
-            </div>
-            <div className="mt-8 grid gap-3" role="group" aria-label="Hall booking selection">
-              <Button type="button" variant="outline" aria-pressed={bookingChoice==="mahal"} onClick={()=>setBookingChoice("mahal")} className={`min-h-12 justify-start rounded-none border-gold/55 px-4 text-left text-sm transition-all ${bookingChoice==="mahal"?"bg-gold text-primary hover:bg-gold/90":"bg-transparent text-primary-foreground hover:bg-primary-foreground/10 hover:text-primary-foreground"}`}>Book Mahal for wedding</Button>
-              <Button type="button" variant="outline" aria-pressed={bookingChoice==="mini"} onClick={()=>setBookingChoice("mini")} className={`min-h-12 justify-start rounded-none border-gold/55 px-4 text-left text-sm transition-all ${bookingChoice==="mini"?"bg-gold text-primary hover:bg-gold/90":"bg-transparent text-primary-foreground hover:bg-primary-foreground/10 hover:text-primary-foreground"}`}>Book Minihall for Meeting</Button>
-            </div>
-            <Button onClick={()=>scrollTo("enquiry")} size="lg" className="mt-5 h-14 w-full rounded-none bg-gold px-8 text-primary shadow-lg hover:bg-background">Book a Visit</Button>
-          </div>
-        </div>
-        <div className="relative order-1 min-h-[54dvh] overflow-hidden md:order-2 md:min-h-dvh">
-          <img src={heroImage} alt="Warm decorated MRD Mahal wedding hall" width={1920} height={1280} className="absolute inset-0 size-full object-cover object-center transition-transform duration-700 hover:scale-[1.015]"/>
-          <div className="absolute inset-0 bg-primary/15"/>
-          <div className="absolute inset-y-0 left-0 hidden w-24 bg-gradient-to-r from-primary/20 to-transparent md:block"/>
-        </div>
+    <section aria-labelledby="hero-title" className="relative isolate flex min-h-[860px] flex-col justify-between overflow-hidden bg-primary text-primary-foreground md:min-h-[min(980px,100svh)]">
+      <img src={heroImage} alt="" aria-hidden="true" width={1920} height={1280} fetchPriority="high" className="absolute inset-0 size-full object-cover object-center transition-transform duration-[1800ms] hover:scale-[1.025] motion-reduce:transform-none"/>
+      <div className="absolute inset-0 bg-gradient-to-b from-primary/70 via-primary/20 to-primary/95" aria-hidden="true"/>
+      <div className="relative z-10 mx-auto w-full max-w-6xl px-5 pb-8 pt-32 text-center sm:px-8 md:pt-36">
+        <div className="mx-auto mb-5 h-px w-16 bg-gold" aria-hidden="true"/>
+        <h1 id="hero-title" className="display-heading mx-auto max-w-5xl text-[clamp(2.6rem,6.2vw,5.75rem)] leading-[1.06] text-primary-foreground">
+          <span className="block">Your Dream Moments in Our</span>
+          <span className="block text-gold">Grand venues</span>
+        </h1>
       </div>
-      <div className="scroll-mark absolute bottom-5 right-6 hidden h-10 w-px bg-gold md:block"/>
+      <div className="relative z-10 mx-auto w-full max-w-5xl px-5 pb-12 text-center sm:px-8 md:pb-16">
+        <p className="display-heading mb-3 text-3xl text-primary-foreground sm:text-4xl">MRD Mahal</p>
+        <p className="stat-number mx-auto max-w-3xl text-xs font-semibold uppercase leading-6 tracking-[0.08em] text-primary-foreground/90 sm:text-sm">25+ Years | 1000+ Guests | 7+ Rooms | 60+ Parking</p>
+        <div className="mx-auto mt-6 grid max-w-lg gap-3 sm:grid-cols-2" role="group" aria-label="Hall booking selection">
+          <Button type="button" variant="outline" aria-pressed={bookingChoice==="mahal"} onClick={()=>setBookingChoice("mahal")} className={`min-h-12 rounded-md border-gold px-5 text-sm transition-all ${bookingChoice==="mahal"?"bg-gold text-primary hover:bg-gold/90":"bg-foreground/90 text-background hover:bg-foreground hover:text-background"}`}>Book Mahal for wedding</Button>
+          <Button type="button" variant="outline" aria-pressed={bookingChoice==="mini"} onClick={()=>setBookingChoice("mini")} className={`min-h-12 rounded-md border-gold px-5 text-sm transition-all ${bookingChoice==="mini"?"bg-gold text-primary hover:bg-gold/90":"bg-foreground/90 text-background hover:bg-foreground hover:text-background"}`}>Book Minihall for Meeting</Button>
+        </div>
+        <Button onClick={()=>scrollTo("enquiry")} size="lg" className="mt-4 h-12 min-w-44 rounded-full bg-background px-8 text-primary shadow-lg transition-transform hover:scale-[1.03] hover:bg-background/90">Book a Visit</Button>
+      </div>
+      <div className="scroll-mark absolute bottom-4 right-6 z-10 hidden h-10 w-px bg-gold md:block" aria-hidden="true"/>
     </section>
 
     <section id="about" className="paper-texture px-5 py-28 md:py-44"><div className="reveal mx-auto max-w-5xl text-center">
@@ -111,19 +109,22 @@ function Index() {
     </div></section>
 
     <section id="halls" className="paper-texture bg-parchment px-5 py-24 md:py-36"><div className="mx-auto max-w-[1400px]"><SectionTitle>Our Halls</SectionTitle>
-      <div className="mt-16 space-y-16 md:mt-20 md:space-y-24">{hallFeatures.map((hall,i)=><article key={hall.name} className="reveal grid items-center lg:grid-cols-[1.08fr_.92fr]">
-        <div className={`group relative z-10 min-h-[360px] overflow-hidden rounded-2xl border border-gold/60 shadow-xl md:min-h-[520px] lg:min-h-[620px] ${i?"lg:order-2 lg:-ml-8 lg:translate-y-8":"lg:mr-[-2rem]"}`}>
-          <img loading="lazy" src={hall.image} alt={hall.alt} width={i?1600:1920} height={i?1200:1280} className="absolute inset-0 size-full object-cover transition duration-700 ease-out group-hover:scale-[1.035]"/><div className="absolute inset-0 bg-primary/10"/>
+      <div className="mt-14 space-y-20 md:mt-20 md:space-y-28">{hallFeatures.map((hall,i)=><article key={hall.name} className={`reveal grid items-center gap-8 md:gap-12 lg:grid-cols-2 lg:gap-16 ${i===1?"lg:[&>div:first-child]:order-2":""}`}>
+        <div className={`group relative min-w-0 overflow-hidden border border-gold/60 shadow-lg ${i===0?"order-2 lg:order-2":"order-1 lg:order-1"}`}>
+          <img loading="lazy" src={hall.image} alt={hall.alt} width={i?1600:1920} height={i?1200:1280} className="aspect-[4/5] w-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-[1.025]"/>
+          <div className="pointer-events-none absolute inset-4 border border-background/55" aria-hidden="true"/>
         </div>
-        <div className={`relative rounded-2xl border border-gold/35 bg-background px-7 py-10 shadow-lg md:px-12 md:py-14 lg:px-16 lg:py-20 ${i?"lg:order-1 lg:mr-[-2rem]":"lg:ml-[-2rem]"}`}>
-          <div className="border-l border-gold pl-6"><span className="inline-block border border-primary/45 bg-parchment px-4 py-2 text-xs uppercase text-primary">{hall.name}</span><h3 className="display-heading mt-5 text-[clamp(3.25rem,6vw,6.5rem)] text-primary">{hall.name}</h3><p className="mt-3 text-lg font-medium text-accent md:text-xl">{hall.subtitle}</p></div>
-          <p className="mt-7 leading-7 text-muted-foreground">{hall.desc}</p><div className="mt-8 border-t border-gold/45 pt-6"><p className="font-semibold text-primary">Key Features:</p><div className="mt-4 space-y-3">{hall.features.map(f=><p key={f} className="reveal flex gap-3 text-sm leading-6 text-foreground"><Check className="mt-1 size-4 shrink-0 text-gold" aria-hidden="true"/>{f}</p>)}</div></div>
+        <div className={`min-w-0 py-2 md:py-8 ${i===0?"order-1 lg:order-1":"order-2 lg:order-2"}`}>
+          <div className="border-l-2 border-gold pl-5 sm:pl-7"><span className="display-heading text-2xl text-accent">{hall.label}</span><h3 className="display-heading mt-2 text-[clamp(3.3rem,6vw,6.2rem)] leading-[1.05] text-primary">{hall.heading}</h3><p className="mt-3 font-display text-xl text-accent sm:text-2xl">{hall.subtitle}</p></div>
+          <p className="mt-7 max-w-2xl leading-7 text-muted-foreground">{hall.desc}</p>
+          <div className="mt-7 border-t border-gold/45 pt-6"><p className="font-semibold text-primary">Key Features:</p><div className="mt-4 space-y-3">{hall.features.map(f=><p key={f} className="reveal flex gap-3 text-sm leading-6 text-foreground"><Check className="mt-1 size-4 shrink-0 text-accent" aria-hidden="true"/>{f}</p>)}</div></div>
+          <Button asChild className="mt-7 h-11 rounded-md bg-accent px-5 text-primary-foreground transition-colors hover:bg-primary"><a href="https://wa.me/919876543210" target="_blank" rel="noreferrer"><MessageCircle className="size-4" aria-hidden="true"/>Book mahal</a></Button>
         </div>
       </article>)}</div></div></section>
 
     <section className="bg-primary px-5 py-24 text-primary-foreground md:py-36"><div className="mx-auto grid max-w-7xl gap-14 lg:grid-cols-[.72fr_1.28fr] lg:gap-20"><div className="lg:sticky lg:top-32 lg:self-start"><SectionTitle light>Why Choose MRD Mahal?</SectionTitle><div className="mt-8 h-px w-24 bg-gold"/></div><div className="border-t border-gold/45">{benefits.map(([ReasonIcon,title,text],i)=><article key={title} tabIndex={0} className="reveal group grid gap-4 border-b border-gold/35 py-7 transition-transform duration-300 hover:translate-x-1 focus-visible:translate-x-1 sm:grid-cols-[48px_minmax(0,1fr)] sm:gap-6"><span className="flex size-12 shrink-0 items-center justify-center border border-primary-foreground/25 text-primary-foreground transition-colors group-hover:border-gold group-hover:text-gold group-focus-visible:border-gold group-focus-visible:text-gold"><ReasonIcon className="size-6" strokeWidth={1.8} aria-hidden="true"/></span><div className="min-w-0"><div className="flex items-baseline gap-4"><span className="stat-number text-xs text-gold">0{i+1}</span><h3 className="display-heading text-2xl text-primary-foreground md:text-3xl">{title}</h3></div><p className="mt-3 text-sm leading-6 text-primary-foreground/70">{text}</p></div></article>)}</div></div></section>
 
-    <section className="paper-texture bg-blush px-5 py-24"><div className="mx-auto max-w-7xl"><SectionTitle>Event Types We Host</SectionTitle><div className="mt-12 grid gap-4 md:grid-cols-2">{eventTypes.map((item,i)=><div key={item} className={`reveal flex items-center gap-5 border border-primary/30 bg-background/50 px-6 py-5 ${i%2?"md:translate-y-5":""}`}><CalendarDays className="size-5 shrink-0 text-gold"/><span>{item}</span></div>)}</div></div></section>
+    <section className="paper-texture bg-blush px-5 py-24"><div className="mx-auto max-w-7xl"><SectionTitle>Event Types We Host</SectionTitle><div className="mt-12 grid gap-4 md:grid-cols-2">{eventTypes.map((item,i)=>{const EventIcon=eventIcons[i];return <div key={item} className={`reveal flex items-center gap-5 border border-primary/30 bg-background/50 px-6 py-5 ${i%2?"md:translate-y-5":""}`}><EventIcon className="size-5 shrink-0 text-gold" strokeWidth={1.8} aria-hidden="true"/><span>{item}</span></div>})}</div></div></section>
 
     <section className="bg-primary px-5 py-24 md:py-36"><div className="mx-auto grid max-w-7xl gap-16 lg:grid-cols-[.7fr_1.3fr]"><SectionTitle light>Facilities & Amenities</SectionTitle><div className="grid md:grid-cols-2">{facilities.map(([Icon,title,text])=><article key={title} className="reveal border-b border-gold/50 p-6 text-primary-foreground"><Icon className="mb-5 size-6 text-gold"/><h3 className="display-heading text-2xl">{title}</h3><p className="mt-3 text-sm leading-6 text-primary-foreground/75">{text}</p></article>)}</div></div></section>
 
@@ -147,6 +148,6 @@ function Index() {
 
     <section className="px-5 py-24 md:py-36"><div className="mx-auto max-w-5xl"><SectionTitle>Frequently Asked Questions</SectionTitle><div className="mt-12 space-y-3">{Array.from({length:4}).map((_,i)=><details key={i} className="group border border-primary bg-background"><summary className="flex min-h-16 cursor-pointer list-none items-center justify-between px-6 text-primary focus-visible:outline-2"><span>What are the hall timings?</span><ChevronDown className="size-5 transition-transform group-open:rotate-180" aria-hidden="true"/></summary><p className="border-t border-primary/20 px-6 py-5 text-sm text-muted-foreground">Please contact MRD Mahal for details.</p></details>)}</div></div></section>
 
-    <footer className="bg-primary px-5 pb-8 pt-20 text-primary-foreground"><div className="mx-auto grid max-w-7xl gap-12 border-b border-gold/60 pb-14 md:grid-cols-3"><div><div className="flex items-center gap-3"><Building2 className="text-gold"/><span className="display-heading text-4xl">MRD Mahal</span></div><p className="mt-5 text-sm text-primary-foreground/75">Where Every Auspicious Moment Begins ✨</p></div><div><h3 className="display-heading text-2xl">Quick Links</h3><ul className="mt-5 space-y-3 text-sm text-primary-foreground/75"><li><a href="#about">About Us</a></li><li><a href="#halls">Our Halls</a></li><li><a href="#enquiry">Check Availability</a></li><li><a href="#gallery">Gallery</a></li></ul></div><div><h3 className="display-heading text-2xl">Contact Info</h3><ul className="mt-5 space-y-3 text-sm text-primary-foreground/75"><li>+91 98765 43210</li><li>info@mrdmahal.com</li><li>Iravathanallur National Highway 85, Madurai, Tamil Nadu 625009</li></ul></div></div><p className="mx-auto max-w-7xl pt-8 text-center text-xs text-primary-foreground/65">© 2026 MRD Mahal. All rights reserved. | Where Every Auspicious Moment Begins ✨</p></footer>
+    <footer className="bg-primary px-5 pb-8 pt-20 text-primary-foreground"><div className="mx-auto grid max-w-7xl gap-12 border-b border-gold/60 pb-14 md:grid-cols-3"><div><div className="flex items-center gap-3"><Building2 className="text-gold"/><span className="display-heading text-4xl">MRD Mahal</span></div><p className="mt-5 text-sm text-primary-foreground/75">Where Every Auspicious Moment Begins ✨</p><div className="mt-6 flex items-center gap-3" aria-label="Social media links">{socialLinks.map(([Icon,label,slug])=><a key={label} href={`#${slug}-profile-placeholder`} aria-label={label} title={label} className="inline-flex size-10 items-center justify-center border border-primary-foreground/25 text-primary-foreground/80 transition-colors hover:border-gold hover:text-gold focus-visible:border-gold focus-visible:text-gold">{Icon?<Icon className="size-4" strokeWidth={1.8} aria-hidden="true"/>:<svg viewBox="0 0 24 24" className="size-4 fill-current" aria-hidden="true"><path d="M12 0C5.372 0 0 5.372 0 12c0 5.084 3.163 9.427 7.627 11.194-.105-.95-.2-2.413.042-3.453.22-.937 1.416-5.98 1.416-5.98s-.362-.724-.362-1.794c0-1.68.974-2.936 2.185-2.936 1.03 0 1.527.774 1.527 1.701 0 1.036-.66 2.584-1.001 4.02-.286 1.202.604 2.18 1.79 2.18 2.149 0 3.8-2.267 3.8-5.54 0-2.897-2.08-4.92-5.05-4.92-3.44 0-5.463 2.58-5.463 5.25 0 1.04.4 2.155.899 2.76.1.12.114.224.085.346l-.334 1.353c-.053.218-.175.264-.403.159-1.507-.702-2.448-2.906-2.448-4.676 0-3.8 2.76-7.29 7.954-7.29 4.176 0 7.424 2.976 7.424 6.951 0 4.148-2.616 7.485-6.247 7.485-1.22 0-2.368-.634-2.762-1.384l-.75 2.86c-.27 1.045-1.003 2.355-1.493 3.154A12 12 0 0012 24c6.628 0 12-5.372 12-12S18.628 0 12 0z"/></svg>}</a>)}</div></div><div><h3 className="display-heading text-2xl">Quick Links</h3><ul className="mt-5 space-y-3 text-sm text-primary-foreground/75"><li><a href="#about">About Us</a></li><li><a href="#halls">Our Halls</a></li><li><a href="#enquiry">Check Availability</a></li><li><a href="#gallery">Gallery</a></li></ul></div><div><h3 className="display-heading text-2xl">Contact Info</h3><ul className="mt-5 space-y-3 text-sm text-primary-foreground/75"><li>+91 98765 43210</li><li>info@mrdmahal.com</li><li>Iravathanallur National Highway 85, Madurai, Tamil Nadu 625009</li></ul></div></div><p className="mx-auto max-w-7xl pt-8 text-center text-xs text-primary-foreground/65">© 2026 MRD Mahal. All rights reserved. | Where Every Auspicious Moment Begins ✨</p></footer>
   </div>;
 }
