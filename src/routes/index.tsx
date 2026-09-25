@@ -110,11 +110,11 @@ function Index() {
 
     <section id="halls" className="paper-texture bg-parchment px-5 py-24 md:py-36"><div className="mx-auto max-w-[1400px]"><SectionTitle>Our Halls</SectionTitle>
       <div className="mt-14 space-y-20 md:mt-20 md:space-y-28">{hallFeatures.map((hall,i)=><article key={hall.name} className="reveal grid items-center gap-8 md:gap-12 lg:grid-cols-2 lg:gap-16">
-        <div className={`group relative min-w-0 overflow-hidden border border-gold/60 shadow-lg ${i===0?"order-2 lg:order-2":"order-1 lg:order-2"}`}>
+        <div className={`group relative min-w-0 overflow-hidden border border-gold/60 shadow-lg ${i===0?"order-2 lg:order-2":"order-1 lg:order-1"}`}>
           <img loading="lazy" src={hall.image} alt={hall.alt} width={i?1600:1920} height={i?1200:1280} className="aspect-[4/5] w-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-[1.025]"/>
           <div className="pointer-events-none absolute inset-4 border border-background/55" aria-hidden="true"/>
         </div>
-        <div className={`min-w-0 py-2 md:py-8 ${i===0?"order-1 lg:order-1":"order-2 lg:order-1"}`}>
+        <div className={`min-w-0 py-2 md:py-8 ${i===0?"order-1 lg:order-1":"order-2 lg:order-2"}`}>
           <div className="border-l-2 border-gold pl-5 sm:pl-7"><span className="display-heading text-2xl text-accent">{hall.label}</span><h3 className="display-heading mt-2 text-[clamp(3.3rem,6vw,6.2rem)] leading-[1.05] text-primary">{hall.heading}</h3><p className="mt-3 font-display text-xl text-accent sm:text-2xl">{hall.subtitle}</p></div>
           <p className="mt-7 max-w-2xl leading-7 text-muted-foreground">{hall.desc}</p>
           <div className="mt-7 border-t border-gold/45 pt-6"><p className="font-semibold text-primary">Key Features:</p><div className="mt-4 space-y-3">{hall.features.map(f=><p key={f} className="reveal flex gap-3 text-sm leading-6 text-foreground"><Check className="mt-1 size-4 shrink-0 text-accent" aria-hidden="true"/>{f}</p>)}</div></div>
