@@ -82,7 +82,7 @@ function Index() {
   const selectedGallery = lightbox === null ? undefined : gallery[lightbox];
   return <div id="top" className="overflow-x-hidden bg-background"><Header/>
     <section aria-labelledby="hero-title" className="relative isolate flex min-h-[860px] flex-col justify-between overflow-hidden bg-primary text-primary-foreground md:min-h-[min(980px,100svh)]">
-      <img src={heroImage} alt="" aria-hidden="true" width={1920} height={1280} fetchPriority="high" className="absolute inset-0 size-full object-cover object-center transition-transform duration-[1800ms] hover:scale-[1.025] motion-reduce:transform-none"/>
+      <img src={heroImage} alt="Ornate wedding stage at MRD Mahal with floral decorations, a central loveseat, and guest chairs" width={1920} height={1280} fetchPriority="high" className="absolute inset-0 size-full object-cover object-center transition-transform duration-[1800ms] hover:scale-[1.025] motion-reduce:transform-none"/>
       <div className="absolute inset-0 bg-gradient-to-b from-primary/70 via-primary/20 to-primary/95" aria-hidden="true"/>
       <div className="relative z-10 mx-auto w-full max-w-6xl px-5 pb-8 pt-32 text-center sm:px-8 md:pt-36">
         <div className="mx-auto mb-5 h-px w-16 bg-gold" aria-hidden="true"/>
@@ -93,10 +93,10 @@ function Index() {
       </div>
       <div className="relative z-10 mx-auto w-full max-w-5xl px-5 pb-12 text-center sm:px-8 md:pb-16">
         <p className="display-heading mb-3 text-3xl text-primary-foreground sm:text-4xl">MRD Mahal</p>
-        <p className="stat-number mx-auto max-w-3xl text-xs font-semibold uppercase leading-6 tracking-[0.08em] text-primary-foreground/90 sm:text-sm">25+ Years | 1000+ Guests | 7+ Rooms | 60+ Parking</p>
+        <p className="stat-number mx-auto max-w-3xl text-xs font-semibold leading-6 text-primary-foreground/90 sm:text-sm">25+ Years | 1000+ Guests | 7+ Rooms | 60+ Parking</p>
         <div className="mx-auto mt-6 grid max-w-lg gap-3 sm:grid-cols-2" role="group" aria-label="Hall booking selection">
-          <Button type="button" variant="outline" aria-pressed={bookingChoice==="mahal"} onClick={()=>setBookingChoice("mahal")} className={`min-h-12 rounded-md border-gold px-5 text-sm transition-all ${bookingChoice==="mahal"?"bg-gold text-primary hover:bg-gold/90":"bg-foreground/90 text-background hover:bg-foreground hover:text-background"}`}>Book Mahal for wedding</Button>
-          <Button type="button" variant="outline" aria-pressed={bookingChoice==="mini"} onClick={()=>setBookingChoice("mini")} className={`min-h-12 rounded-md border-gold px-5 text-sm transition-all ${bookingChoice==="mini"?"bg-gold text-primary hover:bg-gold/90":"bg-foreground/90 text-background hover:bg-foreground hover:text-background"}`}>Book Minihall for Meeting</Button>
+          <Button type="button" variant="outline" aria-pressed={bookingChoice==="mahal"} onClick={()=>setBookingChoice("mahal")} className={`min-h-12 rounded-md border-gold bg-foreground/90 px-5 text-sm text-background transition-all hover:bg-foreground hover:text-background ${bookingChoice==="mahal"?"ring-2 ring-gold ring-offset-2 ring-offset-primary":""}`}>Book Mahal for wedding</Button>
+          <Button type="button" variant="outline" aria-pressed={bookingChoice==="mini"} onClick={()=>setBookingChoice("mini")} className={`min-h-12 rounded-md border-gold bg-foreground/90 px-5 text-sm text-background transition-all hover:bg-foreground hover:text-background ${bookingChoice==="mini"?"ring-2 ring-gold ring-offset-2 ring-offset-primary":""}`}>Book Minihall for Meeting</Button>
         </div>
         <Button onClick={()=>scrollTo("enquiry")} size="lg" className="mt-4 h-12 min-w-44 rounded-full bg-background px-8 text-primary shadow-lg transition-transform hover:scale-[1.03] hover:bg-background/90">Book a Visit</Button>
       </div>
@@ -109,7 +109,7 @@ function Index() {
     </div></section>
 
     <section id="halls" className="paper-texture bg-parchment px-5 py-24 md:py-36"><div className="mx-auto max-w-[1400px]"><SectionTitle>Our Halls</SectionTitle>
-      <div className="mt-14 space-y-20 md:mt-20 md:space-y-28">{hallFeatures.map((hall,i)=><article key={hall.name} className={`reveal grid items-center gap-8 md:gap-12 lg:grid-cols-2 lg:gap-16 ${i===1?"lg:[&>div:first-child]:order-2":""}`}>
+      <div className="mt-14 space-y-20 md:mt-20 md:space-y-28">{hallFeatures.map((hall,i)=><article key={hall.name} className="reveal grid items-center gap-8 md:gap-12 lg:grid-cols-2 lg:gap-16">
         <div className={`group relative min-w-0 overflow-hidden border border-gold/60 shadow-lg ${i===0?"order-2 lg:order-2":"order-1 lg:order-1"}`}>
           <img loading="lazy" src={hall.image} alt={hall.alt} width={i?1600:1920} height={i?1200:1280} className="aspect-[4/5] w-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-[1.025]"/>
           <div className="pointer-events-none absolute inset-4 border border-background/55" aria-hidden="true"/>
@@ -124,7 +124,7 @@ function Index() {
 
     <section className="bg-primary px-5 py-24 text-primary-foreground md:py-36"><div className="mx-auto grid max-w-7xl gap-14 lg:grid-cols-[.72fr_1.28fr] lg:gap-20"><div className="lg:sticky lg:top-32 lg:self-start"><SectionTitle light>Why Choose MRD Mahal?</SectionTitle><div className="mt-8 h-px w-24 bg-gold"/></div><div className="border-t border-gold/45">{benefits.map(([ReasonIcon,title,text],i)=><article key={title} tabIndex={0} className="reveal group grid gap-4 border-b border-gold/35 py-7 transition-transform duration-300 hover:translate-x-1 focus-visible:translate-x-1 sm:grid-cols-[48px_minmax(0,1fr)] sm:gap-6"><span className="flex size-12 shrink-0 items-center justify-center border border-primary-foreground/25 text-primary-foreground transition-colors group-hover:border-gold group-hover:text-gold group-focus-visible:border-gold group-focus-visible:text-gold"><ReasonIcon className="size-6" strokeWidth={1.8} aria-hidden="true"/></span><div className="min-w-0"><div className="flex items-baseline gap-4"><span className="stat-number text-xs text-gold">0{i+1}</span><h3 className="display-heading text-2xl text-primary-foreground md:text-3xl">{title}</h3></div><p className="mt-3 text-sm leading-6 text-primary-foreground/70">{text}</p></div></article>)}</div></div></section>
 
-    <section className="paper-texture bg-blush px-5 py-24"><div className="mx-auto max-w-7xl"><SectionTitle>Event Types We Host</SectionTitle><div className="mt-12 grid gap-4 md:grid-cols-2">{eventTypes.map((item,i)=>{const EventIcon=eventIcons[i];return <div key={item} className={`reveal flex items-center gap-5 border border-primary/30 bg-background/50 px-6 py-5 ${i%2?"md:translate-y-5":""}`}><EventIcon className="size-5 shrink-0 text-gold" strokeWidth={1.8} aria-hidden="true"/><span>{item}</span></div>})}</div></div></section>
+    <section className="paper-texture bg-blush px-5 py-24"><div className="mx-auto max-w-7xl"><SectionTitle>Event Types We Host</SectionTitle><div className="mt-12 grid gap-4 md:grid-cols-2">{eventTypes.map((item,i)=>{const EventIcon=eventIcons[i] ?? CalendarDays;return <div key={item} className={`reveal flex items-center gap-5 border border-primary/30 bg-background/50 px-6 py-5 ${i%2?"md:translate-y-5":""}`}><EventIcon className="size-5 shrink-0 text-gold" strokeWidth={1.8} aria-hidden="true"/><span>{item}</span></div>})}</div></div></section>
 
     <section className="bg-primary px-5 py-24 md:py-36"><div className="mx-auto grid max-w-7xl gap-16 lg:grid-cols-[.7fr_1.3fr]"><SectionTitle light>Facilities & Amenities</SectionTitle><div className="grid md:grid-cols-2">{facilities.map(([Icon,title,text])=><article key={title} className="reveal border-b border-gold/50 p-6 text-primary-foreground"><Icon className="mb-5 size-6 text-gold"/><h3 className="display-heading text-2xl">{title}</h3><p className="mt-3 text-sm leading-6 text-primary-foreground/75">{text}</p></article>)}</div></div></section>
 

@@ -1,4 +1,4 @@
-- [ ] Replace the hero composition using the available full-stage venue photo.
-- [ ] Rebuild the Max Hall and Mini Hall sections in alternating editorial layouts with their requested booking links.
-- [ ] Give the existing event types distinct accessible icons and add labeled footer social placeholders.
-- [ ] Verify the edited sections and untouched page content at desktop, tablet, and mobile sizes.
+- [x] Replace the hero banner using the available full-stage venue photo.
+- [x] Rebuild the Max Hall and Mini Hall sections in alternating editorial layouts with their requested booking links.
+- [x] Give the existing event types distinct accessible icons and add labeled footer social placeholders.
+- [x] Verify the edited sections at desktop, tablet, and mobile sizes, including booking selection and enquiry scrolling.
