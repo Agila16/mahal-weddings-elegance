@@ -46,6 +46,10 @@ const facilities = [
 
 function scrollTo(id:string) { document.getElementById(id)?.scrollIntoView({behavior:"smooth"}); }
 
+function WhatsAppMark() {
+  return <svg viewBox="0 0 24 24" className="size-4 shrink-0 fill-current" aria-hidden="true"><path d="M12.04 2C6.58 2 2.14 6.43 2.14 11.89c0 1.75.46 3.46 1.33 4.97L2 22l5.27-1.38a9.88 9.88 0 0 0 4.76 1.21h.01c5.46 0 9.89-4.44 9.89-9.9 0-2.65-1.03-5.14-2.9-7.01A9.83 9.83 0 0 0 12.04 2Zm0 18.15h-.01a8.2 8.2 0 0 1-4.18-1.14l-.3-.18-3.13.82.84-3.05-.2-.31a8.2 8.2 0 0 1-1.26-4.4c0-4.56 3.72-8.27 8.28-8.27a8.22 8.22 0 0 1 5.85 2.42 8.22 8.22 0 0 1 2.42 5.85c0 4.56-3.72 8.27-8.28 8.27Zm4.54-6.19c-.25-.13-1.48-.73-1.71-.81-.23-.08-.4-.13-.57.13-.17.25-.65.81-.8.98-.14.17-.29.19-.54.06-.25-.13-1.06-.39-2.02-1.25-.75-.67-1.25-1.49-1.4-1.74-.15-.25-.02-.39.11-.52.11-.11.25-.29.37-.43.13-.14.17-.25.25-.42.08-.17.04-.31-.02-.44-.06-.13-.57-1.37-.78-1.87-.2-.49-.41-.42-.57-.43h-.49c-.17 0-.44.06-.67.31-.23.25-.88.86-.88 2.1s.9 2.44 1.03 2.61c.12.17 1.77 2.7 4.28 3.79.6.26 1.06.42 1.42.54.6.19 1.15.16 1.58.1.48-.07 1.48-.61 1.69-1.2.21-.59.21-1.09.15-1.2-.06-.11-.23-.17-.48-.3Z"/></svg>;
+}
+
 function Header() {
   const [scrolled,setScrolled] = useState(false); const [open,setOpen] = useState(false); const [active,setActive] = useState("about");
   useEffect(() => {
@@ -58,17 +62,17 @@ function Header() {
     <div className="mx-auto flex max-w-7xl items-center justify-between px-5">
       <a href="#top" className="flex items-center gap-2 text-primary" aria-label="MRD Mahal home"><Building2 className="size-5"/><span className="display-heading text-2xl">MRD Mahal</span></a>
       <nav className="hidden items-center gap-8 md:flex" aria-label="Main navigation">{nav.map(([label,id])=><a key={id} href={`#${id}`} className={`text-sm transition-colors hover:text-primary ${active===id?"text-primary":"text-foreground"}`}>{label}</a>)}</nav>
-       <Button onClick={()=>scrollTo("enquiry")} className="hidden h-11 rounded-none px-6 md:inline-flex">Get quote</Button>
+       <Button asChild className="hidden h-11 rounded-none px-6 md:inline-flex"><a href="https://wa.me/919876543210" target="_blank" rel="noreferrer" aria-label="Get Quote on WhatsApp"><WhatsAppMark/>Get Quote</a></Button>
       <Button variant="ghost" size="icon" className="min-h-11 min-w-11 md:hidden" aria-label={open?"Close menu":"Open menu"} onClick={()=>setOpen(!open)}>{open?<X/>:<Menu/>}</Button>
     </div>
-    {open&&<nav className="border-t border-border bg-background px-5 py-5 md:hidden" aria-label="Mobile navigation">{nav.map(([label,id])=><a key={id} href={`#${id}`} onClick={()=>setOpen(false)} className="block border-b border-border py-3 text-primary">{label}</a>)}<Button onClick={()=>{setOpen(false);scrollTo("enquiry")}} className="mt-5 h-11 w-full rounded-none">Get offer</Button></nav>}
+    {open&&<nav className="border-t border-border bg-background px-5 py-5 md:hidden" aria-label="Mobile navigation">{nav.map(([label,id])=><a key={id} href={`#${id}`} onClick={()=>setOpen(false)} className="block border-b border-border py-3 text-primary">{label}</a>)}<Button asChild className="mt-5 h-11 w-full rounded-none"><a href="https://wa.me/919876543210" target="_blank" rel="noreferrer" aria-label="Get Quote on WhatsApp"><WhatsAppMark/>Get Quote</a></Button></nav>}
   </header>
 }
 
 function SectionTitle({children,light=false}:{children:string;light?:boolean}) { return <h2 className={`display-heading text-[clamp(2.7rem,6vw,5.8rem)] ${light?"text-primary-foreground":"text-primary"}`}>{children}</h2> }
 
 function Index() {
-  const [lightbox,setLightbox]=useState<number|null>(null); const [success,setSuccess]=useState(false); const [bookingChoice,setBookingChoice]=useState<"mahal"|"mini">("mahal");
+  const [lightbox,setLightbox]=useState<number|null>(null); const [success,setSuccess]=useState(false); const [bookingChoice,setBookingChoice]=useState<"mahal"|"mini"|"other">("mahal");
   useEffect(()=>{if(lightbox===null)return;const fn=(e:KeyboardEvent)=>{if(e.key==="Escape")setLightbox(null)};document.addEventListener("keydown",fn);return()=>document.removeEventListener("keydown",fn)},[lightbox]);
   const submit=(e:FormEvent<HTMLFormElement>)=>{e.preventDefault();if(e.currentTarget.reportValidity())setSuccess(true)};
   const hallFeatures=[
@@ -88,15 +92,16 @@ function Index() {
         <div className="mx-auto mb-5 h-px w-16 bg-gold" aria-hidden="true"/>
         <h1 id="hero-title" className="display-heading mx-auto max-w-5xl text-[clamp(2.6rem,6.2vw,5.75rem)] leading-[1.06] text-primary-foreground">
           <span className="block">Your Dream Moments in Our</span>
-          <span className="block text-gold">Grand venues</span>
+          <span className="block text-primary-foreground">Grand venues</span>
         </h1>
       </div>
       <div className="relative z-10 mx-auto w-full max-w-5xl px-5 pb-12 text-center sm:px-8 md:pb-16">
         <p className="display-heading mb-3 text-3xl text-primary-foreground sm:text-4xl">MRD Mahal</p>
         <p className="stat-number mx-auto max-w-3xl text-xs font-semibold leading-6 text-primary-foreground/90 sm:text-sm">25+ Years | 1000+ Guests | 7+ Rooms | 60+ Parking</p>
-        <div className="mx-auto mt-6 grid max-w-lg gap-3 sm:grid-cols-2" role="group" aria-label="Hall booking selection">
-          <Button type="button" variant="outline" aria-pressed={bookingChoice==="mahal"} onClick={()=>setBookingChoice("mahal")} className={`min-h-12 rounded-md border-gold bg-foreground/90 px-5 text-sm text-background transition-all hover:bg-foreground hover:text-background ${bookingChoice==="mahal"?"ring-2 ring-gold ring-offset-2 ring-offset-primary":""}`}>Book Mahal for wedding</Button>
-          <Button type="button" variant="outline" aria-pressed={bookingChoice==="mini"} onClick={()=>setBookingChoice("mini")} className={`min-h-12 rounded-md border-gold bg-foreground/90 px-5 text-sm text-background transition-all hover:bg-foreground hover:text-background ${bookingChoice==="mini"?"ring-2 ring-gold ring-offset-2 ring-offset-primary":""}`}>Book Minihall for Meeting</Button>
+        <div className="mx-auto mt-6 grid max-w-4xl grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3" role="group" aria-label="Event booking selection">
+          <Button type="button" variant="outline" aria-pressed={bookingChoice==="mahal"} onClick={()=>setBookingChoice("mahal")} className={`min-h-12 rounded-md border-gold bg-foreground/90 px-5 text-center text-sm leading-tight text-background transition-all hover:bg-foreground hover:text-background ${bookingChoice==="mahal"?"ring-2 ring-gold ring-offset-2 ring-offset-primary":""}`}>Book Mahal for Wedding</Button>
+          <Button type="button" variant="outline" aria-pressed={bookingChoice==="mini"} onClick={()=>setBookingChoice("mini")} className={`min-h-12 rounded-md border-gold bg-foreground/90 px-5 text-center text-sm leading-tight text-background transition-all hover:bg-foreground hover:text-background ${bookingChoice==="mini"?"ring-2 ring-gold ring-offset-2 ring-offset-primary":""}`}>Book Minihall for Meeting</Button>
+          <Button type="button" variant="outline" aria-pressed={bookingChoice==="other"} onClick={()=>setBookingChoice("other")} className={`min-h-12 rounded-md border-gold bg-foreground/90 px-5 text-center text-sm leading-tight text-background transition-all hover:bg-foreground hover:text-background ${bookingChoice==="other"?"ring-2 ring-gold ring-offset-2 ring-offset-primary":""}`}>Book for Other Events</Button>
         </div>
         <Button onClick={()=>scrollTo("enquiry")} size="lg" className="mt-4 h-12 min-w-44 rounded-full bg-background px-8 text-primary shadow-lg transition-transform hover:scale-[1.03] hover:bg-background/90">Book a Visit</Button>
       </div>
@@ -124,7 +129,7 @@ function Index() {
 
     <section className="bg-primary px-5 py-24 text-primary-foreground md:py-36"><div className="mx-auto grid max-w-7xl gap-14 lg:grid-cols-[.72fr_1.28fr] lg:gap-20"><div className="lg:sticky lg:top-32 lg:self-start"><SectionTitle light>Why Choose MRD Mahal?</SectionTitle><div className="mt-8 h-px w-24 bg-gold"/></div><div className="border-t border-gold/45">{benefits.map(([ReasonIcon,title,text],i)=><article key={title} tabIndex={0} className="reveal group grid gap-4 border-b border-gold/35 py-7 transition-transform duration-300 hover:translate-x-1 focus-visible:translate-x-1 sm:grid-cols-[48px_minmax(0,1fr)] sm:gap-6"><span className="flex size-12 shrink-0 items-center justify-center border border-primary-foreground/25 text-primary-foreground transition-colors group-hover:border-gold group-hover:text-gold group-focus-visible:border-gold group-focus-visible:text-gold"><ReasonIcon className="size-6" strokeWidth={1.8} aria-hidden="true"/></span><div className="min-w-0"><div className="flex items-baseline gap-4"><span className="stat-number text-xs text-gold">0{i+1}</span><h3 className="display-heading text-2xl text-primary-foreground md:text-3xl">{title}</h3></div><p className="mt-3 text-sm leading-6 text-primary-foreground/70">{text}</p></div></article>)}</div></div></section>
 
-    <section className="paper-texture bg-blush px-5 py-24"><div className="mx-auto max-w-7xl"><SectionTitle>Event Types We Host</SectionTitle><div className="mt-12 grid gap-4 md:grid-cols-2">{eventTypes.map((item,i)=>{const EventIcon=eventIcons[i] ?? CalendarDays;return <div key={item} className={`reveal flex items-center gap-5 border border-primary/30 bg-background/50 px-6 py-5 ${i%2?"md:translate-y-5":""}`}><EventIcon className="size-5 shrink-0 text-gold" strokeWidth={1.8} aria-hidden="true"/><span>{item}</span></div>})}</div></div></section>
+     <section className="paper-texture bg-parchment px-5 py-24"><div className="mx-auto max-w-7xl"><SectionTitle>Event Types We Host</SectionTitle><div className="mt-12 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">{eventTypes.map((item,i)=>{const EventIcon=eventIcons[i] ?? CalendarDays;return <article key={item} tabIndex={0} className="reveal group flex aspect-square min-w-0 flex-col items-center justify-center gap-4 border border-primary/25 bg-background p-4 text-center shadow-sm transition duration-300 hover:-translate-y-1 hover:border-accent hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"><EventIcon className="size-7 shrink-0 text-primary transition-colors group-hover:text-accent sm:size-8" strokeWidth={1.8} aria-hidden="true"/><h3 className="max-w-full break-words text-sm font-semibold leading-5 text-foreground sm:text-base">{item}</h3></article>})}</div></div></section>
 
     <section className="bg-primary px-5 py-24 md:py-36"><div className="mx-auto grid max-w-7xl gap-16 lg:grid-cols-[.7fr_1.3fr]"><SectionTitle light>Facilities & Amenities</SectionTitle><div className="grid md:grid-cols-2">{facilities.map(([Icon,title,text])=><article key={title} className="reveal border-b border-gold/50 p-6 text-primary-foreground"><Icon className="mb-5 size-6 text-gold"/><h3 className="display-heading text-2xl">{title}</h3><p className="mt-3 text-sm leading-6 text-primary-foreground/75">{text}</p></article>)}</div></div></section>
 
