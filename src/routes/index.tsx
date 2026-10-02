@@ -62,7 +62,7 @@ function Header() {
   },[]);
   return <header className={`fixed inset-x-0 top-0 z-40 transition-all duration-500 ${scrolled?"bg-background/95 shadow-md backdrop-blur py-2":"bg-background/75 backdrop-blur-sm py-4 md:top-5 md:mx-6 md:border md:border-background/50"}`}>
     <div className="mx-auto flex max-w-7xl items-center justify-between px-5">
-      <a href="#top" className="flex items-center text-primary" aria-label="MRD Mahal home"><img src={logoAsset.url} alt="MRD Mahal logo" width={1920} height={1920} className="h-12 w-auto md:h-14"/></a>
+      <a href="#top" className="flex items-center text-primary" aria-label="MRD Mahal home"><img src={logoAsset.url} alt="MRD Mahal logo" width={1920} height={1920} className="h-16 w-auto -my-2 md:h-20 md:-my-3"/></a>
       <nav className="hidden items-center gap-8 md:flex" aria-label="Main navigation">{nav.map(([label,id])=><a key={id} href={`#${id}`} className={`text-sm transition-colors hover:text-primary ${active===id?"text-primary":"text-foreground"}`}>{label}</a>)}</nav>
        <Button asChild className="hidden h-11 rounded-none px-6 md:inline-flex"><a href="https://wa.me/919876543210" target="_blank" rel="noreferrer" aria-label="Get Quote on WhatsApp"><WhatsAppMark/>Get Quote</a></Button>
       <Button variant="ghost" size="icon" className="min-h-11 min-w-11 md:hidden" aria-label={open?"Close menu":"Open menu"} onClick={()=>setOpen(!open)}>{open?<X/>:<Menu/>}</Button>
