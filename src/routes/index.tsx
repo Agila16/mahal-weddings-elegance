@@ -10,6 +10,8 @@ import heroImage from "@/assets/mrd-grand-hall.jpg";
 import miniHallImage from "@/assets/mrd-mini-hall.jpg";
 import galleryOne from "@/assets/mrd-gallery-one.jpg";
 import galleryTwo from "@/assets/mrd-gallery-two.jpg";
+import logoAsset from "@/assets/mrd-mahal-logo.png.asset.json";
+import bannerAsset from "@/assets/mrd-mahal-banner.png.asset.json";
 
 export const Route = createFileRoute("/")({
   head: () => ({ meta: [
@@ -60,7 +62,7 @@ function Header() {
   },[]);
   return <header className={`fixed inset-x-0 top-0 z-40 transition-all duration-500 ${scrolled?"bg-background/95 shadow-md backdrop-blur py-2":"bg-background/75 backdrop-blur-sm py-4 md:top-5 md:mx-6 md:border md:border-background/50"}`}>
     <div className="mx-auto flex max-w-7xl items-center justify-between px-5">
-      <a href="#top" className="flex items-center gap-2 text-primary" aria-label="MRD Mahal home"><Building2 className="size-5"/><span className="display-heading text-2xl">MRD Mahal</span></a>
+      <a href="#top" className="flex items-center text-primary" aria-label="MRD Mahal home"><img src={logoAsset.url} alt="MRD Mahal logo" width={1920} height={1920} className="h-12 w-auto md:h-14"/></a>
       <nav className="hidden items-center gap-8 md:flex" aria-label="Main navigation">{nav.map(([label,id])=><a key={id} href={`#${id}`} className={`text-sm transition-colors hover:text-primary ${active===id?"text-primary":"text-foreground"}`}>{label}</a>)}</nav>
        <Button asChild className="hidden h-11 rounded-none px-6 md:inline-flex"><a href="https://wa.me/919876543210" target="_blank" rel="noreferrer" aria-label="Get Quote on WhatsApp"><WhatsAppMark/>Get Quote</a></Button>
       <Button variant="ghost" size="icon" className="min-h-11 min-w-11 md:hidden" aria-label={open?"Close menu":"Open menu"} onClick={()=>setOpen(!open)}>{open?<X/>:<Menu/>}</Button>
@@ -86,7 +88,7 @@ function Index() {
   const selectedGallery = lightbox === null ? undefined : gallery[lightbox];
   return <div id="top" className="overflow-x-hidden bg-background"><Header/>
     <section aria-labelledby="hero-title" className="relative isolate flex min-h-[860px] flex-col justify-between overflow-hidden bg-primary text-primary-foreground md:min-h-[min(980px,100svh)]">
-      <img src={heroImage} alt="Ornate wedding stage at MRD Mahal with floral decorations, a central loveseat, and guest chairs" width={1920} height={1280} fetchPriority="high" className="absolute inset-0 size-full object-cover object-center transition-transform duration-[1800ms] hover:scale-[1.025] motion-reduce:transform-none"/>
+      <img src={bannerAsset.url} alt="MRD Mahal wedding venue banner with decorated wedding stage and guest seating" width={1672} height={941} fetchPriority="high" className="absolute inset-0 size-full object-cover object-center transition-transform duration-[1800ms] hover:scale-[1.025] motion-reduce:transform-none"/>
       <div className="absolute inset-0 bg-gradient-to-b from-primary/70 via-primary/20 to-primary/95" aria-hidden="true"/>
       <div className="relative z-10 mx-auto w-full max-w-6xl px-5 pb-8 pt-32 text-center sm:px-8 md:pt-36">
         <div className="mx-auto mb-5 h-px w-16 bg-gold" aria-hidden="true"/>
