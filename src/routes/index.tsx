@@ -1,9 +1,10 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState, type FormEvent } from "react";
+import useEmblaCarousel from "embla-carousel-react";
 import {
-  Baby, Building2, CakeSlice, CalendarDays, CarFront, Check, ChevronDown, Droplets, Facebook, Gem,
-  HeartHandshake, Instagram, Landmark, Linkedin, Mail, MapPin, Menu, MessageCircle, Phone, Power,
-  Sparkles, Star, Store, Users, UsersRound, Utensils, Wind, X, Youtube, Zap,
+  Baby, Building2, CakeSlice, CalendarDays, CarFront, Check, ChevronDown, ChevronLeft, ChevronRight,
+  Droplets, Facebook, Gem, HeartHandshake, Instagram, Landmark, Linkedin, Mail, MapPin, Menu,
+  MessageCircle, Phone, Power, Sparkles, Store, Users, UsersRound, Utensils, Wind, X, Youtube, Zap,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import heroImage from "@/assets/mrd-grand-hall.jpg";
@@ -25,10 +26,16 @@ export const Route = createFileRoute("/")({
   component: Index,
 });
 
-const nav = [["About","about"],["Halls","halls"],["Availability","enquiry"],["Gallery","gallery"]] as const;
+const nav = [["About","about"],["Halls","halls"],["Availability","quick-enquiry"],["Gallery","gallery"]] as const;
 const eventTypes = ["Weddings & Receptions","Engagements & Muhurtham Functions","Birthday Parties","Seemantham & Baby Showers","Corporate & Cultural Events","Family Gatherings","Stall showcasing"];
 const eventIcons = [HeartHandshake, Sparkles, CakeSlice, Baby, Building2, UsersRound, Store] as const;
-const socialLinks = [[Facebook,"Facebook","facebook"],[Instagram,"Instagram","instagram"],[Youtube,"YouTube","youtube"],[Linkedin,"LinkedIn","linkedin"],[null,"Pinterest","pinterest"]] as const;
+const socialLinks = [
+  [Facebook,"Facebook","https://www.facebook.com/mrdmahalmadurai"],
+  [Instagram,"Instagram","https://www.instagram.com/mrd_mahal/"],
+  [Youtube,"YouTube","https://www.youtube.com/@mrd_mahal_madurai"],
+  [Linkedin,"LinkedIn","https://www.linkedin.com/company/maharajan-ambalam-rajammal-thirumana-mahal/"],
+  [null,"Pinterest","https://in.pinterest.com/mrdmahalmadurai/"],
+] as const;
 const benefits = [
   [Landmark,"Traditional & Modern Architecture","Blend of classic elegance and contemporary design"],
   [Utensils,"Separate Dining & Function Areas","Spacious and well-organized spaces"],
@@ -64,10 +71,10 @@ function Header() {
     <div className="mx-auto flex max-w-7xl items-center justify-between px-5">
       <a href="#top" className="flex items-center text-primary" aria-label="MRD Mahal home"><img src={logoAsset.url} alt="MRD Mahal logo" width={1920} height={1920} className="h-16 w-auto -my-2 md:h-20 md:-my-3"/></a>
       <nav className="hidden items-center gap-8 md:flex" aria-label="Main navigation">{nav.map(([label,id])=><a key={id} href={`#${id}`} className={`text-sm transition-colors hover:text-primary ${active===id?"text-primary":"text-foreground"}`}>{label}</a>)}</nav>
-       <Button asChild className="hidden h-11 rounded-none px-6 md:inline-flex"><a href="https://wa.me/919876543210" target="_blank" rel="noreferrer" aria-label="Get Quote on WhatsApp"><WhatsAppMark/>Get Quote</a></Button>
+       <Button asChild className="hidden h-11 rounded-none px-6 md:inline-flex"><a href="https://wa.me/918220013444" target="_blank" rel="noopener noreferrer" aria-label="Get Quote on WhatsApp"><WhatsAppMark/>Get Quote</a></Button>
       <Button variant="ghost" size="icon" className="min-h-11 min-w-11 md:hidden" aria-label={open?"Close menu":"Open menu"} onClick={()=>setOpen(!open)}>{open?<X/>:<Menu/>}</Button>
     </div>
-    {open&&<nav className="border-t border-border bg-background px-5 py-5 md:hidden" aria-label="Mobile navigation">{nav.map(([label,id])=><a key={id} href={`#${id}`} onClick={()=>setOpen(false)} className="block border-b border-border py-3 text-primary">{label}</a>)}<Button asChild className="mt-5 h-11 w-full rounded-none"><a href="https://wa.me/919876543210" target="_blank" rel="noreferrer" aria-label="Get Quote on WhatsApp"><WhatsAppMark/>Get Quote</a></Button></nav>}
+    {open&&<nav className="border-t border-border bg-background px-5 py-5 md:hidden" aria-label="Mobile navigation">{nav.map(([label,id])=><a key={id} href={`#${id}`} onClick={()=>setOpen(false)} className="block border-b border-border py-3 text-primary">{label}</a>)}<Button asChild className="mt-5 h-11 w-full rounded-none"><a href="https://wa.me/918220013444" target="_blank" rel="noopener noreferrer" aria-label="Get Quote on WhatsApp"><WhatsAppMark/>Get Quote</a></Button></nav>}
   </header>
 }
 
@@ -75,10 +82,12 @@ function SectionTitle({children,light=false}:{children:string;light?:boolean}) {
 
 function Index() {
   const [lightbox,setLightbox]=useState<number|null>(null); const [success,setSuccess]=useState(false); const [bookingChoice,setBookingChoice]=useState<"mahal"|"mini"|"other">("mahal");
+  const [testimonialRef,testimonialApi]=useEmblaCarousel({loop:true}); const [activeTestimonial,setActiveTestimonial]=useState(0);
   useEffect(()=>{if(lightbox===null)return;const fn=(e:KeyboardEvent)=>{if(e.key==="Escape")setLightbox(null)};document.addEventListener("keydown",fn);return()=>document.removeEventListener("keydown",fn)},[lightbox]);
+  useEffect(()=>{if(!testimonialApi)return;const updateActive=()=>setActiveTestimonial(testimonialApi.selectedScrollSnap());testimonialApi.on("select",updateActive);testimonialApi.on("reInit",updateActive);updateActive();return()=>{testimonialApi.off("select",updateActive);testimonialApi.off("reInit",updateActive)}},[testimonialApi]);
   const submit=(e:FormEvent<HTMLFormElement>)=>{e.preventDefault();if(e.currentTarget.reportValidity())setSuccess(true)};
   const hallFeatures=[
-    {name:"MRD Max Hall",label:"MRD Mahal",heading:"Max Hall",subtitle:"Grand Celebrations Made Perfect",desc:"Our Max Hall is ideal for large-scale weddings, receptions, and cultural events. Designed to accommodate grand gatherings comfortably, this hall enhances every celebration with its spacious layout and elegant interiors.",features:["Seating Capacity: 1000 for large gatherings","Grand Stage Setup","Centralized Lighting & Decoration Flexibility","700+ peoples Separate Dining Area","Premium Ventilation & Ambience"],image:heroImage,alt:"MRD Max Hall grand wedding and function hall interior"},
+    {name:"MRD Max Hall",label:"MRD Mahal",heading:"Max Hall",subtitle:"Grand Celebrations Made Perfect",desc:"Our Max Hall is ideal for large-scale weddings, receptions, and cultural events. Designed to accommodate grand gatherings comfortably, this hall enhances every celebration with its spacious layout and elegant interiors.",features:["Comfortably Accommodates 1,000 Guests","Grand Stage Setup","Centralized Lighting & Decoration Flexibility","700+ peoples Separate Dining Area","Premium Ventilation & Ambience"],image:heroImage,alt:"MRD Max Hall grand wedding and function hall interior"},
     {name:"MRD Mini Hall",label:"MRD Mini Hall",heading:"MRD Mini Hall",subtitle:"Intimate & Elegant Functions",desc:"Perfect for smaller functions such as engagement ceremonies, birthdays, and family gatherings, the Mini Hall offers a warm and elegant atmosphere while maintaining the same quality standards as our main hall.",features:["200 seats for small & medium gatherings","Compact yet elegant interiors","Budget-friendly option","Same premium facilities"],image:miniHallImage,alt:"MRD Mini Hall intimate wedding and function hall interior"}
   ];
   const gallery=[
@@ -87,7 +96,7 @@ function Index() {
   ] as const;
   const selectedGallery = lightbox === null ? undefined : gallery[lightbox];
   return <div id="top" className="overflow-x-hidden bg-background"><Header/>
-    <section aria-labelledby="hero-title" className="relative isolate flex min-h-[860px] flex-col justify-between overflow-hidden bg-primary text-primary-foreground md:min-h-[min(980px,100svh)]">
+    <section aria-labelledby="hero-title" className="relative isolate flex min-h-[max(980px,calc(100svh+120px))] flex-col justify-between overflow-hidden bg-primary text-primary-foreground md:min-h-[max(1120px,calc(100svh+220px))]">
       <img src={bannerAsset.url} alt="MRD Mahal wedding venue banner with decorated wedding stage and guest seating" width={1672} height={941} fetchPriority="high" className="absolute inset-0 size-full object-cover object-center transition-transform duration-[1800ms] hover:scale-[1.025] motion-reduce:transform-none"/>
       <div className="absolute inset-0 bg-gradient-to-b from-primary/70 via-primary/20 to-primary/95" aria-hidden="true"/>
       <div className="relative z-10 mx-auto w-full max-w-6xl px-5 pb-8 pt-32 text-center sm:px-8 md:pt-36">
@@ -101,21 +110,21 @@ function Index() {
         <p className="display-heading mb-3 text-3xl text-primary-foreground sm:text-4xl">MRD Mahal</p>
         <p className="stat-number mx-auto max-w-3xl text-xs font-semibold leading-6 text-primary-foreground/90 sm:text-sm">25+ Years | 1000+ Guests | 7+ Rooms | 60+ Parking</p>
         <div className="mx-auto mt-6 grid max-w-4xl grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3" role="group" aria-label="Event booking selection">
-          <Button type="button" variant="outline" aria-pressed={bookingChoice==="mahal"} onClick={()=>setBookingChoice("mahal")} className={`flex min-h-12 items-center justify-center gap-2 rounded-md border-gold bg-foreground/90 px-5 text-center text-sm leading-tight text-background transition-all hover:bg-foreground hover:text-background ${bookingChoice==="mahal"?"ring-2 ring-gold ring-offset-2 ring-offset-primary":""}`}><WhatsAppMark/>Book Mahal for Wedding</Button>
-          <Button type="button" variant="outline" aria-pressed={bookingChoice==="mini"} onClick={()=>setBookingChoice("mini")} className={`flex min-h-12 items-center justify-center gap-2 rounded-md border-gold bg-foreground/90 px-5 text-center text-sm leading-tight text-background transition-all hover:bg-foreground hover:text-background ${bookingChoice==="mini"?"ring-2 ring-gold ring-offset-2 ring-offset-primary":""}`}><WhatsAppMark/>Book Minihall for Meeting</Button>
-          <Button type="button" variant="outline" aria-pressed={bookingChoice==="other"} onClick={()=>setBookingChoice("other")} className={`min-h-12 rounded-md border-gold bg-foreground/90 px-5 text-center text-sm leading-tight text-background transition-all hover:bg-foreground hover:text-background ${bookingChoice==="other"?"ring-2 ring-gold ring-offset-2 ring-offset-primary":""}`}>Book for Other Events</Button>
+          <Button type="button" variant="outline" aria-pressed={bookingChoice==="mahal"} onClick={()=>{setBookingChoice("mahal");scrollTo("max-hall")}} className={`flex min-h-12 items-center justify-center gap-2 rounded-md border-gold bg-foreground/90 px-5 text-center text-sm leading-tight text-background transition-all hover:bg-foreground hover:text-background ${bookingChoice==="mahal"?"ring-2 ring-gold ring-offset-2 ring-offset-primary":""}`}><WhatsAppMark/>Book Mahal for Wedding</Button>
+          <Button type="button" variant="outline" aria-pressed={bookingChoice==="mini"} onClick={()=>{setBookingChoice("mini");scrollTo("mini-hall")}} className={`flex min-h-12 items-center justify-center gap-2 rounded-md border-gold bg-foreground/90 px-5 text-center text-sm leading-tight text-background transition-all hover:bg-foreground hover:text-background ${bookingChoice==="mini"?"ring-2 ring-gold ring-offset-2 ring-offset-primary":""}`}><WhatsAppMark/>Book Minihall for Meeting</Button>
+          <Button type="button" variant="outline" aria-pressed={bookingChoice==="other"} onClick={()=>{setBookingChoice("other");scrollTo("quick-enquiry")}} className={`min-h-12 rounded-md border-gold bg-foreground/90 px-5 text-center text-sm leading-tight text-background transition-all hover:bg-foreground hover:text-background ${bookingChoice==="other"?"ring-2 ring-gold ring-offset-2 ring-offset-primary":""}`}>Book for Other Events</Button>
         </div>
       </div>
       <div className="scroll-mark absolute bottom-4 right-6 z-10 hidden h-10 w-px bg-gold md:block" aria-hidden="true"/>
     </section>
 
     <section id="about" className="paper-texture px-5 py-28 md:py-44"><div className="reveal mx-auto max-w-5xl text-center">
-      <div className="mx-auto mb-8 h-16 w-px bg-gold"/><p className="mb-5 text-xs uppercase text-accent">Our Journey Since 2001</p><SectionTitle>About MRD Mahal</SectionTitle>
+      <p className="mb-5 text-xs uppercase text-accent">Our Journey Since 2001</p><SectionTitle>About MRD Mahal</SectionTitle>
       <p className="mx-auto mt-12 max-w-4xl text-base leading-8 text-muted-foreground md:text-xl md:leading-10">Founded in 2001, MRD Mahal — Maharajan Ambalam Rajammal Thirumana Maaligai — Began with a vision to create a welcoming space where families could celebrate their most special moments. Over the past 25 years, MRD Mahal has grown into a trusted celebration destination in Madurai, hosting countless weddings, receptions and family occasions. Blending Tamil tradition with modern comfort, we continue to create memorable experiences while carrying forward the values of trust, hospitality and togetherness. 25 Years of Trust. Thousands of Celebrations. One MRD Family.</p>
     </div></section>
 
     <section id="halls" className="paper-texture bg-parchment px-5 py-24 md:py-36"><div className="mx-auto max-w-[1400px]"><SectionTitle>Our Halls</SectionTitle>
-      <div className="mt-14 space-y-20 md:mt-20 md:space-y-28">{hallFeatures.map((hall,i)=><article key={hall.name} className="reveal grid items-center gap-8 md:gap-12 lg:grid-cols-2 lg:gap-16">
+      <div className="mt-14 space-y-20 md:mt-20 md:space-y-28">{hallFeatures.map((hall,i)=><article id={i===0?"max-hall":"mini-hall"} key={hall.name} className="reveal scroll-mt-24 grid items-center gap-8 md:gap-12 lg:grid-cols-2 lg:gap-16">
         <div className={`group relative min-w-0 overflow-hidden border border-gold/60 shadow-lg ${i===0?"order-2 lg:order-2":"order-1 lg:order-1"}`}>
           <img loading="lazy" src={hall.image} alt={hall.alt} width={i?1600:1920} height={i?1200:1280} className="aspect-[4/5] w-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-[1.025]"/>
           <div className="pointer-events-none absolute inset-4 border border-background/55" aria-hidden="true"/>
@@ -124,13 +133,13 @@ function Index() {
           <div className="border-l-2 border-gold pl-5 sm:pl-7"><span className="display-heading text-2xl text-accent">{hall.label}</span><h3 className="display-heading mt-2 text-[clamp(3.3rem,6vw,6.2rem)] leading-[1.05] text-primary">{hall.heading}</h3><p className="mt-3 font-display text-xl text-accent sm:text-2xl">{hall.subtitle}</p></div>
           <p className="mt-7 max-w-2xl leading-7 text-muted-foreground">{hall.desc}</p>
           <div className="mt-7 border-t border-gold/45 pt-6"><p className="font-semibold text-primary">Key Features:</p><div className="mt-4 space-y-3">{hall.features.map(f=><p key={f} className="reveal flex gap-3 text-sm leading-6 text-foreground"><Check className="mt-1 size-4 shrink-0 text-accent" aria-hidden="true"/>{f}</p>)}</div></div>
-          <Button asChild className="mt-7 h-11 rounded-md bg-accent px-5 text-primary-foreground transition-colors hover:bg-primary"><a href="https://wa.me/919876543210" target="_blank" rel="noreferrer"><MessageCircle className="size-4" aria-hidden="true"/>Book mahal</a></Button>
+          <Button asChild className="mt-7 h-11 rounded-md bg-wine px-5 text-primary-foreground transition-colors hover:bg-primary focus-visible:ring-2 focus-visible:ring-gold"><a href="https://wa.me/919876543210" target="_blank" rel="noopener noreferrer"><MessageCircle className="size-4" aria-hidden="true"/>Book mahal</a></Button>
         </div>
       </article>)}</div></div></section>
 
     <section className="bg-primary px-5 py-24 text-primary-foreground md:py-36"><div className="mx-auto grid max-w-7xl gap-14 lg:grid-cols-[.72fr_1.28fr] lg:gap-20"><div className="lg:sticky lg:top-32 lg:self-start"><SectionTitle light>Why Choose MRD Mahal?</SectionTitle><div className="mt-8 h-px w-24 bg-gold"/></div><div className="border-t border-gold/45">{benefits.map(([ReasonIcon,title,text],i)=><article key={title} tabIndex={0} className="reveal group grid gap-4 border-b border-gold/35 py-7 transition-transform duration-300 hover:translate-x-1 focus-visible:translate-x-1 sm:grid-cols-[48px_minmax(0,1fr)] sm:gap-6"><span className="flex size-12 shrink-0 items-center justify-center border border-primary-foreground/25 text-primary-foreground transition-colors group-hover:border-gold group-hover:text-gold group-focus-visible:border-gold group-focus-visible:text-gold"><ReasonIcon className="size-6" strokeWidth={1.8} aria-hidden="true"/></span><div className="min-w-0"><div className="flex items-baseline gap-4"><span className="stat-number text-xs text-gold">0{i+1}</span><h3 className="display-heading text-2xl text-primary-foreground md:text-3xl">{title}</h3></div><p className="mt-3 text-sm leading-6 text-primary-foreground/70">{text}</p></div></article>)}</div></div></section>
 
-     <section className="paper-texture bg-parchment px-5 py-24"><div className="mx-auto max-w-7xl"><SectionTitle>Event Types We Host</SectionTitle><div className="mt-12 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">{eventTypes.map((item,i)=>{const EventIcon=eventIcons[i] ?? CalendarDays;return <article key={item} tabIndex={0} className="reveal group flex aspect-square min-w-0 flex-col items-center justify-center gap-4 border border-primary/25 bg-background p-4 text-center shadow-sm transition duration-300 hover:-translate-y-1 hover:border-accent hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"><EventIcon className="size-7 shrink-0 text-primary transition-colors group-hover:text-accent sm:size-8" strokeWidth={1.8} aria-hidden="true"/><h3 className="max-w-full break-words text-sm font-semibold leading-5 text-foreground sm:text-base">{item}</h3></article>})}</div></div></section>
+     <section className="paper-texture bg-parchment px-5 py-24"><div className="mx-auto max-w-7xl"><SectionTitle>Event Types We Host</SectionTitle><div className="mt-12 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">{eventTypes.map((item,i)=>{const EventIcon=eventIcons[i] ?? CalendarDays;return <article key={item} tabIndex={0} className="reveal group flex aspect-square min-w-0 flex-col items-center justify-center gap-4 border border-primary/25 bg-background p-4 text-center shadow-sm transition duration-300 hover:-translate-y-1 hover:border-accent hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"><EventIcon className="size-9 shrink-0 text-primary transition-colors group-hover:text-accent sm:size-10 lg:size-11" strokeWidth={1.8} aria-hidden="true"/><h3 className="max-w-full break-words text-sm font-semibold leading-5 text-foreground sm:text-base">{item}</h3></article>})}</div></div></section>
 
     <section className="bg-primary px-5 py-24 md:py-36"><div className="mx-auto grid max-w-7xl gap-16 lg:grid-cols-[.7fr_1.3fr]"><SectionTitle light>Facilities & Amenities</SectionTitle><div className="grid md:grid-cols-2">{facilities.map(([Icon,title,text])=><article key={title} className="reveal border-b border-gold/50 p-6 text-primary-foreground"><Icon className="mb-5 size-6 text-gold"/><h3 className="display-heading text-2xl">{title}</h3><p className="mt-3 text-sm leading-6 text-primary-foreground/75">{text}</p></article>)}</div></div></section>
 
