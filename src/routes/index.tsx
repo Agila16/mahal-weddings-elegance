@@ -52,6 +52,13 @@ const facilities = [
   [Gem,"Decoration & Catering Coordination Support","Professional assistance for all your event needs"],
   [Building2,"7+ rooms available for hosts and guests.","room availability, occupancy, and booking terms for your event date."],
 ] as const;
+const testimonials = [
+  ["Big marriage Hall with good ambience and has unique design. Dining hall is quite big but not neatly maintained. Surrounding area outside the hall can be kept neatly and cleaner.","Anjan kumar"],
+  ["One of the best advantages of MRD Mahal is its location near Teppakulam, which is very easy to access. The mahal is spacious, clean, and suitable for big functions. Parking facilities are decent and well-organized. Overall, it offers good value for the facilities provided.","Nithiskumar"],
+  ["This is the best mahal in Theppakulam, Madurai. I hosted my sister’s wedding here, and the ambiance was excellent throughout the event.","suba lakshmi.k"],
+  ["Good & wide free place.mess underground,stage in 1st floor,rooms are in 2nd floor and top empty madi.backside toilet.nearly Madurai theppakkulam.&also near as Meenakshi Amman temple.","A Hari Vengadesh (Venky )"],
+  ["MRD Mahal is a beautiful place for weddings and family functions. The interiors are elegant, lighting is well done, and the stage setup looks amazing in photos. The ambience feels grand and welcoming. Overall, a great choice for memorable events.","Sri Minimax"],
+] as const;
 
 function scrollTo(id:string) { document.getElementById(id)?.scrollIntoView({behavior:"smooth"}); }
 
