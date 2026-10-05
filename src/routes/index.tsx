@@ -12,6 +12,7 @@ import miniHallImage from "@/assets/mrd-mini-hall.jpg";
 import galleryOne from "@/assets/mrd-gallery-one.jpg";
 import galleryTwo from "@/assets/mrd-gallery-two.jpg";
 import logoAsset from "@/assets/mrd-mahal-logo.png.asset.json";
+import aboutAsset from "@/assets/mrd-mahal-about.png.asset.json";
 import bannerAsset from "@/assets/mrd-mahal-banner.png.asset.json";
 
 export const Route = createFileRoute("/")({
@@ -76,7 +77,7 @@ function Header() {
   },[]);
   return <header className={`fixed inset-x-0 top-0 z-40 transition-all duration-500 ${scrolled?"bg-background/95 shadow-md backdrop-blur py-2":"bg-background/75 backdrop-blur-sm py-4 md:top-5 md:mx-6 md:border md:border-background/50"}`}>
     <div className="mx-auto flex max-w-7xl items-center justify-between px-5">
-      <a href="#top" className="flex items-center text-primary" aria-label="MRD Mahal home"><img src={logoAsset.url} alt="MRD Mahal logo" width={1920} height={1920} className="h-16 w-auto -my-2 md:h-20 md:-my-3"/></a>
+      <a href="#top" className="flex items-center text-primary" aria-label="MRD Mahal home"><img src={logoAsset.url} alt="MRD Mahal logo" width={1920} height={1920} className="h-[72px] w-auto object-contain -my-3 md:h-24 md:-my-5 lg:h-[104px] lg:-my-6"/></a>
       <nav className="hidden items-center gap-8 md:flex" aria-label="Main navigation">{nav.map(([label,id])=><a key={id} href={`#${id}`} className={`text-sm transition-colors hover:text-primary ${active===id?"text-primary":"text-foreground"}`}>{label}</a>)}</nav>
        <Button asChild className="hidden h-11 rounded-none px-6 md:inline-flex"><a href="https://wa.me/918220013444?text=Hello%2C%20I%20am%20interested%20in%20booking%20MRD%20Mahal%20for%20an%20upcoming%20event.%20Kindly%20share%20the%20available%20dates%2C%20venue%20details%2C%20pricing%2C%20and%20booking%20terms.%20Thank%20you." target="_blank" rel="noopener noreferrer" aria-label="Get Quote on WhatsApp"><WhatsAppMark/>Get Quote</a></Button>
       <Button variant="ghost" size="icon" className="min-h-11 min-w-11 md:hidden" aria-label={open?"Close menu":"Open menu"} onClick={()=>setOpen(!open)}>{open?<X/>:<Menu/>}</Button>
@@ -106,7 +107,7 @@ function Index() {
   const selectedGallery = lightbox === null ? undefined : gallery[lightbox];
   return <div id="top" className="overflow-x-hidden bg-background"><Header/>
     <section aria-labelledby="hero-title" className="relative isolate flex min-h-[max(980px,calc(100svh+120px))] flex-col justify-between overflow-hidden bg-primary text-primary-foreground md:min-h-[max(1120px,calc(100svh+220px))]">
-      <img src={bannerAsset.url} alt="MRD Mahal wedding venue banner with decorated wedding stage and guest seating" width={1672} height={941} fetchPriority="high" className="absolute inset-x-0 bottom-0 top-44 h-[calc(100%-11rem)] w-full object-cover object-top [mask-image:linear-gradient(to_bottom,transparent,black_14%)] transition-transform md:top-72 md:h-[calc(100%-18rem)] duration-[1800ms] hover:scale-[1.025] motion-reduce:transform-none"/>
+      <img src={bannerAsset.url} alt="MRD Mahal wedding venue banner with decorated wedding stage and guest seating" width={1672} height={941} fetchPriority="high" className="absolute inset-x-0 bottom-0 top-44 h-[calc(100%-11rem)] w-full object-cover object-[center_20%] md:object-[center_30%] [mask-image:linear-gradient(to_bottom,transparent,black_14%)] transition-transform md:top-52 md:h-[calc(100%-13rem)] duration-[1800ms] hover:scale-[1.025] motion-reduce:transform-none"/>
       <div className="relative z-10 mx-auto w-full max-w-6xl px-5 pb-8 pt-28 text-center [text-shadow:0_2px_12px_rgb(0_0_0/0.55)] sm:px-8 md:pt-36">
         <div className="mx-auto mb-5 h-px w-16 bg-gold" aria-hidden="true"/>
         <h1 id="hero-title" className="display-heading mx-auto max-w-5xl text-[clamp(2rem,5vw,4.75rem)] leading-[1.06] text-primary-foreground">
@@ -129,7 +130,7 @@ function Index() {
     <section id="about" className="paper-texture px-5 py-28 md:py-44"><div className="reveal mx-auto grid max-w-7xl items-center gap-12 md:grid-cols-2"><div className="min-w-0 text-center md:text-left">
       <p className="mb-5 text-xs uppercase text-accent">Our Journey Since 2001</p><SectionTitle>About MRD Mahal</SectionTitle>
       <p className="mx-auto mt-12 max-w-4xl text-base leading-8 text-muted-foreground md:mx-0 md:text-lg md:leading-9">Founded in 2001, MRD Mahal — Maharajan Ambalam Rajammal Thirumana Maaligai — Began with a vision to create a welcoming space where families could celebrate their most special moments. Over the past 25 years, MRD Mahal has grown into a trusted celebration destination in Madurai, hosting countless weddings, receptions and family occasions. Blending Tamil tradition with modern comfort, we continue to create memorable experiences while carrying forward the values of trust, hospitality and togetherness. 25 Years of Trust. Thousands of Celebrations. One MRD Family.</p>
-    </div><img src={miniHallImage} alt="MRD Mahal wedding venue" loading="lazy" width={1600} height={1200} className="aspect-[4/5] w-full min-w-0 object-cover [mask-image:linear-gradient(to_right,transparent,black_45%)]"/></div></section>
+    </div><img src={aboutAsset.url} alt="MRD Mahal wedding venue" loading="lazy" width={1052} height={727} className="aspect-[1052/727] w-full min-w-0 object-cover [mask-image:linear-gradient(to_right,transparent,black_45%)]"/></div></section>
 
     <section id="halls" className="paper-texture bg-parchment px-5 py-24 md:py-36"><div className="mx-auto max-w-[1400px]"><SectionTitle>Our Halls</SectionTitle>
       <div className="mt-14 space-y-20 md:mt-20 md:space-y-28">{hallFeatures.map((hall,i)=><article id={i===0?"max-hall":"mini-hall"} key={hall.name} className="reveal scroll-mt-24 grid items-center gap-8 md:gap-12 lg:grid-cols-2 lg:gap-16">
