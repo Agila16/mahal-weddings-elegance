@@ -106,7 +106,7 @@ function Index() {
   const selectedGallery = lightbox === null ? undefined : gallery[lightbox];
   return <div id="top" className="overflow-x-hidden bg-background"><Header/>
     <section aria-labelledby="hero-title" className="relative isolate flex min-h-[max(980px,calc(100svh+120px))] flex-col justify-between overflow-hidden bg-primary text-primary-foreground md:min-h-[max(1120px,calc(100svh+220px))]">
-      <img src={bannerAsset.url} alt="MRD Mahal wedding venue banner with decorated wedding stage and guest seating" width={1672} height={941} fetchPriority="high" className="absolute inset-x-0 bottom-0 top-44 h-[calc(100%-11rem)] w-full object-cover object-top transition-transform md:top-72 md:h-[calc(100%-18rem)] duration-[1800ms] hover:scale-[1.025] motion-reduce:transform-none"/>
+      <img src={bannerAsset.url} alt="MRD Mahal wedding venue banner with decorated wedding stage and guest seating" width={1672} height={941} fetchPriority="high" className="absolute inset-x-0 bottom-0 top-44 h-[calc(100%-11rem)] w-full object-cover object-top [mask-image:linear-gradient(to_bottom,transparent,black_14%)] transition-transform md:top-72 md:h-[calc(100%-18rem)] duration-[1800ms] hover:scale-[1.025] motion-reduce:transform-none"/>
       <div className="relative z-10 mx-auto w-full max-w-6xl px-5 pb-8 pt-28 text-center [text-shadow:0_2px_12px_rgb(0_0_0/0.55)] sm:px-8 md:pt-36">
         <div className="mx-auto mb-5 h-px w-16 bg-gold" aria-hidden="true"/>
         <h1 id="hero-title" className="display-heading mx-auto max-w-5xl text-[clamp(2rem,5vw,4.75rem)] leading-[1.06] text-primary-foreground">
