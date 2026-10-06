@@ -7,7 +7,6 @@ import {
   MessageCircle, Phone, Power, Sparkles, Store, Users, UsersRound, Utensils, Wind, X, Youtube, Zap,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import heroImage from "@/assets/mrd-grand-hall.jpg";
 import miniHallImage from "@/assets/mrd-mini-hall.jpg";
 import galleryOne from "@/assets/mrd-gallery-one.jpg";
 import galleryTwo from "@/assets/mrd-gallery-two.jpg";
@@ -136,7 +135,7 @@ function Index() {
     <section id="halls" className="paper-texture bg-parchment px-5 py-24 md:py-36"><div className="mx-auto max-w-[1400px]"><SectionTitle>Our Halls</SectionTitle>
       <div className="mt-14 space-y-20 md:mt-20 md:space-y-28">{hallFeatures.map((hall,i)=><article id={i===0?"max-hall":"mini-hall"} key={hall.name} className="reveal scroll-mt-24 grid items-center gap-8 md:gap-12 lg:grid-cols-2 lg:gap-16">
         <div className={`group relative min-w-0 overflow-hidden border border-gold/60 shadow-lg ${i===0?"order-2 lg:order-2":"order-1 lg:order-1"}`}>
-          <img loading="lazy" src={hall.image} alt={hall.alt} width={i?1600:1920} height={i?1200:1280} className="aspect-[4/5] w-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-[1.025]"/>
+          <img loading="lazy" src={hall.image} alt={hall.alt} width={i?1600:822} height={i?1200:900} className="aspect-[4/5] w-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-[1.025]"/>
           <div className="pointer-events-none absolute inset-4 border border-background/55" aria-hidden="true"/>
         </div>
         <div className={`min-w-0 py-2 md:py-8 ${i===0?"order-1 lg:order-1":"order-2 lg:order-2"}`}>
