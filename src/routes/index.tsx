@@ -108,7 +108,7 @@ function Index() {
   ];
   const gallery=[
     [venueExteriorAsset.url,"Venue Exterior","Aerial view of the MRD Mahal venue exterior and surrounding neighbourhood"],[coupleImageAsset.url,"Wedding Couple","Wedding couple in traditional attire on the decorated stage at MRD Mahal"],[maxHallPhotoAsset.url,"Max Hall ","MRD Max Hall interior with decorated stage and guest seating"],
-    [galleryTwo,"Mini Hall Stage","MRD Mini Hall stage"],[galleryTwo,"Dining Area","MRD Mahal dining area"],[galleryTwo,"Car Parking","MRD Mahal car parking area"],
+    [galleryTwo,"Mini Hall ","MRD Mini Hall stage"],[galleryTwo,"Dining Area","MRD Mahal dining area"],[galleryTwo,"Car Parking","MRD Mahal car parking area"],
   ] as const;
   const selectedGallery = lightbox === null ? undefined : gallery[lightbox];
   return <div id="top" className="overflow-x-hidden bg-background"><Header/>
