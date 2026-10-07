@@ -1,7 +1,0 @@
-- [x] Replace the hero banner using the available full-stage venue photo.
-- [x] Rebuild the Max Hall and Mini Hall sections in alternating editorial layouts with their requested booking links.
-- [x] Give the existing event types distinct accessible icons and add labeled footer social placeholders.
-- [x] Verify the edited sections at desktop, tablet, and mobile sizes, including booking selection and enquiry scrolling.
-- [ ] Apply the uploaded site corrections: update WhatsApp destination, hero destinations and height, hall anchors/button styling, contact details, social links, and larger event icons.
-- [ ] Replace client reviews with the five supplied entries in an accessible responsive carousel.
-- [ ] Verify the requested links, carousel controls, exact content, and responsive layout at desktop, tablet, and mobile.
