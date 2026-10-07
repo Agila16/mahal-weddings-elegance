@@ -1,14 +1,16 @@
-# Replace three sections with a new cinematic concept
+# Focused MRD Mahal corrections
 
 ## Scope
-- Replace only the hero, Our Halls, and Why Choose MRD Mahal visual concepts.
-- Keep all supplied wording, images, navigation, section order, and every other section untouched.
+- Apply only the uploaded corrections to the existing MRD Mahal page; preserve unrelated content, routes, branding, links, and behaviors.
 
-## Design
-- Hero: full-screen wedding-stage image with directional burgundy shading, lower-left Malisha title, and a floating ivory booking/statistics card.
-- Halls: deep espresso showcase with asymmetrical image treatments and overlapping ivory information panels, using distinct compositions for each hall.
-- Why Choose: warm-ivory benefits wall with one featured block and five staggered editorial items, using the requested icons and varied sizing.
-- Preserve the existing booking selection and enquiry scrolling, with restrained reveal, image motion, focus states, and reduced-motion behavior.
+## Changes
+- Reduce hero heading-to-stage spacing without changing the banner image or copy.
+- Compact About and Max Hall / Mini Hall section spacing; enlarge the About image while preserving its aspect ratio and subtle fade.
+- Use the newly uploaded image for the Mini Hall.
+- Compact and refine the existing testimonial slider with a prominent active slide and accessible controls.
+- Replace the free-text date with a native date picker, minimum date, and keep the selected value in the existing WhatsApp message.
+- Turn the gallery into a responsive, swipeable slider with correct active photo title and accessible controls.
 
 ## Validation
-- Verify desktop, tablet, and mobile compositions, image focal points, all controls, one H1, exact item counts, and no horizontal overflow.
+- Check at desktop, tablet, and mobile widths for clipping, overflow, and section hierarchy.
+- Verify testimonial and gallery navigation, active captions, date minimum, and enquiry message integration.
