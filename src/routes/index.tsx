@@ -7,7 +7,9 @@ import {
   MessageCircle, Phone, Power, Sparkles, Store, Users, UsersRound, Utensils, Wind, X, Youtube, Zap,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import galleryOne from "@/assets/mrd-gallery-one.jpg";
+import venueExteriorAsset from "@/assets/venue-exterior.png.asset.json";
+import coupleImageAsset from "@/assets/couple-image.png.asset.json";
+import maxHallPhotoAsset from "@/assets/max-hall.png.asset.json";
 import galleryTwo from "@/assets/mrd-gallery-two.jpg";
 import maxHallAsset from "@/assets/mrd-max-hall.png.asset.json";
 import miniHallAsset from "@/assets/mrd-mini-hall-new.jpg.asset.json";
