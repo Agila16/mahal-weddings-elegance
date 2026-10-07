@@ -198,9 +198,6 @@
 @keyframes reveal { from { opacity:0; transform:translateY(22px) } to { opacity:1; transform:none } }
 .reveal { animation: reveal .8s ease both; animation-timeline: view(); animation-range: entry 10% cover 28%; }
 .scroll-mark { animation: scrollMark 1.8s ease-in-out infinite; }
-.gallery-crop img { width:300%; max-width:none; height:100%; object-fit:cover; }
-.gallery-crop:nth-child(3n+2) img { transform:translateX(-33.333%); }
-.gallery-crop:nth-child(3n+3) img { transform:translateX(-66.666%); }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior:auto; }
   *, *::before, *::after { animation-duration:.01ms !important; animation-iteration-count:1 !important; transition-duration:.01ms !important; }
