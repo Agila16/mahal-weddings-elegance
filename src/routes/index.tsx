@@ -114,7 +114,7 @@ function Index() {
   return <div id="top" className="overflow-x-hidden bg-background"><Header/>
     <section aria-labelledby="hero-title" className="relative isolate flex min-h-[max(700px,84svh)] flex-col justify-between overflow-hidden bg-primary text-primary-foreground md:min-h-[max(1120px,calc(100svh+220px))]">
       <img src={bannerAsset.url} alt="MRD Mahal wedding venue banner with decorated wedding stage and guest seating" width={1672} height={941} fetchPriority="high" className="absolute inset-x-0 bottom-0 top-44 h-[calc(100%-11rem)] w-full object-cover object-[center_20%] md:object-[center_30%] [mask-image:linear-gradient(to_bottom,transparent,black_14%)] transition-transform md:top-52 md:h-[calc(100%-13rem)] duration-[1800ms] hover:scale-[1.025] motion-reduce:transform-none"/>
-      <div className="relative z-10 mx-auto w-full max-w-6xl px-5 pb-8 pt-36 text-center [text-shadow:0_2px_12px_rgb(0_0_0/0.55)] sm:px-8 md:pt-44">
+      <div className="relative z-10 mx-auto w-full max-w-6xl px-5 pb-8 pt-28 text-center [text-shadow:0_2px_12px_rgb(0_0_0/0.55)] sm:px-8 md:pt-44">
         <div className="mx-auto mb-5 h-px w-16 bg-gold" aria-hidden="true"/>
         <h1 id="hero-title" className="display-heading mx-auto max-w-5xl text-[clamp(2rem,5vw,4.75rem)] leading-[1.06] text-primary-foreground">
           <span className="block">Your Dream Moments in Our</span>
@@ -133,10 +133,10 @@ function Index() {
       <div className="scroll-mark absolute bottom-4 right-6 z-10 hidden h-10 w-px bg-gold md:block" aria-hidden="true"/>
     </section>
 
-    <section id="about" className="paper-texture px-5 py-12 md:py-16"><div className="reveal mx-auto grid max-w-7xl items-center gap-8 md:grid-cols-[0.78fr_1.22fr] md:gap-10"><div className="min-w-0 text-center md:text-left">
+    <section id="about" className="paper-texture px-5 py-12 md:py-16"><div className="reveal mx-auto grid max-w-7xl items-center gap-8 md:grid-cols-[0.85fr_1.15fr] md:gap-10"><div className="min-w-0 text-center md:text-left">
       <p className="mb-4 text-xs uppercase text-accent">Our Journey Since 2001</p><SectionTitle>About MRD Mahal</SectionTitle>
       <p className="mx-auto mt-5 max-w-4xl text-base leading-8 text-muted-foreground md:mx-0 md:text-lg md:leading-9">Founded in 2001, MRD Mahal — Maharajan Ambalam Rajammal Thirumana Maaligai — Began with a vision to create a welcoming space where families could celebrate their most special moments. Over the past 25 years, MRD Mahal has grown into a trusted celebration destination in Madurai, hosting countless weddings, receptions and family occasions. Blending Tamil tradition with modern comfort, we continue to create memorable experiences while carrying forward the values of trust, hospitality and togetherness. 25 Years of Trust. Thousands of Celebrations. One MRD Family.</p>
-    </div><img src={aboutAsset.url} alt="MRD Mahal wedding venue" loading="lazy" width={1052} height={727} className="w-full min-w-0 object-contain md:[mask-image:linear-gradient(to_right,transparent,black_14%)]"/></div></section>
+    </div><img src={aboutAsset.url} alt="MRD Mahal wedding venue" loading="lazy" width={1052} height={727} className="aspect-[4/3] w-full min-w-0 object-cover object-center md:[mask-image:linear-gradient(to_right,transparent,black_14%)]"/></div></section>
 
     <section id="halls" className="paper-texture bg-parchment px-5 py-16 md:py-24"><div className="mx-auto max-w-[1400px]"><SectionTitle>Our Halls</SectionTitle>
       <div className="mt-8 space-y-12 md:mt-10 md:space-y-16">{hallFeatures.map((hall,i)=><article id={i===0?"max-hall":"mini-hall"} key={hall.name} className="reveal scroll-mt-24 grid items-center gap-7 md:gap-10 lg:grid-cols-2 lg:gap-14">
