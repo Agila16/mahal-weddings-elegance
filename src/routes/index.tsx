@@ -107,7 +107,7 @@ function Index() {
     {name:"MRD Mini Hall",label:"MRD Mini Hall",heading:"MRD Mini Hall",subtitle:"Intimate & Elegant Functions",desc:"Perfect for smaller functions such as engagement ceremonies, birthdays, and family gatherings, the Mini Hall offers a warm and elegant atmosphere while maintaining the same quality standards as our main hall.",features:["200 seats for small & medium gatherings","Compact yet elegant interiors","Budget-friendly option","Same premium facilities"],image:miniHallAsset.url,alt:"MRD Mini Hall intimate wedding and function hall interior"}
   ];
   const gallery=[
-    [galleryOne,"Venue Exterior","MRD Mahal venue exterior"],[galleryOne,"Wedding Couple","Wedding couple celebration at MRD Mahal"],[galleryOne,"Max Hall ","MRD Max Hall interior corridor"],
+    [venueExteriorAsset.url,"Venue Exterior","Aerial view of the MRD Mahal venue exterior and surrounding neighbourhood"],[coupleImageAsset.url,"Wedding Couple","Wedding couple in traditional attire on the decorated stage at MRD Mahal"],[maxHallPhotoAsset.url,"Max Hall ","MRD Max Hall interior with decorated stage and guest seating"],
     [galleryTwo,"Mini Hall Stage","MRD Mini Hall stage"],[galleryTwo,"Dining Area","MRD Mahal dining area"],[galleryTwo,"Car Parking","MRD Mahal car parking area"],
   ] as const;
   const selectedGallery = lightbox === null ? undefined : gallery[lightbox];
