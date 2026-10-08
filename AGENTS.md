@@ -8,5 +8,5 @@
 > Commits you push to the connected branch sync back to Lovable and show up in
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
-- Use Embla for the mobile gallery and disable it at the desktop breakpoint so the existing overlapping desktop arrangement stays intact.
-- Render About mandala artwork as a noninteractive, aria-hidden vector behind the section content so decoration cannot obscure or intercept content.
+- Use Embla for the gallery at every breakpoint (touch swipe on mobile, click-and-drag on desktop), one slide at a time, no scrollbar; keep the overlapping desktop arrangement via negative slide margins.
+- Render About mandala artwork as a noninteractive, aria-hidden vector anchored behind the main About image (bottom-left), and anchor the corner seal image to the main image, never to the section or page.
