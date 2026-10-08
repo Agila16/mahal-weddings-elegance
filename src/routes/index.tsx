@@ -97,7 +97,7 @@ function SectionTitle({children,light=false}:{children:string;light?:boolean}) {
 function Index() {
   const [lightbox,setLightbox]=useState<number|null>(null); const [success,setSuccess]=useState(false); const [bookingChoice,setBookingChoice]=useState<"mahal"|"mini"|"other">("mahal");
   const [testimonialRef,testimonialApi]=useEmblaCarousel({loop:true,align:"center",containScroll:false}); const [activeTestimonial,setActiveTestimonial]=useState(0);
-  const [galleryRef,galleryApi]=useEmblaCarousel({align:"center",containScroll:false,breakpoints:{"(min-width: 768px)":{active:false}}});
+  const [galleryRef,galleryApi]=useEmblaCarousel({align:"center",containScroll:false,breakpoints:{"(min-width: 768px)":{align:"start",containScroll:"trimSnaps"}}});
   const [activeGallery,setActiveGallery]=useState(0);
   const today = new Date();
   const minEventDate = `${today.getFullYear()}-${String(today.getMonth()+1).padStart(2,"0")}-${String(today.getDate()).padStart(2,"0")}`;
@@ -138,10 +138,10 @@ function Index() {
       <div className="scroll-mark absolute bottom-4 right-6 z-10 hidden h-10 w-px bg-gold md:block" aria-hidden="true"/>
     </section>
 
-    <section id="about" className="relative isolate overflow-hidden bg-background px-5 py-12 md:py-16"><AboutMandala/><img src={aboutCornerAsset.url} alt="MRD Maharajan Rajammal Thirumana Maaligai gold seal" loading="lazy" className="absolute right-2 top-0 h-14 w-14 object-contain md:right-5 md:h-16 md:w-16"/><div className="reveal relative mx-auto grid max-w-7xl items-center gap-8 md:grid-cols-[0.85fr_1.15fr] md:gap-10"><div className="min-w-0 text-center md:text-left">
+    <section id="about" className="relative overflow-hidden bg-background px-5 py-12 md:py-16"><div className="reveal relative mx-auto grid max-w-7xl items-center gap-8 md:grid-cols-[0.85fr_1.15fr] md:gap-10"><div className="min-w-0 text-center md:text-left">
       <p className="mb-4 text-xs uppercase text-accent">Our Journey Since 2001</p><SectionTitle>About MRD Mahal</SectionTitle>
       <p className="mx-auto mt-5 max-w-4xl text-base leading-8 text-muted-foreground md:mx-0 md:text-lg md:leading-9">Founded in 2001, MRD Mahal — Maharajan Ambalam Rajammal Thirumana Maaligai — Began with a vision to create a welcoming space where families could celebrate their most special moments. Over the past 25 years, MRD Mahal has grown into a trusted celebration destination in Madurai, hosting countless weddings, receptions and family occasions. Blending Tamil tradition with modern comfort, we continue to create memorable experiences while carrying forward the values of trust, hospitality and togetherness. 25 Years of Trust. Thousands of Celebrations. One MRD Family.</p>
-    </div><img src={aboutAsset.url} alt="MRD Mahal wedding venue" loading="lazy" width={1052} height={727} className="aspect-[4/3] w-full min-w-0 border border-photo-frame object-cover object-center"/></div></section>
+    </div><div className="relative min-w-0"><AboutMandala/><img src={aboutAsset.url} alt="MRD Mahal wedding venue" loading="lazy" width={1052} height={727} className="relative z-10 aspect-[4/3] w-full min-w-0 border border-photo-frame object-cover object-center"/><img src={aboutCornerAsset.url} alt="MRD Maharajan Rajammal Thirumana Maaligai gold seal" loading="lazy" className="absolute -top-4 right-3 z-20 h-16 w-16 object-contain drop-shadow-md md:-top-5 md:right-4 md:h-20 md:w-20"/></div></div></section>
 
     <section id="halls" className="paper-texture bg-parchment px-5 py-16 md:py-24"><div className="mx-auto max-w-[1400px]"><SectionTitle>Our Halls</SectionTitle>
       <div className="mt-8 space-y-12 md:mt-10 md:space-y-16">{hallFeatures.map((hall,i)=><article id={i===0?"max-hall":"mini-hall"} key={hall.name} className="reveal scroll-mt-24 grid items-center gap-7 md:gap-10 lg:grid-cols-2 lg:gap-14">
@@ -164,8 +164,8 @@ function Index() {
     <section className="bg-primary px-5 py-16 md:py-24"><div className="mx-auto grid max-w-7xl gap-16 lg:grid-cols-[.7fr_1.3fr]"><SectionTitle light>Facilities & Amenities</SectionTitle><div className="grid md:grid-cols-2">{facilities.map(([Icon,title,text])=><article key={title} className="reveal border-b border-gold/50 p-6 text-primary-foreground"><Icon className="mb-5 size-6 text-gold"/><h3 className="display-heading text-2xl">{title}</h3><p className="mt-3 text-sm leading-6 text-primary-foreground/75">{text}</p></article>)}</div></div></section>
 
     <section id="gallery" className="bg-parchment py-16 md:py-24"><div className="px-5 md:px-12"><div className="mx-auto flex max-w-[1500px] items-end justify-between gap-8"><SectionTitle>Photo Gallery</SectionTitle><div className="hidden h-px flex-1 bg-gold md:block"/></div></div>
-      <div className="gallery-viewport mt-10 overflow-hidden pb-6 pt-2 md:mt-14 md:overflow-x-auto" ref={galleryRef} role="region" aria-roledescription="carousel" aria-label="Gallery photos">
-        <div className="flex touch-pan-y items-start px-5 md:mx-auto md:w-max md:touch-auto md:px-8">
+      <div className="gallery-viewport mt-10 cursor-grab overflow-hidden pb-6 pt-2 active:cursor-grabbing md:mt-14" ref={galleryRef} role="region" aria-roledescription="carousel" aria-label="Gallery photos">
+        <div className="flex touch-pan-y items-start px-5 md:px-12">
           {gallery.map(([src,title,alt],i)=>{const lower=i%2===0;return <div key={title} role="group" aria-roledescription="slide" aria-label={`${title.trim()}, ${i+1} of ${gallery.length}`} className={`relative w-48 min-w-0 shrink-0 sm:w-56 md:w-60 ${i>0?"-ml-6 sm:-ml-8 md:-ml-12":""} ${lower?"mt-8 md:mt-12":""} md:hover:z-30`}><Button type="button" variant="ghost" onClick={()=>setLightbox(i)} aria-label={`View ${title}`} className="group relative block h-auto w-full whitespace-normal rounded-none bg-photo-frame p-2 shadow-lg transition-all duration-500 ease-out hover:bg-photo-frame focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 md:p-2.5 md:hover:-translate-y-1.5 md:hover:shadow-2xl"><span className="block overflow-hidden"><img loading="lazy" src={src} alt={alt} width={1600} height={1067} className="aspect-[3/4] w-full object-cover object-center transition-transform duration-700 ease-out md:group-hover:scale-[1.05]"/></span><span className="block px-1 pb-1 pt-2.5 text-center font-display text-sm leading-5 text-primary md:text-base">{title}</span></Button></div>})}
         </div>
       </div>
