@@ -1,11 +1,11 @@
 {
-  "version": 1,
   "asset_id": "7a34508b-162c-4e3a-b6e9-598fba654324",
-  "project_id": "32518267-107b-49a4-9c40-7799ab66505b",
-  "url": "/__l5e/assets-v1/7a34508b-162c-4e3a-b6e9-598fba654324/dining-area-gallery.jpg",
-  "r2_key": "a/v1/32518267-107b-49a4-9c40-7799ab66505b/7a34508b-162c-4e3a-b6e9-598fba654324/dining-area-gallery.jpg",
-  "original_filename": "dining-area-gallery.jpg",
-  "size": 294259,
   "content_type": "image/jpeg",
-  "created_at": "2026-10-07T13:29:47Z"
+  "created_at": "2026-10-07T13:29:47Z",
+  "original_filename": "dining-area-gallery.jpg",
+  "project_id": "5cc0f35c-77bf-4eb1-8cdf-3e389f5b8d06",
+  "r2_key": "a/v1/5cc0f35c-77bf-4eb1-8cdf-3e389f5b8d06/7a34508b-162c-4e3a-b6e9-598fba654324/dining-area-gallery.jpg",
+  "size": 294259,
+  "url": "/__l5e/assets-v1/7a34508b-162c-4e3a-b6e9-598fba654324/dining-area-gallery.jpg",
+  "version": 1
 }
