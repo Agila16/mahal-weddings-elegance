@@ -57,14 +57,6 @@ const facilities = [
   [Gem,"Decoration & Catering Coordination Support","Professional assistance for all your event needs"],
   [Building2,"7+ rooms available for hosts and guests.","room availability, occupancy, and booking terms for your event date."],
 ] as const;
-const galleryLayout=[
-  {cell:"md:mt-0",tilt:"md:-rotate-2",ratio:"aspect-[4/3]",z:"z-20"},
-  {cell:"md:-mt-12",tilt:"md:rotate-[1.5deg]",ratio:"aspect-[4/3] md:aspect-[3/4]",z:"z-10"},
-  {cell:"md:mt-16",tilt:"md:rotate-[1.25deg]",ratio:"aspect-[4/3] md:aspect-[4/5]",z:"z-10"},
-  {cell:"md:-mt-12",tilt:"md:-rotate-1",ratio:"aspect-[4/3] md:aspect-square",z:"z-20"},
-  {cell:"md:mt-8",tilt:"md:-rotate-[1.5deg]",ratio:"aspect-[4/3]",z:"z-10"},
-  {cell:"md:-mt-12",tilt:"md:rotate-2",ratio:"aspect-[4/3]",z:"z-20"},
-] as const;
 const testimonials = [
   ["Big marriage Hall with good ambience and has unique design. Dining hall is quite big but not neatly maintained. Surrounding area outside the hall can be kept neatly and cleaner.","Anjan kumar"],
   ["One of the best advantages of MRD Mahal is its location near Teppakulam, which is very easy to access. The mahal is spacious, clean, and suitable for big functions. Parking facilities are decent and well-organized. Overall, it offers good value for the facilities provided.","Nithiskumar"],
