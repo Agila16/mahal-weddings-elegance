@@ -1,3 +1,3 @@
 - [ ] Add and verify natural mobile gallery swiping, preserving desktop photos and styling.
 - [ ] Add and verify the About image border, solid background, and subtle bottom-left mandala.
-- [ ] Place the exact supplied top-right About image — blocked: no new image was attached.
+- [ ] Place the newly supplied exact image in the top-right About corner.
