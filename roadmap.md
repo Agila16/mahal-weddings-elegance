@@ -1,8 +1,3 @@
-- [x] Upload the supplied Mini Hall photo to the project image library.
-- [ ] Tighten hero heading-to-stage spacing without changing the image or copy.
-- [ ] Reduce About and both hall section whitespace while preserving their content and image treatments.
-- [ ] Replace the Mini Hall image with the uploaded photo.
-- [ ] Refine testimonial slider sizing and centered active-slide presentation.
-- [ ] Change the enquiry date field to an accessible date picker and preserve WhatsApp submission.
-- [ ] Convert the photo gallery to a responsive slider with matching titles and controls.
-- [ ] Verify desktop, tablet, and mobile layouts and key interactions.
+- [x] Add and verify natural mobile gallery swiping, preserving desktop photos and styling.
+- [x] Add and verify the About image border, solid background, and subtle bottom-left mandala.
+- [x] Place the newly supplied exact image in the top-right About corner.
