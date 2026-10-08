@@ -122,6 +122,18 @@
   --color-gold: var(--gold);
   --color-parchment: var(--parchment);
   --color-blush: var(--blush);
+  --color-photo-frame: var(--photo-frame);
+}
+
+:root, .dark {
+  --photo-frame: oklch(1 0 0);
+}
+
+.gallery-viewport {
+  scrollbar-width: none;
+}
+.gallery-viewport::-webkit-scrollbar {
+  display: none;
 }
 
 .dark {
