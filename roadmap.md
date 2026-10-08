@@ -1,6 +1,6 @@
 # Roadmap
 
-- [ ] Position the larger seal and background mandala inside the About photo box; verify desktop and mobile containment and unobscured content.
+- [x] Position the larger seal and background mandala inside the About photo box; verify desktop and mobile containment and unobscured content.
 
 - [x] Add and verify natural mobile gallery swiping, preserving desktop photos and styling.
 - [x] Add and verify the About image border, solid background, and subtle bottom-left mandala.
