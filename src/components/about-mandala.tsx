@@ -1,5 +1,5 @@
 export function AboutMandala() {
-  return <svg viewBox="0 0 400 400" fill="none" stroke="currentColor" strokeWidth="1" aria-hidden="true" className="pointer-events-none absolute -bottom-10 -left-8 z-0 size-40 text-gold/10 md:-bottom-14 md:-left-12 md:size-60">
+  return <svg viewBox="0 0 400 400" fill="none" stroke="currentColor" strokeWidth="1" aria-hidden="true" className="pointer-events-none absolute bottom-1 left-1 z-0 size-32 text-gold/30 md:size-44">
     <circle cx="200" cy="200" r="44"/>
     <circle cx="200" cy="200" r="78"/>
     <circle cx="200" cy="200" r="130"/>

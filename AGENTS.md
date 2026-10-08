@@ -9,4 +9,4 @@
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
 - Use Embla for the gallery at every breakpoint (touch swipe on mobile, click-and-drag on desktop), one slide at a time, no scrollbar; keep the overlapping desktop arrangement via negative slide margins.
-- Render About mandala artwork as a noninteractive, aria-hidden vector anchored behind the main About image (bottom-left), and anchor the corner seal image to the main image, never to the section or page.
+- Keep About decorations in one isolated, overflow-clipped photo frame; layer the aria-hidden mandala beneath the opaque photograph and the provided seal above it so neither can escape into section text.
