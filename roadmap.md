@@ -1,3 +1,3 @@
-- [ ] Add and verify natural mobile gallery swiping, preserving desktop photos and styling.
-- [ ] Add and verify the About image border, solid background, and subtle bottom-left mandala.
-- [ ] Place the newly supplied exact image in the top-right About corner.
+- [x] Add and verify natural mobile gallery swiping, preserving desktop photos and styling.
+- [x] Add and verify the About image border, solid background, and subtle bottom-left mandala.
+- [x] Place the newly supplied exact image in the top-right About corner.
