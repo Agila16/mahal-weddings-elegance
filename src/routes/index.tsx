@@ -97,7 +97,7 @@ function SectionTitle({children,light=false}:{children:string;light?:boolean}) {
 function Index() {
   const [lightbox,setLightbox]=useState<number|null>(null); const [success,setSuccess]=useState(false); const [bookingChoice,setBookingChoice]=useState<"mahal"|"mini"|"other">("mahal");
   const [testimonialRef,testimonialApi]=useEmblaCarousel({loop:true,align:"center",containScroll:false}); const [activeTestimonial,setActiveTestimonial]=useState(0);
-  const [galleryRef,galleryApi]=useEmblaCarousel({align:"center",containScroll:false});
+  const [galleryRef,galleryApi]=useEmblaCarousel({align:"center",containScroll:false,breakpoints:{"(min-width: 768px)":{align:"start",containScroll:"trimSnaps"}}});
   const [activeGallery,setActiveGallery]=useState(0);
   const today = new Date();
   const minEventDate = `${today.getFullYear()}-${String(today.getMonth()+1).padStart(2,"0")}-${String(today.getDate()).padStart(2,"0")}`;
