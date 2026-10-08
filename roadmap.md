@@ -4,4 +4,4 @@
 - [x] Add and verify the About image border, solid background, and subtle bottom-left mandala.
 - [x] Remove the section-corner image; anchor the seal to the About main image's top-right corner.
 - [x] Anchor the mandala behind the main About image's bottom-left corner.
-- [ ] Verify in browser: About decorations anchored to the main image, desktop drag + mobile swipe, one slide at a time, no scrollbar, hover zoom intact.
+- [x] Verify in browser: About decorations anchored to the main image, desktop drag + mobile swipe, one slide at a time, no scrollbar, hover zoom intact.
