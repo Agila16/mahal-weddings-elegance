@@ -33,7 +33,7 @@ export const Route = createFileRoute("/")({
   component: Index,
 });
 
-const nav = [["About","about"],["Halls","halls"],["Availability","quick-enquiry"],["Gallery","gallery"]] as const;
+const nav = [["About","about"],["Mini Hall","mini-hall"],["Max Hall","max-hall"],["Book Venue","quick-enquiry"],["Gallery","gallery"]] as const;
 const eventTypes = ["Weddings & Receptions","Engagements & Muhurtham Functions","Birthday Parties","Seemantham & Baby Showers","Corporate & Cultural Events","Family Gatherings","Stall showcasing"];
 const eventIcons = [HeartHandshake, Sparkles, CakeSlice, Baby, Building2, UsersRound, Store] as const;
 const socialLinks = [
@@ -83,7 +83,7 @@ function Header() {
   },[]);
   return <header className={`fixed inset-x-0 top-0 z-40 transition-all duration-500 ${scrolled?"bg-background/95 shadow-md backdrop-blur py-2":"bg-background/75 backdrop-blur-sm py-4 md:top-5 md:mx-6 md:border md:border-background/50"}`}>
     <div className="mx-auto flex max-w-7xl items-center justify-between px-5">
-      <a href="#top" className="flex items-center text-primary" aria-label="MRD Mahal home"><img src={logoAsset.url} alt="MRD Mahal logo" width={1920} height={1920} className="h-[88px] w-auto object-contain -my-4 md:h-32 md:-my-7 lg:h-[136px] lg:-my-9"/></a>
+      <a href="#top" className="flex items-center text-primary" aria-label="MRD Mahal home"><img src={logoAsset.url} alt="MRD Mahal logo" width={1920} height={1920} className="h-28 w-auto object-contain -my-4 md:h-40 md:-my-6 lg:h-44 lg:-my-8"/></a>
       <nav className="hidden items-center gap-8 md:flex" aria-label="Main navigation">{nav.map(([label,id])=><a key={id} href={`#${id}`} className={`text-sm transition-colors hover:text-primary ${active===id?"text-primary":"text-foreground"}`}>{label}</a>)}</nav>
        <Button asChild className="hidden h-11 rounded-none px-6 md:inline-flex"><a href="https://wa.me/918220013444?text=Hello%2C%20I%20am%20interested%20in%20booking%20MRD%20Mahal%20for%20an%20upcoming%20event.%20Kindly%20share%20the%20available%20dates%2C%20venue%20details%2C%20pricing%2C%20and%20booking%20terms.%20Thank%20you." target="_blank" rel="noopener noreferrer" aria-label="Get Quote on WhatsApp"><WhatsAppMark/>Get Quote</a></Button>
       <Button variant="ghost" size="icon" className="min-h-11 min-w-11 md:hidden" aria-label={open?"Close menu":"Open menu"} onClick={()=>setOpen(!open)}>{open?<X/>:<Menu/>}</Button>
@@ -97,13 +97,14 @@ function SectionTitle({children,light=false}:{children:string;light?:boolean}) {
 function Index() {
   const [lightbox,setLightbox]=useState<number|null>(null); const [success,setSuccess]=useState(false); const [bookingChoice,setBookingChoice]=useState<"mahal"|"mini"|"other">("mahal");
   const [testimonialRef,testimonialApi]=useEmblaCarousel({loop:true,align:"center",containScroll:false}); const [activeTestimonial,setActiveTestimonial]=useState(0);
-  const [galleryRef,galleryApi]=useEmblaCarousel({align:"center",containScroll:false,breakpoints:{"(min-width: 768px)":{containScroll:"trimSnaps"}}});
+  const [galleryRef,galleryApi]=useEmblaCarousel({loop:true,align:"center",containScroll:false,duration:35});
   const [activeGallery,setActiveGallery]=useState(0);
   const today = new Date();
   const minEventDate = `${today.getFullYear()}-${String(today.getMonth()+1).padStart(2,"0")}-${String(today.getDate()).padStart(2,"0")}`;
   useEffect(()=>{if(lightbox===null)return;const fn=(e:KeyboardEvent)=>{if(e.key==="Escape")setLightbox(null)};document.addEventListener("keydown",fn);return()=>document.removeEventListener("keydown",fn)},[lightbox]);
   useEffect(()=>{if(!testimonialApi)return;const updateActive=()=>setActiveTestimonial(testimonialApi.selectedScrollSnap());testimonialApi.on("select",updateActive);testimonialApi.on("reInit",updateActive);updateActive();return()=>{testimonialApi.off("select",updateActive);testimonialApi.off("reInit",updateActive)}},[testimonialApi]);
   useEffect(()=>{if(!galleryApi)return;const updateActive=()=>setActiveGallery(galleryApi.selectedScrollSnap());galleryApi.on("select",updateActive);galleryApi.on("reInit",updateActive);updateActive();return()=>{galleryApi.off("select",updateActive);galleryApi.off("reInit",updateActive)}},[galleryApi]);
+  useEffect(()=>{if(!galleryApi||window.matchMedia("(prefers-reduced-motion: reduce)").matches)return;const timer=window.setInterval(()=>galleryApi.scrollNext(),3600);return()=>window.clearInterval(timer)},[galleryApi]);
   const submit=(e:FormEvent<HTMLFormElement>)=>{e.preventDefault();const f=e.currentTarget;if(!f.reportValidity())return;const d=new FormData(f);const v=(k:string)=>String(d.get(k)??"").trim()||"Not provided";
     const msg=`Hello, I would like to enquire about booking MRD Mahal.\n\nName: ${v("name")}\nPhone: ${v("phone")}\nEvent Type: ${v("event")}\nPreferred Date: ${v("date")}\nPreferred Hall: ${v("hall")}\n\nPlease share the availability, pricing, facilities, and booking terms.\n\nThank you.`;
     window.open(`https://wa.me/918220013444?text=${encodeURIComponent(msg)}`,"_blank","noopener,noreferrer");setSuccess(true)};
@@ -117,13 +118,13 @@ function Index() {
   ] as const;
   const selectedGallery = lightbox === null ? undefined : gallery[lightbox];
   return <div id="top" className="overflow-x-hidden bg-background"><Header/>
-    <section aria-labelledby="hero-title" className="relative isolate flex min-h-[max(700px,84svh)] flex-col justify-between overflow-hidden bg-primary text-primary-foreground md:min-h-[max(1120px,calc(100svh+220px))]">
+    <section aria-labelledby="hero-title" className="relative isolate flex min-h-[max(660px,78svh)] flex-col justify-between overflow-hidden bg-primary text-primary-foreground md:min-h-[max(1040px,calc(100svh+140px))]">
       <img src={bannerAsset.url} alt="MRD Mahal wedding venue banner with decorated wedding stage and guest seating" width={1672} height={941} fetchPriority="high" className="absolute inset-x-0 bottom-0 top-44 h-[calc(100%-11rem)] w-full object-cover object-[center_20%] md:object-[center_30%] [mask-image:linear-gradient(to_bottom,transparent,black_14%)] transition-transform md:top-52 md:h-[calc(100%-13rem)] duration-[1800ms] hover:scale-[1.025] motion-reduce:transform-none"/>
       <div className="relative z-10 mx-auto w-full max-w-6xl px-5 pb-8 pt-28 text-center [text-shadow:0_2px_12px_rgb(0_0_0/0.55)] sm:px-8 md:pt-44">
         <div className="mx-auto mb-5 h-px w-16 bg-gold" aria-hidden="true"/>
-        <h1 id="hero-title" className="display-heading mx-auto max-w-5xl text-[clamp(2rem,5vw,4.75rem)] leading-[1.06] text-primary-foreground">
+        <h1 id="hero-title" className="display-heading mx-auto max-w-5xl text-[clamp(2rem,5vw,4.75rem)] leading-[1.06] text-gold">
           <span className="block">Your Dream Moments in Our</span>
-          <span className="block text-primary-foreground">Grand venues</span>
+          <span className="block text-gold">Grand venues</span>
         </h1>
       </div>
       <div className="relative z-10 mx-auto w-full max-w-5xl px-5 pb-12 text-center sm:px-8 md:pb-16">
@@ -164,7 +165,7 @@ function Index() {
     <section className="bg-primary px-5 py-16 md:py-24"><div className="mx-auto grid max-w-7xl gap-16 lg:grid-cols-[.7fr_1.3fr]"><SectionTitle light>Facilities & Amenities</SectionTitle><div className="grid md:grid-cols-2">{facilities.map(([Icon,title,text])=><article key={title} className="reveal border-b border-gold/50 p-6 text-primary-foreground"><Icon className="mb-5 size-6 text-gold"/><h3 className="display-heading text-2xl">{title}</h3><p className="mt-3 text-sm leading-6 text-primary-foreground/75">{text}</p></article>)}</div></div></section>
 
     <section id="gallery" className="bg-parchment py-16 md:py-24"><div className="px-5 md:px-12"><div className="mx-auto flex max-w-[1500px] items-end justify-between gap-8"><SectionTitle>Photo Gallery</SectionTitle><div className="hidden h-px flex-1 bg-gold md:block"/></div></div>
-<div className="gallery-viewport mx-auto mt-10 w-fit max-w-full cursor-grab overflow-hidden pb-6 pt-2 active:cursor-grabbing md:mt-14" ref={galleryRef} role="region" aria-roledescription="carousel" aria-label="Gallery photos">
+<div className="gallery-viewport mx-auto mt-10 w-[calc(100vw-2rem)] max-w-[1120px] cursor-grab overflow-hidden pb-6 pt-2 active:cursor-grabbing md:mt-14" ref={galleryRef} role="region" aria-roledescription="carousel" aria-label="Gallery photos">
         <div className="flex touch-pan-y items-start px-5 md:px-12">
           {gallery.map(([src,title,alt],i)=>{const lower=i%2===0;return <div key={title} role="group" aria-roledescription="slide" aria-label={`${title.trim()}, ${i+1} of ${gallery.length}`} className={`relative w-48 min-w-0 shrink-0 sm:w-56 md:w-60 ${i>0?"-ml-6 sm:-ml-8 md:-ml-12":""} ${lower?"mt-8 md:mt-12":""} md:hover:z-30`}><Button type="button" variant="ghost" onClick={()=>setLightbox(i)} aria-label={`View ${title}`} className="group relative block h-auto w-full whitespace-normal rounded-none bg-photo-frame p-2 shadow-lg transition-all duration-500 ease-out hover:bg-photo-frame focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 md:p-2.5 md:hover:-translate-y-1.5 md:hover:shadow-2xl"><span className="block overflow-hidden"><img loading="lazy" src={src} alt={alt} width={1600} height={1067} className="aspect-[3/4] w-full object-cover object-center transition-transform duration-700 ease-out md:group-hover:scale-[1.05]"/></span><span className="block px-1 pb-1 pt-2.5 text-center font-display text-sm leading-5 text-primary md:text-base">{title}</span></Button></div>})}
         </div>
