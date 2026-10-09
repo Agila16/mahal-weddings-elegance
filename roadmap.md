@@ -1,6 +1,6 @@
 # Roadmap
 
-- [ ] Refine the gold floral/paisley mandala and enlarge the complete About photo badge; check mobile and desktop.
+- [x] Refine the gold floral/paisley mandala and enlarge the complete About photo badge; check mobile and desktop.
 
 - [x] Position the larger seal and background mandala inside the About photo box; verify desktop and mobile containment and unobscured content.
 
