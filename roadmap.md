@@ -9,3 +9,8 @@
 - [x] Remove the section-corner image; anchor the seal to the About main image's top-right corner.
 - [x] Anchor the mandala behind the main About image's bottom-left corner.
 - [x] Verify in browser: About decorations anchored to the main image, desktop drag + mobile swipe, one slide at a time, no scrollbar, hover zoom intact.
+- [x] Enlarge the navbar logo while keeping it fully visible and aligned across screen sizes.
+- [x] Slightly reduce the banner height and set its heading to the existing gold brand color.
+- [x] Add Mini Hall and Max Hall navigation links and rename Availability to Book Venue.
+- [x] Make the existing photo gallery autoplay smoothly in a continuous Embla loop on desktop and mobile.
+- [x] Check mobile menu, carousel progression, horizontal overflow, and preview build.
