@@ -2,9 +2,9 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState, type FormEvent } from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import {
-  Baby, Building2, CakeSlice, CalendarDays, CarFront, Check, ChevronDown, ChevronLeft, ChevronRight,
+  Building2, CalendarDays, CarFront, Check, ChevronDown, ChevronLeft, ChevronRight,
   Droplets, Facebook, Gem, HeartHandshake, Instagram, Landmark, Linkedin, Mail, MapPin, Menu,
-  MessageCircle, Phone, Power, Sparkles, Store, Users, UsersRound, Utensils, Wind, X, Youtube, Zap,
+  MessageCircle, Phone, Power, Sparkles, Users, Utensils, Wind, X, Youtube, Zap,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import venueExteriorAsset from "@/assets/venue-exterior.png.asset.json";
