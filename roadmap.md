@@ -14,3 +14,7 @@
 - [x] Add Mini Hall and Max Hall navigation links and rename Availability to Book Venue.
 - [x] Make the existing photo gallery autoplay smoothly in a continuous Embla loop on desktop and mobile.
 - [x] Check mobile menu, carousel progression, horizontal overflow, and preview build.
+- [x] Expand Venue Highlights across the available width and enlarge the image frames without cropping their photos.
+- [x] Add a smooth, readable hover/focus overlay to the Our Legacy photo using its existing text.
+- [x] Align footer copyright and the supplied transparent white logo credit in a responsive bottom row.
+- [ ] Verify these visual updates on desktop and mobile and check the preview build.
