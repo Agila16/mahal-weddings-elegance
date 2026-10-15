@@ -136,6 +136,15 @@
   display: none;
 }
 
+.event-photo-card {
+  transition: box-shadow 350ms ease, border-color 350ms ease;
+}
+.event-photo-card:hover,
+.event-photo-card:focus-visible {
+  border-color: var(--gold);
+  box-shadow: 0 0 0 1px var(--gold), 0 0 22px color-mix(in oklab, var(--gold) 38%, transparent);
+}
+
 .dark {
   --background: oklch(0.129 0.042 264.695);
   --foreground: oklch(0.984 0.003 247.858);
