@@ -18,3 +18,8 @@
 - [x] Add a smooth, readable hover/focus overlay to the Our Legacy photo using its existing text.
 - [x] Align footer copyright and the supplied transparent white logo credit in a responsive bottom row.
 - [x] Verify these visual updates on desktop and mobile and check the preview build.
+- [ ] Replace the footer credit logo with the newly supplied mark and move its label before the image.
+- [ ] Swap the Our Legacy hover text overlay for a relevant alternate venue photo, with mobile tap support.
+- [ ] Add bottom-up event card gradients, gold hover glow, and gentle image zoom without shifting card layout.
+- [ ] Enlarge the Venue Highlights photos while retaining natural proportions and unclipped details.
+- [ ] Verify the requested updates in the live preview at desktop and mobile sizes.
