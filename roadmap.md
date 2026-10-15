@@ -17,4 +17,4 @@
 - [x] Expand Venue Highlights across the available width and enlarge the image frames without cropping their photos.
 - [x] Add a smooth, readable hover/focus overlay to the Our Legacy photo using its existing text.
 - [x] Align footer copyright and the supplied transparent white logo credit in a responsive bottom row.
-- [ ] Verify these visual updates on desktop and mobile and check the preview build.
+- [x] Verify these visual updates on desktop and mobile and check the preview build.
