@@ -136,13 +136,94 @@
   display: none;
 }
 
-.event-photo-card {
-  transition: box-shadow 350ms ease, border-color 350ms ease;
+.event-carousel-viewport {
+  perspective: 1200px;
 }
-.event-photo-card:hover,
-.event-photo-card:focus-visible {
+.event-carousel-slide {
+  z-index: 0;
+  perspective: 1200px;
+}
+.event-carousel-card {
+  transform: scale(.84) rotateY(0deg);
+  transform-style: preserve-3d;
+  opacity: .76;
+  transition: transform 550ms cubic-bezier(.2,.75,.25,1), opacity 450ms ease, border-color 350ms ease, box-shadow 350ms ease;
+}
+.event-carousel-slide.is-active .event-carousel-card {
+  transform: scale(1) translateZ(24px);
+  opacity: 1;
   border-color: var(--gold);
-  box-shadow: 0 0 0 1px var(--gold), 0 0 22px color-mix(in oklab, var(--gold) 38%, transparent);
+  box-shadow: 0 0 0 1px var(--gold), 0 0 24px color-mix(in oklab, var(--gold) 32%, transparent), 0 22px 44px color-mix(in oklab, var(--foreground) 24%, transparent);
+}
+.event-carousel-card:hover,
+.event-carousel-card:focus-visible {
+  z-index: 3;
+  transform: scale(1.06) translateY(-7px) translateZ(38px);
+  opacity: 1;
+  border-color: var(--gold);
+  box-shadow: 0 0 0 1px var(--gold), 0 0 26px color-mix(in oklab, var(--gold) 42%, transparent), 0 24px 48px color-mix(in oklab, var(--foreground) 30%, transparent);
+}
+.event-card-gradient {
+  background: linear-gradient(to top, color-mix(in oklab, var(--primary) 96%, transparent), color-mix(in oklab, var(--primary) 58%, transparent) 42%, transparent 100%);
+  opacity: .7;
+  transition: opacity 450ms ease;
+}
+.event-card-title {
+  opacity: 0;
+  transform: translateY(12px);
+  text-shadow: 0 2px 8px color-mix(in oklab, var(--foreground) 72%, transparent);
+  transition: opacity 400ms ease, transform 400ms ease;
+}
+.event-carousel-slide.is-active .event-card-gradient,
+.event-carousel-card:hover .event-card-gradient,
+.event-carousel-card:focus-visible .event-card-gradient {
+  opacity: 1;
+}
+.event-carousel-slide.is-active .event-card-title,
+.event-carousel-card:hover .event-card-title,
+.event-carousel-card:focus-visible .event-card-title {
+  opacity: 1;
+  transform: translateY(0);
+}
+.venue-highlight-slide {
+  transform-origin: center center;
+  transition: transform 500ms cubic-bezier(.2,.75,.25,1), filter 400ms ease;
+}
+.venue-highlight-slide:hover,
+.venue-highlight-slide.is-expanded {
+  filter: drop-shadow(0 12px 18px color-mix(in oklab, var(--foreground) 24%, transparent));
+  transform: scale(1.14) translateY(-4px);
+}
+.venue-highlight-slide.is-expanded > button:first-child {
+  box-shadow: 0 0 0 1px var(--gold), 0 0 22px color-mix(in oklab, var(--gold) 35%, transparent), 0 18px 36px color-mix(in oklab, var(--foreground) 22%, transparent);
+}
+@media (max-width: 767px) {
+  .event-carousel-card {
+    transform: scale(.9);
+    opacity: .82;
+  }
+  .event-carousel-slide.is-active .event-carousel-card {
+    transform: scale(1);
+  }
+  .event-card-title {
+    opacity: 1;
+    transform: none;
+  }
+  .event-card-gradient {
+    opacity: 1;
+  }
+  .venue-highlight-slide:hover,
+  .venue-highlight-slide.is-expanded {
+    transform: scale(1.045) translateY(-2px);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .event-carousel-card,
+  .event-card-gradient,
+  .event-card-title,
+  .venue-highlight-slide {
+    transition-duration: .01ms;
+  }
 }
 
 .dark {
