@@ -150,7 +150,7 @@
   transition: transform 550ms cubic-bezier(.2,.75,.25,1), opacity 450ms ease, border-color 350ms ease, box-shadow 350ms ease;
 }
 .event-carousel-slide.is-active .event-carousel-card {
-  transform: scale(1) translateZ(24px);
+  transform: scale(.96) translateZ(18px);
   opacity: 1;
   border-color: var(--gold);
   box-shadow: 0 0 0 1px var(--gold), 0 0 24px color-mix(in oklab, var(--gold) 32%, transparent), 0 22px 44px color-mix(in oklab, var(--foreground) 24%, transparent);
@@ -158,7 +158,7 @@
 .event-carousel-card:hover,
 .event-carousel-card:focus-visible {
   z-index: 3;
-  transform: scale(1.06) translateY(-7px) translateZ(38px);
+  transform: scale(1.06) translateY(-7px) translateZ(32px);
   opacity: 1;
   border-color: var(--gold);
   box-shadow: 0 0 0 1px var(--gold), 0 0 26px color-mix(in oklab, var(--gold) 42%, transparent), 0 24px 48px color-mix(in oklab, var(--foreground) 30%, transparent);
@@ -187,15 +187,19 @@
 }
 .venue-highlight-slide {
   transform-origin: center center;
-  transition: transform 500ms cubic-bezier(.2,.75,.25,1), filter 400ms ease;
+  transition: transform 500ms cubic-bezier(.2,.75,.25,1), opacity 400ms ease, filter 400ms ease;
 }
 .venue-highlight-slide:hover,
 .venue-highlight-slide.is-expanded {
-  filter: drop-shadow(0 12px 18px color-mix(in oklab, var(--foreground) 24%, transparent));
-  transform: scale(1.14) translateY(-4px);
+  filter: drop-shadow(0 14px 20px color-mix(in oklab, var(--foreground) 26%, transparent));
+  transform: scale(1.2) translateY(-4px);
 }
 .venue-highlight-slide.is-expanded > button:first-child {
   box-shadow: 0 0 0 1px var(--gold), 0 0 22px color-mix(in oklab, var(--gold) 35%, transparent), 0 18px 36px color-mix(in oklab, var(--foreground) 22%, transparent);
+}
+.venue-highlight-slide.is-receded {
+  opacity: .55;
+  transform: scale(.78);
 }
 @media (max-width: 767px) {
   .event-carousel-card {
@@ -214,7 +218,11 @@
   }
   .venue-highlight-slide:hover,
   .venue-highlight-slide.is-expanded {
-    transform: scale(1.045) translateY(-2px);
+    transform: scale(1.12) translateY(-2px);
+  }
+  .venue-highlight-slide.is-receded {
+    opacity: .5;
+    transform: scale(.82);
   }
 }
 @media (prefers-reduced-motion: reduce) {
