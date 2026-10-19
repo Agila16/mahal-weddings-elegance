@@ -136,54 +136,72 @@
   display: none;
 }
 
-.event-carousel-viewport {
-  perspective: 1200px;
+.event-album-spread {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: start;
+  gap: 1.5rem 1rem;
+  padding: 1.5rem 1rem;
+  border: 1px solid color-mix(in oklab, var(--gold) 48%, transparent);
+  background: linear-gradient(90deg, color-mix(in oklab, var(--card) 97%, var(--parchment)) 0%, var(--card) 49.7%, color-mix(in oklab, var(--foreground) 8%, var(--card)) 50%, var(--card) 50.3%, color-mix(in oklab, var(--card) 97%, var(--parchment)) 100%);
+  box-shadow: 0 18px 36px color-mix(in oklab, var(--foreground) 12%, transparent), inset 0 0 24px color-mix(in oklab, var(--gold) 8%, transparent);
 }
-.event-carousel-slide {
-  z-index: 0;
-  perspective: 1200px;
+.event-album-spread::before {
+  position: absolute;
+  inset-block: 0;
+  left: 50%;
+  width: 1px;
+  background: color-mix(in oklab, var(--gold) 35%, transparent);
+  content: "";
+  pointer-events: none;
 }
-.event-carousel-card {
-  transform: scale(.84) rotateY(0deg);
-  transform-style: preserve-3d;
-  opacity: .76;
-  transition: transform 550ms cubic-bezier(.2,.75,.25,1), opacity 450ms ease, border-color 350ms ease, box-shadow 350ms ease;
-}
-.event-carousel-slide.is-active .event-carousel-card {
-  transform: scale(.96) translateZ(18px);
-  opacity: 1;
-  border-color: var(--gold);
-  box-shadow: 0 0 0 1px var(--gold), 0 0 24px color-mix(in oklab, var(--gold) 32%, transparent), 0 22px 44px color-mix(in oklab, var(--foreground) 24%, transparent);
-}
-.event-carousel-card:hover,
-.event-carousel-card:focus-visible {
-  z-index: 3;
-  transform: scale(1.06) translateY(-7px) translateZ(32px);
-  opacity: 1;
-  border-color: var(--gold);
-  box-shadow: 0 0 0 1px var(--gold), 0 0 26px color-mix(in oklab, var(--gold) 42%, transparent), 0 24px 48px color-mix(in oklab, var(--foreground) 30%, transparent);
-}
-.event-card-gradient {
-  background: linear-gradient(to top, color-mix(in oklab, var(--primary) 96%, transparent), color-mix(in oklab, var(--primary) 58%, transparent) 42%, transparent 100%);
-  opacity: .7;
-  transition: opacity 450ms ease;
-}
-.event-card-title {
+.event-album-photo {
+  position: relative;
+  z-index: 1;
+  min-width: 0;
+  margin: 0;
   opacity: 0;
-  transform: translateY(12px);
-  text-shadow: 0 2px 8px color-mix(in oklab, var(--foreground) 72%, transparent);
-  transition: opacity 400ms ease, transform 400ms ease;
+  transform: translateY(14px) rotate(var(--album-angle, 0deg));
+  transition: opacity 650ms ease, transform 500ms cubic-bezier(.2,.75,.25,1), filter 400ms ease;
 }
-.event-carousel-slide.is-active .event-card-gradient,
-.event-carousel-card:hover .event-card-gradient,
-.event-carousel-card:focus-visible .event-card-gradient {
+.event-album-spread.is-visible .event-album-photo {
   opacity: 1;
+  transform: rotate(var(--album-angle, 0deg));
+  transition-delay: var(--album-delay, 0ms);
 }
-.event-carousel-slide.is-active .event-card-title,
-.event-carousel-card:hover .event-card-title,
-.event-carousel-card:focus-visible .event-card-title {
-  opacity: 1;
-  transform: translateY(0);
+.event-album-photo:nth-child(1) { --album-angle: -2deg; --album-delay: 0ms; }
+.event-album-photo:nth-child(2) { --album-angle: 1.5deg; --album-delay: 100ms; }
+.event-album-photo:nth-child(3) { --album-angle: -1deg; --album-delay: 200ms; }
+.event-album-photo:nth-child(4) { --album-angle: 2deg; --album-delay: 300ms; }
+.event-album-photo:nth-child(5) { --album-angle: 1.5deg; --album-delay: 400ms; }
+.event-album-photo:nth-child(6) { --album-angle: -2deg; --album-delay: 500ms; }
+.event-album-photo:nth-child(7) { --album-angle: 1deg; --album-delay: 600ms; }
+.event-album-print {
+  padding: .45rem .45rem .6rem;
+  background: var(--photo-frame);
+  box-shadow: 0 4px 12px color-mix(in oklab, var(--foreground) 20%, transparent), 0 1px 2px color-mix(in oklab, var(--foreground) 12%, transparent);
+}
+.event-album-image {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+}
+.event-album-caption {
+  padding: .65rem .15rem 0;
+  color: var(--foreground);
+  font-family: var(--ui-font);
+  font-size: .8rem;
+  font-weight: 600;
+  line-height: 1.4;
+  text-align: center;
+}
+.event-album-spread.is-visible .event-album-photo:hover {
+  z-index: 2;
+  transform: translateY(-7px) rotate(0deg) scale(1.025);
+  filter: drop-shadow(0 10px 10px color-mix(in oklab, var(--foreground) 18%, transparent));
+  transition-delay: 0ms;
 }
 .venue-highlight-slide {
   transform-origin: center center;
@@ -201,21 +219,32 @@
   opacity: .55;
   transform: scale(.78);
 }
+@media (min-width: 640px) {
+  .event-album-spread {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    gap: 2rem 1.25rem;
+    padding: 2.5rem 2rem;
+  }
+  .event-album-photo:nth-child(-n+4) { grid-column: span 3; }
+  .event-album-photo:nth-child(5) { grid-column: 2 / span 3; }
+  .event-album-photo:nth-child(6) { grid-column: 5 / span 3; }
+  .event-album-photo:nth-child(7) { grid-column: 8 / span 3; }
+  .event-album-caption { font-size: .9rem; }
+}
+@media (max-width: 639px) {
+  .event-album-spread::before { display: none; }
+  .event-album-spread { gap: 1.5rem .85rem; padding: 1.25rem .8rem; }
+  .event-album-photo { transform: none; }
+  .event-album-spread.is-visible .event-album-photo { transform: none; }
+  .event-album-caption { font-size: .82rem; }
+}
+@media (hover: none) {
+  .event-album-spread.is-visible .event-album-photo:hover { transform: rotate(var(--album-angle, 0deg)); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .event-album-photo { transition-duration: .01ms; }
+}
 @media (max-width: 767px) {
-  .event-carousel-card {
-    transform: scale(.9);
-    opacity: .82;
-  }
-  .event-carousel-slide.is-active .event-carousel-card {
-    transform: scale(1);
-  }
-  .event-card-title {
-    opacity: 1;
-    transform: none;
-  }
-  .event-card-gradient {
-    opacity: 1;
-  }
   .venue-highlight-slide:hover,
   .venue-highlight-slide.is-expanded {
     transform: scale(1.12) translateY(-2px);
@@ -226,9 +255,6 @@
   }
 }
 @media (prefers-reduced-motion: reduce) {
-  .event-carousel-card,
-  .event-card-gradient,
-  .event-card-title,
   .venue-highlight-slide {
     transition-duration: .01ms;
   }
