@@ -136,130 +136,2429 @@
   display: none;
 }
 
-.event-album-spread {
-  position: relative;
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  align-items: start;
-  gap: 1.5rem 1rem;
-  padding: 1.5rem 1rem;
-  border: 1px solid color-mix(in oklab, var(--gold) 48%, transparent);
-  background: linear-gradient(90deg, color-mix(in oklab, var(--card) 97%, var(--parchment)) 0%, var(--card) 49.7%, color-mix(in oklab, var(--foreground) 8%, var(--card)) 50%, var(--card) 50.3%, color-mix(in oklab, var(--card) 97%, var(--parchment)) 100%);
-  box-shadow: 0 18px 36px color-mix(in oklab, var(--foreground) 12%, transparent), inset 0 0 24px color-mix(in oklab, var(--gold) 8%, transparent);
+/* ------------------------------------------------------------------ */
+/* SECTION SHELL — ONE common left / right space for every section      */
+/* header logo, Our Legacy, Our Halls, Why Choose, Event Types title,   */
+/* Facilities, Venue Highlights, Blog and Footer all use this class,    */
+/* so their LEFT edge is exactly the same on mobile, tablet and desktop. */
+/* To change the left space everywhere, change only the two paddings.   */
+/* ------------------------------------------------------------------ */
+.section-shell {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 80rem;              /* = max-w-7xl */
+  margin-inline: auto;
+  padding-inline: 1.25rem;       /* mobile left / right space */
 }
-.event-album-spread::before {
-  position: absolute;
-  inset-block: 0;
-  left: 50%;
-  width: 1px;
-  background: color-mix(in oklab, var(--gold) 35%, transparent);
+@media (min-width: 768px) {
+  .section-shell { padding-inline: 2.5rem; }   /* tablet + desktop left / right space */
+}
+
+/* ------------------------------------------------------------------ */
+/* Nav bar — sandal colour bar with a golden stroke */
+/* ------------------------------------------------------------------ */
+.nav-frame {
+  background: linear-gradient(180deg, #f8edd2 0%, #ecdab0 100%);   /* sandal */
+  border-bottom: 2px solid #b88a2c;                                 /* gold line under the bar */
+  color: var(--primary);
+}
+.nav-frame::after {
   content: "";
+  position: absolute;
+  inset: .4rem;
+  border: 1px solid #c79a3a;                                        /* gold frame inside the bar */
   pointer-events: none;
 }
-.event-album-photo {
-  position: relative;
-  z-index: 1;
-  min-width: 0;
-  margin: 0;
-  opacity: 0;
-  transform: translateY(14px) rotate(var(--album-angle, 0deg));
-  transition: opacity 650ms ease, transform 500ms cubic-bezier(.2,.75,.25,1), filter 400ms ease;
-}
-.event-album-spread.is-visible .event-album-photo {
-  opacity: 1;
-  transform: rotate(var(--album-angle, 0deg));
-  transition-delay: var(--album-delay, 0ms);
-}
-.event-album-photo:nth-child(1) { --album-angle: -2deg; --album-delay: 0ms; }
-.event-album-photo:nth-child(2) { --album-angle: 1.5deg; --album-delay: 100ms; }
-.event-album-photo:nth-child(3) { --album-angle: -1deg; --album-delay: 200ms; }
-.event-album-photo:nth-child(4) { --album-angle: 2deg; --album-delay: 300ms; }
-.event-album-photo:nth-child(5) { --album-angle: 1.5deg; --album-delay: 400ms; }
-.event-album-photo:nth-child(6) { --album-angle: -2deg; --album-delay: 500ms; }
-.event-album-photo:nth-child(7) { --album-angle: 1deg; --album-delay: 600ms; }
-.event-album-print {
-  padding: .45rem .45rem .6rem;
-  background: var(--photo-frame);
-  box-shadow: 0 4px 12px color-mix(in oklab, var(--foreground) 20%, transparent), 0 1px 2px color-mix(in oklab, var(--foreground) 12%, transparent);
-}
-.event-album-image {
+@media (min-width: 768px) { .nav-frame::after { inset: .5rem; } }
+/* the nav logo is the real MAROON logo (transparent png) — shown exactly as it is, no colour filter.
+   Logo height is set in index.tsx (h-14 / md:h-16 / lg:h-20); if you change it, change .hero-section padding-top below too. */
+.nav-logo {
   display: block;
-  width: 100%;
-  aspect-ratio: 4 / 3;
-  object-fit: cover;
+  max-width: none;
+  user-select: none;
 }
-.event-album-caption {
-  padding: .65rem .15rem 0;
-  color: var(--foreground);
-  font-family: var(--ui-font);
-  font-size: .8rem;
-  font-weight: 600;
-  line-height: 1.4;
-  text-align: center;
+
+/* ------------------------------------------------------------------ */
+/* Hero banner — wine nav bar on top, photo fills the rest of the FIRST screen */
+/* ------------------------------------------------------------------ */
+.hero-section {
+  box-sizing: border-box;
+  height: 100vh;            /* fallback for old browsers */
+  height: 100svh;           /* visible screen height */
+  min-height: 36rem;
+  padding-top: 5rem;        /* = height of the fixed nav bar (mobile: logo 3.5rem + 1.5rem padding) */
 }
-.event-album-spread.is-visible .event-album-photo:hover {
-  z-index: 2;
-  transform: translateY(-7px) rotate(0deg) scale(1.025);
-  filter: drop-shadow(0 10px 10px color-mix(in oklab, var(--foreground) 18%, transparent));
-  transition-delay: 0ms;
+@media (min-width: 768px)  { .hero-section { padding-top: 6rem; } }
+@media (min-width: 1024px) { .hero-section { padding-top: 7rem; } }  /* if the nav bar looks taller / shorter, change these 3 numbers */
+
+/* transparent maroon fade, 5 cm high, along the bottom edge of the banner — sits UNDER the text / buttons */
+.hero-bottom-fade {
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  height: 5cm;            /* change this number to make the fade taller / shorter */
+  pointer-events: none;
+  background: linear-gradient(to top,
+    color-mix(in oklab, var(--primary) 96%, transparent) 0%,
+    color-mix(in oklab, var(--primary) 78%, transparent) 30%,
+    color-mix(in oklab, var(--primary) 40%, transparent) 65%,
+    transparent 100%);
 }
-.venue-highlight-slide {
-  transform-origin: center center;
-  transition: transform 500ms cubic-bezier(.2,.75,.25,1), opacity 400ms ease, filter 400ms ease;
-}
-.venue-highlight-slide:hover,
-.venue-highlight-slide.is-expanded {
-  filter: drop-shadow(0 14px 20px color-mix(in oklab, var(--foreground) 26%, transparent));
-  transform: scale(1.2) translateY(-4px);
-}
-.venue-highlight-slide.is-expanded > button:first-child {
-  box-shadow: 0 0 0 1px var(--gold), 0 0 22px color-mix(in oklab, var(--gold) 35%, transparent), 0 18px 36px color-mix(in oklab, var(--foreground) 22%, transparent);
-}
-.venue-highlight-slide.is-receded {
-  opacity: .55;
-  transform: scale(.78);
-}
-@media (min-width: 640px) {
-  .event-album-spread {
-    grid-template-columns: repeat(12, minmax(0, 1fr));
-    gap: 2rem 1.25rem;
-    padding: 2.5rem 2rem;
-  }
-  .event-album-photo:nth-child(-n+4) { grid-column: span 3; }
-  .event-album-photo:nth-child(5) { grid-column: 2 / span 3; }
-  .event-album-photo:nth-child(6) { grid-column: 5 / span 3; }
-  .event-album-photo:nth-child(7) { grid-column: 8 / span 3; }
-  .event-album-caption { font-size: .9rem; }
-}
-@media (max-width: 639px) {
-  .event-album-spread::before { display: none; }
-  .event-album-spread { gap: 1.5rem .85rem; padding: 1.25rem .8rem; }
-  .event-album-photo { transform: none; }
-  .event-album-spread.is-visible .event-album-photo { transform: none; }
-  .event-album-caption { font-size: .82rem; }
-}
-@media (hover: none) {
-  .event-album-spread.is-visible .event-album-photo:hover { transform: rotate(var(--album-angle, 0deg)); }
-}
-@media (prefers-reduced-motion: reduce) {
-  .event-album-photo { transition-duration: .01ms; }
+.hero-image {
+  object-position: 50% 0%;  /* keeps the top of the photo (wall + mandapam top) under the heading */
 }
 @media (max-width: 767px) {
-  .venue-highlight-slide:hover,
-  .venue-highlight-slide.is-expanded {
-    transform: scale(1.12) translateY(-2px);
-  }
-  .venue-highlight-slide.is-receded {
-    opacity: .5;
-    transform: scale(.82);
-  }
+  .hero-image { object-position: 50% 12%; }
 }
-@media (prefers-reduced-motion: reduce) {
-  .venue-highlight-slide {
-    transition-duration: .01ms;
+/* gold heading, clear on the red wall (no shade boxes) */
+.hero-title-gold {
+  background: linear-gradient(180deg, #ffe9a8 0%, #f6cf62 45%, #e0a63a 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 2px 2px rgb(0 0 0 / .6)) drop-shadow(0 0 10px rgb(60 0 8 / .6));
+  letter-spacing: .01em;
+}
+
+/* ------------------------------------------------------------------ */
+/* Our Legacy — the ENVELOPE picture (qqr.png, 1920 x 870) is the section background.   */
+/* 3 photos are laid exactly over its 2 photo frames + small stamp (3 layers below).    */
+/*                                                                                      */
+/* HOW IT IS BUILT                                                                      */
+/*   .legacy-stage   = box that crops the picture on mobile / tablet                    */
+/*   .legacy-canvas  = the picture + the photos. It always has the picture's own shape  */
+/*                     (1920 / 870), so every % below is a % of the PICTURE and the     */
+/*                     photos can never drift away from their frames.                   */
+/*   .legacy-clip-N  = hides the part of a photo that the envelope flap / stamp / other */
+/*                     frame covers (so the photo looks like it is really inside).      */
+/*   .legacy-photo-N = position, size and tilt of one frame.                            */
+/* The text is wrapped in .section-shell (in index.tsx) so its left edge matches every  */
+/* other section.                                                                       */
+/* ------------------------------------------------------------------ */
+.legacy-section {
+  position: relative;
+  overflow: hidden;
+  background-color: #f6ebd1;   /* paper colour of the envelope picture */
+  padding-top: 3rem;
+}
+.legacy-content {
+  width: 100%;
+}
+.legacy-copy {
+  max-width: 42rem;
+  margin-inline: auto;
+}
+
+/* mobile: show the right part of the picture (envelope + stamps) — x from about 900 to 1920.
+   Make the ratio taller (e.g. 1 / 1) to see less, or wider (e.g. 4 / 3) to see more of the left paper. */
+.legacy-stage {
+  position: relative;
+  width: 100%;
+  margin-top: 1.5rem;
+  aspect-ratio: 7 / 6;
+  overflow: hidden;
+}
+/* canvas keeps the picture's shape and is pushed to the right edge of the stage */
+.legacy-canvas {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;
+  aspect-ratio: 1920 / 870;
+}
+.legacy-bg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  pointer-events: none;
+  user-select: none;
+}
+/* tablet: a little more of the picture */
+@media (min-width: 640px) and (max-width: 1023px) {
+  .legacy-stage { aspect-ratio: 3 / 2; }
+}
+/* desktop: the whole picture, text laid over its empty left side */
+@media (min-width: 1024px) {
+  .legacy-section { padding-top: 0; }
+  .legacy-content {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    padding-block: 1.5rem;
+  }
+  .legacy-copy {
+    width: min(43%, 36rem);       /* text stays inside the empty left area of the picture (% of the shell width) */
+    max-width: none;
+    margin: 0;
+  }
+  .legacy-stage {
+    margin-top: 0;
+    aspect-ratio: 1920 / 870;
+    overflow: visible;
+  }
+  .legacy-canvas {
+    inset: 0;
+    width: 100%;
+    height: 100%;
   }
 }
 
+/* ---- photos on the envelope ---- */
+.legacy-photos {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.legacy-clip {
+  position: absolute;
+  inset: 0;
+}
+/* Frame 2 (behind): only the part to the right of frame 1, above the envelope flap, and not covered by the stamp */
+.legacy-clip-2 {
+  clip-path: polygon(66.46% 0%, 98.96% 0%, 98.96% 54.14%, 78.65% 42.76%, 76.3% 59.2%, 71.67% 62.64%);
+}
+/* Frame 1 (big): everything above the envelope flap line */
+.legacy-clip-1 {
+  clip-path: polygon(46.875% 0%, 78.125% 0%, 78.125% 63.22%, 61.46% 63.56%, 52.86% 41.95%, 46.875% 41.95%);
+}
+.legacy-photo {
+  position: absolute;
+  overflow: hidden;
+  background: #e9dcc0;
+}
+/* soft paper-edge shadow on top of every photo so it blends into the frame */
+.legacy-photo::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  box-shadow: inset 0 0 0 1px rgb(90 60 20 / .25), inset 0 0 14px rgb(70 40 10 / .28);
+}
+/* Frame 1 — big frame, tilted left (-10deg).  left/top/width/height = % of the picture */
+.legacy-photo-1 { left: 54.35%; top: 20.98%; width: 13.91%; height: 42.41%; transform: rotate(-10deg); }
+/* Frame 2 — frame behind it, tilted right (16deg) */
+.legacy-photo-2 { left: 67.97%; top: 31.49%; width: 12.08%; height: 34.48%; transform: rotate(16deg); }
+/* Frame 3 — small stamp on the right (13deg): hall photo, does not swap */
+.legacy-photo-3 { left: 78.02%; top: 45.98%; width: 6.67%; height: 14.48%; transform: rotate(13deg); }
+
+/* both photos of a frame are stacked; the one with .is-on fades in (frames 1 and 2 trade photos every 3 s — LEGACY_SWAP_MS in index.tsx) */
+.legacy-photo-img {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: cover;
+  opacity: 0;
+  transform: scale(1.06);
+  transition: opacity 900ms ease, transform 1400ms cubic-bezier(.2,.75,.25,1);
+}
+.legacy-photo-img.is-on {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* ------------------------------------------------------------------ */
+/* Our Halls — Max Hall and Mini Hall photos are the SAME size          */
+/* (same 4:3 box, same column width in the grid)                        */
+/* ------------------------------------------------------------------ */
+.hall-photo {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 3;      /* both halls: same size. Use 3 / 2 to show more of the sides */
+  object-fit: cover;
+  object-position: center;
+}
+.hall-photo-max { object-position: 50% 50%; }   /* change if Max Hall needs a different crop */
+.hall-photo-mini { object-position: 50% 50%; }  /* change if Mini Hall needs a different crop */
+
+/* ------------------------------------------------------------------ */
+/* Event Types section — mandala pattern background (image set in index.tsx) */
+/* ------------------------------------------------------------------ */
+.events-section {
+  background-color: #fff3d4;          /* shown if the picture is missing */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* ------------------------------------------------------------------ */
+/* Photo book — real page turning (Event Types)                        */
+/* each page is a leaf hinged on the spine; only the turned page moves */
+/* (the book turns pages automatically every 3 s — AUTO_FLIP_MS in index.tsx) */
+/* ------------------------------------------------------------------ */
+.photo-book {
+  position: relative;
+  outline: none;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 800ms ease, transform 800ms cubic-bezier(.2,.75,.25,1);
+  touch-action: pan-y;
+  user-select: none;
+  -webkit-user-select: none;
+}
+.photo-book.is-visible { opacity: 1; transform: none; }
+.photo-book:focus-visible .photo-book-stage {
+  outline: 2px solid var(--ring);
+  outline-offset: 6px;
+}
+
+.photo-book-stage {
+  position: relative;
+  height: 29rem;
+  perspective: 3600px;
+  perspective-origin: 50% 50%;
+}
+@media (min-width: 640px) {
+  .photo-book-stage { height: clamp(24rem, 42vw, 31rem); }
+}
+/* soft floor shadow under the book */
+.photo-book-stage::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -1.4rem;
+  width: min(80%, 52rem);
+  height: 1.6rem;
+  transform: translateX(-50%);
+  background: radial-gradient(closest-side, color-mix(in oklab, var(--foreground) 28%, transparent), transparent);
+  pointer-events: none;
+}
+
+/* hard cover under the open book — maroon cloth-covered cardboard board with a visible edge (same look as the cover picture) */
+.pb-cover-base {
+  position: absolute;
+  left: 50%;
+  top: -1.1rem;
+  bottom: -1.3rem;
+  width: calc(min(44%, 27rem) * 2 + 2.8rem);
+  transform: translateX(-50%);
+  border-radius: .35rem .35rem .45rem .45rem;
+  background:
+    repeating-linear-gradient(45deg, rgb(255 255 255 / .035) 0 1px, transparent 1px 3px),     /* cloth weave */
+    repeating-linear-gradient(-45deg, rgb(0 0 0 / .09) 0 1px, transparent 1px 3px),
+    linear-gradient(135deg, #7d0f1f 0%, #650716 55%, #4a0510 100%);                           /* maroon */
+  box-shadow:
+    0 .4rem 0 #2f050a,                         /* thickness of the board */
+    0 .4rem 0 1px rgb(0 0 0 / .3),
+    0 34px 40px -16px rgb(0 0 0 / .6),         /* shadow on the table */
+    inset 0 0 0 1px rgb(255 255 255 / .07),
+    inset 0 3px 8px rgb(255 255 255 / .14);    /* light catching the top edge */
+  pointer-events: none;
+}
+/* thin fold line inside the cover edge */
+.pb-cover-base::after {
+  content: "";
+  position: absolute;
+  inset: .32rem;
+  border: 1px solid rgb(255 255 255 / .1);
+  border-radius: .25rem;
+}
+/* hinge shadow along the spine */
+.pb-cover-base::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: .9rem;
+  transform: translateX(-50%);
+  background: linear-gradient(90deg, transparent, rgb(0 0 0 / .4), transparent);
+}
+/* the paper block: page edges peeking out around the open pages */
+.pb-page-block {
+  position: absolute;
+  left: 50%;
+  top: -.4rem;
+  bottom: -.55rem;
+  width: calc(min(44%, 27rem) * 2 + .9rem);
+  transform: translateX(-50%);
+  border-radius: .2rem;
+  background:
+    repeating-linear-gradient(to bottom, transparent 0 3px, rgb(120 90 40 / .16) 3px 4px),
+    linear-gradient(to bottom, #fbf3df, #eadcbd);
+  box-shadow: 0 2px 6px rgb(0 0 0 / .35);
+  pointer-events: none;
+}
+/* ribbon bookmark + heart charm: comes out from under the book and hangs below it */
+.pb-ribbon {
+  position: absolute;
+  left: calc(50% + 1.3rem);
+  top: calc(100% - 2.3rem);
+  width: 2.2rem;
+  height: auto;
+  overflow: visible;
+  filter: drop-shadow(0 4px 4px rgb(0 0 0 / .35));
+  pointer-events: none;
+}
+
+.pb-book {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+}
+
+/* ---- one page (leaf) ---- */
+.pb-leaf {
+  --n: 0;
+  --tx: 0px;
+  --tz: 0px;
+  --ry: 0deg;
+  position: absolute;
+  top: 0;
+  left: 50%;                 /* left edge of the leaf = the spine */
+  width: min(44%, 27rem);
+  height: 100%;
+  transform-origin: left center;
+  transform-style: preserve-3d;
+  transform: translateX(var(--tx)) translateZ(var(--tz)) rotateY(var(--ry));
+  transition: transform 1000ms cubic-bezier(.645,.045,.355,1);
+  will-change: transform;
+}
+/* page on the right of the open spread (not yet turned) */
+.pb-leaf.is-right { --tx: 0px; --tz: 0px; --ry: 0deg; }
+/* page on the left of the open spread (already turned over the spine) */
+.pb-leaf.is-left { --tx: 0px; --tz: 0px; --ry: -180deg; }
+/* pages waiting on the right — lie flat under the open page, only their edges peek out */
+.pb-leaf.is-stack-right {
+  --tx: calc(var(--n) * 3px + 3px);
+  --tz: calc(var(--n) * -2px - 2px);
+  --ry: 0deg;
+}
+/* pages already read — lie flat under the left page, only their edges peek out */
+.pb-leaf.is-stack-left {
+  --tx: calc(var(--n) * -3px - 3px);
+  --tz: calc(var(--n) * -2px - 2px);
+  --ry: -180deg;
+}
+.pb-leaf.is-far .pb-face,
+.pb-leaf.is-far .pb-hit { opacity: 0; pointer-events: none; }
+
+/* ---- the two sides of a page ---- */
+.pb-face {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  background: #fffaf0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  transition: opacity 500ms ease;
+  box-shadow: 0 10px 24px -14px color-mix(in oklab, var(--foreground) 40%, transparent);
+}
+.pb-face-front { border-radius: 0 .35rem .35rem 0; }
+.pb-face-back {
+  transform: rotateY(180deg);
+  border-radius: .35rem 0 0 .35rem;
+  background: #fffdf8;
+}
+/* paper curl towards the spine */
+.pb-face::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+}
+.pb-face-front::before { background: linear-gradient(to right, color-mix(in oklab, var(--foreground) 20%, transparent), transparent 16%); }
+.pb-face-back::before { background: linear-gradient(to left, color-mix(in oklab, var(--foreground) 22%, transparent), transparent 16%); }
+
+/* dims pages that are not part of the open spread */
+.pb-dim {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  pointer-events: none;
+  background: color-mix(in oklab, var(--wine) 55%, transparent);
+  opacity: 0;
+  transition: opacity 700ms ease;
+}
+.pb-leaf.is-stack-left .pb-dim,
+.pb-leaf.is-stack-right .pb-dim { opacity: .25; }
+
+/* photo spread — ONE picture runs across the left page + the right page */
+.pb-spread { position: absolute; inset: 0; overflow: hidden; background: #2a0507; }
+.pb-spread-img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
+  width: 200%;             /* the picture is as wide as BOTH pages together */
+  max-width: none;         /* (Tailwind would otherwise shrink it to 100% and the right page stays empty) */
+  height: 100%;
+  object-fit: cover;       /* fills the whole book edge to edge */
+}
+.pb-spread-right .pb-spread-img { left: -100%; }  /* right page shows the right half */
+.pb-blank { position: absolute; inset: 0; }
+
+/* title box on the photo (right page, bottom-left) */
+.pb-text {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 1.1rem 1.1rem 1.25rem 1.6rem;
+  pointer-events: none;
+}
+.pb-caption {
+  max-width: 22rem;
+  padding: .85rem 1.1rem 1rem;
+  border-left: 2px solid var(--gold);
+  background: rgb(20 4 6 / .62);
+  backdrop-filter: blur(4px);
+}
+.pb-caption h3 { color: #fff !important; text-shadow: 0 2px 10px rgb(0 0 0 / .5); }
+.pb-caption p { color: rgb(255 255 255 / .86) !important; }
+.photo-book-folio {
+  color: var(--gold);
+  font-family: var(--ui-font);
+  font-size: .65rem;
+  font-weight: 700;
+  letter-spacing: .2em;
+}
+
+/* cover leaf (always hidden behind the first photo — only a stand-in) */
+.pb-cover {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  text-align: center;
+  background: linear-gradient(180deg, #6b0f16 0%, #2a0507 100%);
+  color: var(--gold);
+  font-family: var(--ui-font);
+  font-size: .8rem;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+
+/* shown when an Event Types photo is missing / fails to load */
+.photo-book-placeholder {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  text-align: center;
+  background: linear-gradient(180deg, #6b0f16 0%, #2a0507 100%);
+  color: rgb(255 255 255 / .6);
+  font-family: var(--ui-font);
+  font-size: .8rem;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+/* click a side / previous page to turn to it */
+.pb-hit {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  border: 0;
+  cursor: pointer;
+  background: transparent;
+}
+
+/* ---- mobile: pages are stacked top / bottom, the hinge is horizontal ---- */
+@media (max-width: 639px) {
+  /* stage height follows its width. The SAME photo runs across both pages (top half + bottom half),
+     so after the page turns you see the whole picture. Make the ratio taller (e.g. 5 / 6) to see less
+     of the sides, or shorter (e.g. 1 / 1) to see more of the sides. */
+  .photo-book-stage { height: auto; aspect-ratio: 10 / 11; }
+  .pb-leaf {
+    --ty: 0px;
+    --rx: 0deg;
+    left: 7%;
+    top: 50%;
+    width: 86%;
+    height: 47.6%;
+    transform-origin: center top;
+    transform: translateY(var(--ty)) translateZ(var(--tz)) rotateX(var(--rx));
+  }
+  .pb-leaf.is-right { --ty: 0px; --tz: 0px; --rx: 0deg; }
+  .pb-leaf.is-left { --ty: 0px; --tz: 0px; --rx: 180deg; }
+  .pb-leaf.is-stack-right {
+    --ty: calc(var(--n) * 3px + 3px);
+    --tz: calc(var(--n) * -2px - 2px);
+    --rx: 0deg;
+  }
+  .pb-leaf.is-stack-left {
+    --ty: calc(var(--n) * -3px - 3px);
+    --tz: calc(var(--n) * -2px - 2px);
+    --rx: 180deg;
+  }
+  .pb-leaf.is-far-m .pb-face,
+  .pb-leaf.is-far-m .pb-hit { opacity: 0; pointer-events: none; }
+
+  /* mobile: the pages are stacked top / bottom, so the cover is a tall panel behind both */
+  .pb-cover-base { top: calc(2.4% - 1rem); bottom: calc(2.4% - 1.2rem); width: calc(86% + 2.2rem); }
+  .pb-cover-base::before { display: none; }
+  .pb-page-block { top: calc(2.4% - .35rem); bottom: calc(2.4% - .5rem); width: calc(86% + .8rem); }
+  .pb-ribbon { left: calc(50% + .6rem); top: calc(100% - 2.8rem); width: 1.9rem; }
+
+  .pb-face-front { border-radius: 0 0 .35rem .35rem; }
+  .pb-face-back { transform: rotateX(180deg); border-radius: .35rem .35rem 0 0; }
+  .pb-face-front::before { background: linear-gradient(to bottom, color-mix(in oklab, var(--foreground) 20%, transparent), transparent 16%); }
+  .pb-face-back::before { background: linear-gradient(to top, color-mix(in oklab, var(--foreground) 22%, transparent), transparent 16%); }
+
+  /* top page = upper half of the picture, bottom page = lower half of the SAME picture */
+  .pb-spread-img { width: 100%; height: 200%; left: 0; top: 0; }
+  .pb-spread-right .pb-spread-img { left: 0; top: -100%; }
+
+  .pb-text { padding: .8rem; }
+  .pb-caption { max-width: none; padding: .7rem .9rem .8rem; }
+}
+
+.photo-book-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 6rem;            /* room for the ribbon hanging under the book */
+}
+
+/* ---- tablet / desktop ----
+   The open-book picture (event-book-cover: maroon cardboard cover + cream page + ribbon with heart charm, TRANSPARENT
+   background) is the backdrop and the pages turn on top of it. No black box, no clipping: the section pattern shows around the book. */
+.pb-stage-bg { display: none; }
+@media (min-width: 640px) {
+  .photo-book-stage {
+    height: auto;
+    aspect-ratio: 1536 / 783;          /* same shape as the picture (1536 x 783) */
+    overflow: visible;                 /* nothing is clipped, no black background */
+    background: none;
+    box-shadow: none;
+  }
+  .photo-book-stage::after { display: none; }
+  .pb-stage-bg {
+    display: block;
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    pointer-events: none;
+    user-select: none;
+    filter: drop-shadow(0 22px 20px rgb(40 0 8 / .32));   /* soft shadow that follows the book shape */
+  }
+  /* pages sit inside the cover in the picture: spine at 49.74%, each page 44.6% wide, top 3.3%, height 76.5%.
+     (a thin strip of the maroon cover stays visible around the pages, like a real hard-cover book) */
+  .pb-book { inset: 3.3% 0 auto 0; height: 76.5%; }
+  .pb-leaf { left: 49.74%; width: 44.6%; }
+  /* the picture already has the cover, page edges and ribbon */
+  .pb-cover-base, .pb-page-block, .pb-ribbon { display: none; }
+  .photo-book-controls { margin-top: 1.75rem; }
+
+  /* picture file not found -> the same kind of cover is built with CSS instead */
+  .photo-book-stage.no-bg .pb-cover-base { display: block; left: 3.7%; top: 1.7%; bottom: auto; width: 93%; height: 81%; transform: none; }
+  .photo-book-stage.no-bg .pb-page-block { display: block; left: 4.3%; top: 2.6%; bottom: auto; width: 91.4%; height: 79.5%; transform: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .photo-book,
+  .pb-leaf,
+  .pb-face,
+  .pb-dim,
+  .legacy-photo-img { transition-duration: .01ms !important; transition-delay: 0ms !important; }
+}
+
+/* ------------------------------------------------------------------ */
+/* Venue highlights — tall photo strips (staggered filmstrip)          */
+/* ------------------------------------------------------------------ */
+/* desktop / tablet: all strips in one row, every second strip sits lower */
+.venue-film {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: clamp(.15rem, .4vw, .35rem);        /* small space between the pictures */
+}
+
+.venue-card {
+  flex: 1 1 0;
+  min-width: 0;
+  max-width: 16rem;
+  margin: 0;
+  opacity: 0;
+  transform: translateY(40px);
+  transition:
+    opacity 700ms ease var(--d, 0ms),
+    transform 800ms cubic-bezier(.2,.75,.25,1) var(--d, 0ms);
+}
+.venue-card:nth-child(even) { margin-top: clamp(.75rem, 2vw, 1.5rem); }
+.venue-film.is-visible .venue-card {
+  opacity: 1;
+  transform: none;
+}
+
+.venue-card-hit {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  text-align: left;
+  -webkit-tap-highlight-color: transparent;
+}
+.venue-card-hit:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 4px;
+}
+
+.venue-card-frame {
+  position: relative;
+  display: block;
+  width: 100%;
+  aspect-ratio: 2 / 5;
+  overflow: hidden;
+  border: 0;                                /* no outer border */
+  border-radius: .2rem;
+  background: var(--wine);
+  box-shadow: 0 12px 24px color-mix(in oklab, var(--foreground) 18%, transparent);
+  transition:
+    border-color 500ms ease,
+    box-shadow 500ms ease,
+    transform 600ms cubic-bezier(.2,.75,.25,1);
+}
+/* soft shade at the bottom so the label stays readable */
+.venue-card-frame::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(to top, rgb(0 0 0 / .68), transparent 40%);
+}
+
+/* image always fills the whole strip (no crop / offset) */
+.venue-card-image {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transform: scale(1);
+  filter: brightness(.88) saturate(.95);
+  transition:
+    transform 1000ms cubic-bezier(.2,.75,.25,1),
+    filter 600ms ease;
+}
+
+/* shown when the image is missing / fails to load — no broken alt text */
+.venue-card-placeholder {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  text-align: center;
+  background: linear-gradient(180deg, #6b0f16 0%, #2a0507 100%);
+}
+.venue-card-placeholder-text {
+  color: rgb(255 255 255 / .55);
+  font-family: var(--ui-font);
+  font-size: .8rem;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+/* label chip inside the strip */
+.venue-card-chip {
+  position: absolute;
+  z-index: 2;
+  left: 50%;
+  bottom: .7rem;
+  transform: translateX(-50%);
+  max-width: calc(100% - 1.5rem);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: .28rem .75rem;
+  border: 1px solid color-mix(in oklab, var(--gold) 70%, transparent);
+  background: rgb(0 0 0 / .5);
+  backdrop-filter: blur(3px);
+  color: var(--primary-foreground);
+  font-family: var(--heading-font);
+  font-size: .8rem;
+  letter-spacing: .04em;
+  white-space: nowrap;
+  transition: background-color 400ms ease, color 400ms ease, border-color 400ms ease;
+}
+
+/* name + short note under each strip */
+.venue-card-caption {
+  display: flex;
+  flex-direction: column;
+  gap: .15rem;
+  margin-top: .75rem;
+}
+.venue-card-title {
+  font-family: var(--ui-font);
+  font-size: .8rem;
+  font-weight: 600;
+  line-height: 1.25;
+  color: var(--primary);
+}
+.venue-card-sub {
+  font-family: var(--body-font);
+  font-size: .7rem;
+  line-height: 1.3;
+  color: var(--muted-foreground);
+}
+
+/* light zoom: mouse hover on desktop, keyboard focus, finger press on touch */
+@media (hover: hover) and (pointer: fine) {
+  .venue-card-hit:hover .venue-card-frame {
+    transform: translateY(-4px);
+    box-shadow: 0 22px 40px color-mix(in oklab, var(--foreground) 28%, transparent);
+  }
+  .venue-card-hit:hover .venue-card-image {
+    transform: scale(1.08);
+    filter: none;
+  }
+  .venue-card-hit:hover .venue-card-chip {
+    background: var(--gold);
+    border-color: var(--gold);
+    color: oklch(0.2 0.02 24);
+  }
+}
+.venue-card-hit:focus-visible .venue-card-frame {
+  box-shadow: 0 22px 40px color-mix(in oklab, var(--foreground) 28%, transparent);
+}
+.venue-card-hit:focus-visible .venue-card-image,
+.venue-card-hit:active .venue-card-image {
+  transform: scale(1.07);
+  filter: none;
+}
+
+/* mobile: same strips, swipe sideways */
+@media (max-width: 767px) {
+  .venue-film {
+    justify-content: flex-start;
+    gap: .3rem;
+    margin-inline: -1.25rem;
+    padding: .75rem 1.25rem .5rem;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: 1.25rem;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+  .venue-film::-webkit-scrollbar { display: none; }
+  .venue-card {
+    flex: 0 0 44vw;
+    max-width: 12.5rem;
+    scroll-snap-align: start;
+  }
+  .venue-card:nth-child(even) { margin-top: 1rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .venue-card,
+  .venue-card-frame,
+  .venue-card-image,
+  .venue-card-chip { transition-duration: .01ms; transition-delay: 0ms !important; }
+}
+
+/* ------------------------------------------------------------------ */
+/* BLOG — hero banner, blog cards, single blog post                    */
+/* ------------------------------------------------------------------ */
+/* hero banner: wedding-hall photo + maroon shade; padding-top keeps the text clear of the fixed nav bar */
+.blog-hero {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  box-sizing: border-box;
+  min-height: 21rem;
+  padding: 8rem 1.25rem 3rem;
+  background: var(--primary);
+  color: var(--primary-foreground);
+  text-align: center;
+}
+@media (min-width: 640px)  { .blog-hero { min-height: 25rem; padding: 9rem 2rem 4rem; } }
+@media (min-width: 1024px) { .blog-hero { min-height: 32rem; padding: 11.5rem 2rem 5rem; } }   /* change these numbers to make the banner taller / shorter */
+.blog-hero-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: cover;
+  object-position: 50% 25%;
+}
+.blog-hero-shade {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(180deg,
+    color-mix(in oklab, var(--primary) 78%, transparent) 0%,
+    color-mix(in oklab, var(--primary) 58%, transparent) 45%,
+    color-mix(in oklab, var(--primary) 94%, transparent) 100%);
+}
+.blog-hero-inner {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 54rem;
+  margin-inline: auto;
+}
+.blog-eyebrow {
+  margin-bottom: .9rem;
+  color: var(--gold);
+  font-family: var(--ui-font);
+  font-size: .72rem;
+  font-weight: 700;
+  letter-spacing: .26em;
+  text-transform: uppercase;
+  text-shadow: 0 1px 4px rgb(0 0 0 / .7);
+}
+.blog-hero-title {
+  font-size: clamp(2rem, 5.2vw, 4.4rem);
+  line-height: 1.12;
+  text-wrap: balance;
+}
+.blog-hero-sub {
+  max-width: 40rem;
+  margin: 1.1rem auto 0;
+  color: rgb(255 255 255 / .9);
+  font-size: clamp(.9rem, 1.6vw, 1.1rem);
+  line-height: 1.75;
+  text-shadow: 0 1px 6px rgb(0 0 0 / .7);
+}
+.blog-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: .4rem .9rem;
+  margin-top: 1.3rem;
+  color: rgb(255 255 255 / .9);
+  font-family: var(--ui-font);
+  font-size: .8rem;
+  text-shadow: 0 1px 4px rgb(0 0 0 / .7);
+}
+.blog-meta span { display: inline-flex; align-items: center; gap: .4rem; }
+.blog-meta svg { color: var(--gold); }
+
+/* photo that fills its frame (cards + post cover) */
+.blog-fill {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: cover;
+  object-position: center;
+  transition: transform 800ms cubic-bezier(.2,.75,.25,1);
+}
+
+/* blog card */
+.blog-card {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid color-mix(in oklab, var(--gold) 65%, transparent);
+  background: var(--background);
+  box-shadow: 0 10px 26px color-mix(in oklab, var(--foreground) 12%, transparent);
+  transition: transform 500ms cubic-bezier(.2,.75,.25,1), box-shadow 500ms ease;
+}
+.blog-card-media {
+  position: relative;
+  display: block;
+  flex-shrink: 0;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  background: var(--wine);
+}
+.blog-card-media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(to top, rgb(0 0 0 / .35), transparent 45%);
+}
+.blog-card-tag {
+  position: absolute;
+  z-index: 2;
+  top: .8rem;
+  left: .8rem;
+  padding: .28rem .7rem;
+  background: var(--gold);
+  color: oklch(0.2 0.02 24);
+  font-family: var(--ui-font);
+  font-size: .68rem;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+.blog-card-body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: .6rem;
+  padding: 1.25rem 1.3rem 1.4rem;
+}
+.blog-card-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: .4rem;
+  color: var(--muted-foreground);
+  font-family: var(--ui-font);
+  font-size: .75rem;
+}
+.blog-card-meta svg { color: var(--accent); }
+.blog-card-title {
+  font-family: var(--heading-font);
+  font-size: 1.55rem;
+  font-weight: 400;
+  line-height: 1.2;
+  color: var(--primary);
+}
+.blog-card-title a { transition: color 300ms ease; }
+.blog-card-title a:hover { color: var(--wine); }
+.blog-card-excerpt {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  color: var(--muted-foreground);
+  font-size: .92rem;
+  line-height: 1.7;
+}
+@media (hover: hover) and (pointer: fine) {
+  .blog-card:hover { transform: translateY(-5px); box-shadow: 0 22px 40px color-mix(in oklab, var(--foreground) 22%, transparent); }
+  .blog-card:hover .blog-fill { transform: scale(1.06); }
+}
+
+/* the first (featured) card: photo left, text right on desktop */
+@media (min-width: 1024px) {
+  .blog-card-featured { display: grid; grid-template-columns: 1.15fr 1fr; }
+  .blog-card-featured .blog-card-media { aspect-ratio: auto; min-height: 26rem; }
+  .blog-card-featured .blog-card-body { justify-content: center; gap: .9rem; padding: 2.5rem 2.75rem; }
+  .blog-card-featured .blog-card-title { font-size: clamp(2.1rem, 3.2vw, 3rem); }
+  .blog-card-featured .blog-card-excerpt { font-size: 1.02rem; -webkit-line-clamp: 4; line-clamp: 4; }
+}
+@media (min-width: 640px) and (max-width: 1023px) {
+  .blog-card-featured .blog-card-media { aspect-ratio: 16 / 9; }
+  .blog-card-featured .blog-card-title { font-size: 2rem; }
+}
+
+/* single blog post */
+.blog-back {
+  display: inline-flex;
+  align-items: center;
+  gap: .35rem;
+  color: var(--primary);
+  font-family: var(--ui-font);
+  font-size: .85rem;
+  font-weight: 600;
+  border-bottom: 1px solid transparent;
+  transition: color 300ms ease, border-color 300ms ease;
+}
+.blog-back:hover { color: var(--wine); border-color: var(--gold); }
+.blog-cover-wrap {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  margin-top: 1.25rem;
+  overflow: hidden;
+  border: 1px solid color-mix(in oklab, var(--gold) 65%, transparent);
+  background: var(--wine);
+  box-shadow: 0 16px 36px color-mix(in oklab, var(--foreground) 18%, transparent);
+}
+@media (max-width: 639px) { .blog-cover-wrap { aspect-ratio: 4 / 3; } }
+.blog-prose {
+  max-width: 46rem;
+  margin: 2.5rem auto 0;
+  font-family: var(--body-font);
+  color: color-mix(in oklab, var(--foreground) 82%, transparent);
+}
+.blog-prose p {
+  margin-top: 1.1rem;
+  font-size: 1.05rem;
+  line-height: 1.9;
+}
+.blog-prose .blog-lead {
+  margin-top: 0;
+  padding-left: 1.1rem;
+  border-left: 2px solid var(--gold);
+  color: var(--primary);
+  font-size: clamp(1.1rem, 2vw, 1.3rem);
+  line-height: 1.8;
+}
+.blog-h2 {
+  margin-top: 2.6rem;
+  color: var(--primary);
+  font-size: clamp(1.8rem, 3.6vw, 2.6rem);
+  line-height: 1.15;
+}
+@media (max-width: 639px) {
+  .blog-prose p { font-size: 1rem; line-height: 1.85; }
+}
+
+/* call-to-action box at the end of the blog pages */
+.blog-cta {
+  padding: 2.5rem 1.5rem;
+  border: 1px solid var(--gold);
+  background:
+    radial-gradient(circle at 15% 0%, color-mix(in oklab, var(--gold) 22%, transparent), transparent 55%),
+    var(--primary);
+  color: var(--primary-foreground);
+  text-align: center;
+  box-shadow: 0 16px 36px color-mix(in oklab, var(--foreground) 22%, transparent);
+}
+@media (min-width: 768px) { .blog-cta { padding: 3.25rem 3rem; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .blog-card,
+  .blog-fill { transition-duration: .01ms; }
+}
+
+/* ------------------------------------------------------------------ */
+/* Dark theme                                                          */
+/* ------------------------------------------------------------------ */
+.dark {
+  --background: oklch(0.129 0.042 264.695);
+  --foreground: oklch(0.984 0.003 247.858);
+  --card: oklch(0.208 0.042 265.755);
+  --card-foreground: oklch(0.984 0.003 247.858);
+  --popover: oklch(0.208 0.042 265.755);
+  --popover-foreground: oklch(0.984 0.003 247.858);
+  --primary: oklch(0.929 0.013 255.508);
+  --primary-foreground: oklch(0.208 0.042 265.755);
+  --secondary: oklch(0.279 0.041 260.031);
+  --secondary-foreground: oklch(0.984 0.003 247.858);
+  --muted: oklch(0.279 0.041 260.031);
+  --muted-foreground: oklch(0.704 0.04 256.788);
+  --accent: oklch(0.279 0.041 260.031);
+  --accent-foreground: oklch(0.984 0.003 247.858);
+  --destructive: oklch(0.704 0.191 22.216);
+  --destructive-foreground: oklch(0.984 0.003 247.858);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: oklch(0.551 0.027 264.364);
+  --chart-1: oklch(0.488 0.243 264.376);
+  --chart-2: oklch(0.696 0.17 162.48);
+  --chart-3: oklch(0.769 0.188 70.08);
+  --chart-4: oklch(0.627 0.265 303.9);
+  --chart-5: oklch(0.645 0.246 16.439);
+  --sidebar: oklch(0.208 0.042 265.755);
+  --sidebar-foreground: oklch(0.984 0.003 247.858);
+  --sidebar-primary: oklch(0.488 0.243 264.376);
+  --sidebar-primary-foreground: oklch(0.984 0.003 247.858);
+  --sidebar-accent: oklch(0.279 0.041 260.031);
+  --sidebar-accent-foreground: oklch(0.984 0.003 247.858);
+  --sidebar-border: oklch(1 0 0 / 10%);
+  --sidebar-ring: oklch(0.551 0.027 264.364);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--body-font);
+    letter-spacing: 0;
+  }
+  h1, h2, h3, .section-title {
+    font-family: var(--heading-font);
+    font-weight: 400;
+    letter-spacing: 0.02em;
+  }
+  p, li { font-family: var(--body-font); }
+  nav, button, a, .stat-number { font-family: var(--ui-font); }
+  html { scroll-behavior: smooth; }
+  button, a, input, select { outline-offset: 4px; }
+  :focus-visible { outline: 2px solid var(--ring); }
+}
+
+@utility paper-texture {
+  background-image: radial-gradient(color-mix(in oklab, var(--foreground) 7%, transparent) .55px, transparent .55px);
+  background-size: 7px 7px;
+}
+
+@utility display-heading {
+  font-family: var(--font-malisha);
+  font-weight: 400;
+  line-height: 1.08;
+  letter-spacing: 0;
+}
+
+@keyframes scrollMark { 0%,100% { transform: translateY(0); opacity:.45 } 50% { transform: translateY(10px); opacity:1 } }
+@keyframes reveal { from { opacity:0; transform:translateY(22px) } to { opacity:1; transform:none } }
+.reveal { animation: reveal .8s ease both; animation-timeline: view(); animation-range: entry 10% cover 28%; }
+.scroll-mark { animation: scrollMark 1.8s ease-in-out infinite; }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior:auto; }
+  *, *::before, *::after { animation-duration:.01ms !important; animation-iteration-count:1 !important; transition-duration:.01ms !important; }
+}
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@font-face {
+  font-family: "Malisha";
+  src: url("/fonts/Malisha.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * Design system definition.
+ *
+ * The @theme inline block maps CSS custom properties to Tailwind utility
+ * classes (e.g. --color-primary -> bg-primary, text-primary).
+ *
+ * The :root and .dark blocks define the actual color values using oklch.
+ * All colors MUST use oklch format.
+ *
+ * To add a new semantic color:
+ * 1. Add the variable to :root (light value) and .dark (dark value)
+ * 2. Register it in @theme inline as --color-<name>: var(--<name>)
+ */
+
+@theme inline {
+  --font-display: var(--font-malisha);
+  --font-body: var(--body-font);
+  --font-ui: var(--ui-font);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+  --radius-4xl: calc(var(--radius) + 16px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-ring-offset-background: var(--background);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+:root {
+  --radius: 0.25rem;
+  --heading-font: "Malisha", "Italiana", Georgia, serif;
+  --body-font: "DM Sans", Arial, sans-serif;
+  --ui-font: "Manrope", "DM Sans", Arial, sans-serif;
+  --font-malisha: var(--heading-font);
+  --font-sans: var(--body-font);
+  --background: oklch(0.993 0.008 76);
+  --foreground: oklch(0.25 0.012 24);
+  --card: oklch(1 0.004 75);
+  --card-foreground: oklch(0.25 0.012 24);
+  --popover: oklch(0.993 0.008 76);
+  --popover-foreground: oklch(0.25 0.012 24);
+  --primary: oklch(0.275 0.104 25);
+  --primary-foreground: oklch(0.993 0.008 76);
+  --secondary: oklch(0.944 0.03 53);
+  --secondary-foreground: oklch(0.275 0.104 25);
+  --muted: oklch(0.958 0.024 72);
+  --muted-foreground: oklch(0.51 0.018 24);
+  --accent: oklch(0.719 0.088 44);
+  --accent-foreground: oklch(0.993 0.008 76);
+  --destructive: oklch(0.577 0.245 27.325);
+  --destructive-foreground: oklch(0.984 0.003 247.858);
+  --border: oklch(0.746 0.088 77);
+  --input: oklch(0.82 0.028 54);
+  --ring: oklch(0.53 0.15 25);
+  --wine: oklch(0.36 0.13 24);
+  --gold: oklch(0.72 0.1 78);
+  --parchment: oklch(0.958 0.024 72);
+  --blush: oklch(0.91 0.04 43);
+  --chart-1: oklch(0.646 0.222 41.116);
+  --chart-2: oklch(0.6 0.118 184.704);
+  --chart-3: oklch(0.398 0.07 227.392);
+  --chart-4: oklch(0.828 0.189 84.429);
+  --chart-5: oklch(0.769 0.188 70.08);
+  --sidebar: oklch(0.984 0.003 247.858);
+  --sidebar-foreground: oklch(0.129 0.042 264.695);
+  --sidebar-primary: oklch(0.208 0.042 265.755);
+  --sidebar-primary-foreground: oklch(0.984 0.003 247.858);
+  --sidebar-accent: oklch(0.968 0.007 247.896);
+  --sidebar-accent-foreground: oklch(0.208 0.042 265.755);
+  --sidebar-border: oklch(0.929 0.013 255.508);
+  --sidebar-ring: oklch(0.704 0.04 256.788);
+}
+
+@theme inline {
+  --color-wine: var(--wine);
+  --color-gold: var(--gold);
+  --color-parchment: var(--parchment);
+  --color-blush: var(--blush);
+  --color-photo-frame: var(--photo-frame);
+}
+
+:root, .dark {
+  --photo-frame: oklch(1 0 0);
+}
+
+.gallery-viewport {
+  scrollbar-width: none;
+}
+.gallery-viewport::-webkit-scrollbar {
+  display: none;
+}
+
+/* ------------------------------------------------------------------ */
+/* SECTION SHELL — ONE common left / right space for every section      */
+/* header logo, Our Legacy, Our Halls, Why Choose, Event Types title,   */
+/* Facilities, Venue Highlights, Blog and Footer all use this class,    */
+/* so their LEFT edge is exactly the same on mobile, tablet and desktop. */
+/* To change the left space everywhere, change only the two paddings.   */
+/* ------------------------------------------------------------------ */
+.section-shell {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 80rem;              /* = max-w-7xl */
+  margin-inline: auto;
+  padding-inline: 1.25rem;       /* mobile left / right space */
+}
+@media (min-width: 768px) {
+  .section-shell { padding-inline: 2.5rem; }   /* tablet + desktop left / right space */
+}
+
+/* ------------------------------------------------------------------ */
+/* Nav bar — sandal colour bar with a golden stroke */
+/* ------------------------------------------------------------------ */
+.nav-frame {
+  background: linear-gradient(180deg, #f8edd2 0%, #ecdab0 100%);   /* sandal */
+  border-bottom: 2px solid #b88a2c;                                 /* gold line under the bar */
+  color: var(--primary);
+}
+.nav-frame::after {
+  content: "";
+  position: absolute;
+  inset: .4rem;
+  border: 1px solid #c79a3a;                                        /* gold frame inside the bar */
+  pointer-events: none;
+}
+@media (min-width: 768px) { .nav-frame::after { inset: .5rem; } }
+/* the nav logo is the real MAROON logo (transparent png) — shown exactly as it is, no colour filter.
+   Logo height is set in index.tsx (h-14 / md:h-16 / lg:h-20); if you change it, change .hero-section padding-top below too. */
+.nav-logo {
+  display: block;
+  max-width: none;
+  user-select: none;
+}
+
+/* ------------------------------------------------------------------ */
+/* Hero banner — wine nav bar on top, photo fills the rest of the FIRST screen */
+/* ------------------------------------------------------------------ */
+.hero-section {
+  box-sizing: border-box;
+  height: 100vh;            /* fallback for old browsers */
+  height: 100svh;           /* visible screen height */
+  min-height: 36rem;
+  padding-top: 5rem;        /* = height of the fixed nav bar (mobile: logo 3.5rem + 1.5rem padding) */
+}
+@media (min-width: 768px)  { .hero-section { padding-top: 6rem; } }
+@media (min-width: 1024px) { .hero-section { padding-top: 7rem; } }  /* if the nav bar looks taller / shorter, change these 3 numbers */
+
+/* transparent maroon fade, 5 cm high, along the bottom edge of the banner — sits UNDER the text / buttons */
+.hero-bottom-fade {
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  height: 5cm;            /* change this number to make the fade taller / shorter */
+  pointer-events: none;
+  background: linear-gradient(to top,
+    color-mix(in oklab, var(--primary) 96%, transparent) 0%,
+    color-mix(in oklab, var(--primary) 78%, transparent) 30%,
+    color-mix(in oklab, var(--primary) 40%, transparent) 65%,
+    transparent 100%);
+}
+.hero-image {
+  object-position: 50% 0%;  /* keeps the top of the photo (wall + mandapam top) under the heading */
+}
+@media (max-width: 767px) {
+  .hero-image { object-position: 50% 12%; }
+}
+/* gold heading, clear on the red wall (no shade boxes) */
+.hero-title-gold {
+  background: linear-gradient(180deg, #ffe9a8 0%, #f6cf62 45%, #e0a63a 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 2px 2px rgb(0 0 0 / .6)) drop-shadow(0 0 10px rgb(60 0 8 / .6));
+  letter-spacing: .01em;
+}
+
+/* ------------------------------------------------------------------ */
+/* Our Legacy — the ENVELOPE picture (qqr.png, 1920 x 870) is the section background.   */
+/* 3 photos are laid exactly over its 2 photo frames + small stamp (3 layers below).    */
+/*                                                                                      */
+/* HOW IT IS BUILT                                                                      */
+/*   .legacy-stage   = box that crops the picture on mobile / tablet                    */
+/*   .legacy-canvas  = the picture + the photos. It always has the picture's own shape  */
+/*                     (1920 / 870), so every % below is a % of the PICTURE and the     */
+/*                     photos can never drift away from their frames.                   */
+/*   .legacy-clip-N  = hides the part of a photo that the envelope flap / stamp / other */
+/*                     frame covers (so the photo looks like it is really inside).      */
+/*   .legacy-photo-N = position, size and tilt of one frame.                            */
+/* The text is wrapped in .section-shell (in index.tsx) so its left edge matches every  */
+/* other section.                                                                       */
+/* ------------------------------------------------------------------ */
+.legacy-section {
+  position: relative;
+  overflow: hidden;
+  background-color: #f6ebd1;   /* paper colour of the envelope picture */
+  padding-top: 3rem;
+}
+.legacy-content {
+  width: 100%;
+}
+.legacy-copy {
+  max-width: 42rem;
+  margin-inline: auto;
+}
+
+/* mobile: show the right part of the picture (envelope + stamps) — x from about 900 to 1920.
+   Make the ratio taller (e.g. 1 / 1) to see less, or wider (e.g. 4 / 3) to see more of the left paper. */
+.legacy-stage {
+  position: relative;
+  width: 100%;
+  margin-top: 1.5rem;
+  aspect-ratio: 7 / 6;
+  overflow: hidden;
+}
+/* canvas keeps the picture's shape and is pushed to the right edge of the stage */
+.legacy-canvas {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;
+  aspect-ratio: 1920 / 870;
+}
+.legacy-bg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  pointer-events: none;
+  user-select: none;
+}
+/* tablet: a little more of the picture */
+@media (min-width: 640px) and (max-width: 1023px) {
+  .legacy-stage { aspect-ratio: 3 / 2; }
+}
+/* desktop: the whole picture, text laid over its empty left side */
+@media (min-width: 1024px) {
+  .legacy-section { padding-top: 0; }
+  .legacy-content {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    padding-block: 1.5rem;
+  }
+  .legacy-copy {
+    width: min(43%, 36rem);       /* text stays inside the empty left area of the picture (% of the shell width) */
+    max-width: none;
+    margin: 0;
+  }
+  .legacy-stage {
+    margin-top: 0;
+    aspect-ratio: 1920 / 870;
+    overflow: visible;
+  }
+  .legacy-canvas {
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+/* ---- photos on the envelope ----
+   EVERY number below was MEASURED on the real envelope picture (qqr.png, 1920 x 870):
+   each photo box = the exact inside of one empty frame (same size, same tilt angle), so the photo
+   fills the frame completely and never goes over its stamp-edge border.
+     Frame 1 (big, left)   centre 1176,365   287 x 392 px   tilt -10.7deg
+     Frame 2 (behind it)   centre 1418,429   229 x 320 px   tilt  16.1deg
+     Frame 3 (small stamp) centre 1566,461   143 x 143 px   tilt  18deg
+   left / top / width / height are % of the picture, so it stays exact on every screen size.
+   The clip-path of each frame (below) only hides what the real envelope covers (flap, stamp,
+   the border of the other frame) — so nothing sticks out of a frame. */
+.legacy-photos {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.legacy-clip {
+  position: absolute;
+  inset: 0;
+}
+/* Frame 2 (behind): visible part only = inside its own frame, right of frame 1's border, above the envelope flap, left of the stamp */
+.legacy-clip-2 {
+  clip-path: polygon(70.42% 28.05%, 81.77% 35.29%, 80.83% 42.07%, 79.01% 41.15%, 75.94% 58.28%, 71.56% 63.56%, 69.17% 37.82%);
+}
+/* Frame 1 (big): visible part only = inside its frame, above the left flap and the front flap of the envelope */
+.legacy-clip-1 {
+  clip-path: polygon(52.08% 22.99%, 66.67% 16.90%, 70.42% 60.92%, 63.02% 64.14%, 61.25% 64.25%, 60.26% 62.99%, 54.27% 50.57%);
+}
+.legacy-photo {
+  position: absolute;
+  overflow: hidden;
+  box-sizing: border-box;
+  background: #f3e8cc;          /* paper colour — only seen for a split second if a photo is still loading */
+}
+/* very soft inner shadow so the photo looks printed into the frame (does not change the size) */
+.legacy-photo::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  box-shadow: inset 0 0 0 1px rgb(90 60 20 / .18), inset 0 0 9px rgb(70 40 10 / .22);
+}
+/* Frame 1 — big frame, tilted left */
+.legacy-photo-1 { left: 53.78%; top: 19.43%; width: 14.95%; height: 45.06%; transform: rotate(-10.7deg); }
+/* Frame 2 — frame behind it, tilted right */
+.legacy-photo-2 { left: 67.87%; top: 30.97%; width: 11.93%; height: 36.78%; transform: rotate(16.1deg); }
+/* Frame 3 — small stamp on the right: hall photo, does not swap */
+.legacy-photo-3 { left: 77.83%; top: 44.74%; width: 7.45%; height: 16.44%; transform: rotate(18deg); }
+
+/* both photos of a frame are stacked; the one with .is-on fades in (frames 1 and 2 trade photos every 3 s — LEGACY_SWAP_MS in index.tsx).
+   object-fit: cover = the photo fills its frame edge to edge (the extra side part of the photo stays hidden INSIDE the frame). */
+.legacy-photo-img {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: cover;
+  opacity: 0;
+  transform: scale(1.02);
+  transition: opacity 900ms ease, transform 1400ms cubic-bezier(.2,.75,.25,1);
+}
+.legacy-photo-img.is-on {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* ------------------------------------------------------------------ */
+/* Our Halls — Max Hall and Mini Hall photos are the SAME size          */
+/* (same 4:3 box, same column width in the grid)                        */
+/* ------------------------------------------------------------------ */
+.hall-photo {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 3;      /* both halls: same size. Use 3 / 2 to show more of the sides */
+  object-fit: cover;
+  object-position: center;
+}
+.hall-photo-max { object-position: 50% 50%; }   /* change if Max Hall needs a different crop */
+.hall-photo-mini { object-position: 50% 50%; }  /* change if Mini Hall needs a different crop */
+
+/* ------------------------------------------------------------------ */
+/* Event Types section — mandala pattern background (image set in index.tsx) */
+/* ------------------------------------------------------------------ */
+.events-section {
+  background-color: #fff3d4;          /* shown if the picture is missing */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* ------------------------------------------------------------------ */
+/* Photo book — real page turning (Event Types)                        */
+/* each page is a leaf hinged on the spine; only the turned page moves */
+/* (the book turns pages automatically every 3 s — AUTO_FLIP_MS in index.tsx) */
+/* ------------------------------------------------------------------ */
+.photo-book {
+  position: relative;
+  outline: none;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 800ms ease, transform 800ms cubic-bezier(.2,.75,.25,1);
+  touch-action: pan-y;
+  user-select: none;
+  -webkit-user-select: none;
+}
+.photo-book.is-visible { opacity: 1; transform: none; }
+.photo-book:focus-visible .photo-book-stage {
+  outline: 2px solid var(--ring);
+  outline-offset: 6px;
+}
+
+.photo-book-stage {
+  position: relative;
+  height: 29rem;
+  perspective: 3600px;
+  perspective-origin: 50% 50%;
+}
+@media (min-width: 640px) {
+  .photo-book-stage { height: clamp(24rem, 42vw, 31rem); }
+}
+/* soft floor shadow under the book */
+.photo-book-stage::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -1.4rem;
+  width: min(80%, 52rem);
+  height: 1.6rem;
+  transform: translateX(-50%);
+  background: radial-gradient(closest-side, color-mix(in oklab, var(--foreground) 28%, transparent), transparent);
+  pointer-events: none;
+}
+
+/* hard cover under the open book — maroon cloth-covered cardboard board with a visible edge (same look as the cover picture) */
+.pb-cover-base {
+  position: absolute;
+  left: 50%;
+  top: -1.1rem;
+  bottom: -1.3rem;
+  width: calc(min(44%, 27rem) * 2 + 2.8rem);
+  transform: translateX(-50%);
+  border-radius: .35rem .35rem .45rem .45rem;
+  background:
+    repeating-linear-gradient(45deg, rgb(255 255 255 / .035) 0 1px, transparent 1px 3px),     /* cloth weave */
+    repeating-linear-gradient(-45deg, rgb(0 0 0 / .09) 0 1px, transparent 1px 3px),
+    linear-gradient(135deg, #7d0f1f 0%, #650716 55%, #4a0510 100%);                           /* maroon */
+  box-shadow:
+    0 .4rem 0 #2f050a,                         /* thickness of the board */
+    0 .4rem 0 1px rgb(0 0 0 / .3),
+    0 34px 40px -16px rgb(0 0 0 / .6),         /* shadow on the table */
+    inset 0 0 0 1px rgb(255 255 255 / .07),
+    inset 0 3px 8px rgb(255 255 255 / .14);    /* light catching the top edge */
+  pointer-events: none;
+}
+/* thin fold line inside the cover edge */
+.pb-cover-base::after {
+  content: "";
+  position: absolute;
+  inset: .32rem;
+  border: 1px solid rgb(255 255 255 / .1);
+  border-radius: .25rem;
+}
+/* hinge shadow along the spine */
+.pb-cover-base::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: .9rem;
+  transform: translateX(-50%);
+  background: linear-gradient(90deg, transparent, rgb(0 0 0 / .4), transparent);
+}
+/* the paper block: page edges peeking out around the open pages */
+.pb-page-block {
+  position: absolute;
+  left: 50%;
+  top: -.4rem;
+  bottom: -.55rem;
+  width: calc(min(44%, 27rem) * 2 + .9rem);
+  transform: translateX(-50%);
+  border-radius: .2rem;
+  background:
+    repeating-linear-gradient(to bottom, transparent 0 3px, rgb(120 90 40 / .16) 3px 4px),
+    linear-gradient(to bottom, #fbf3df, #eadcbd);
+  box-shadow: 0 2px 6px rgb(0 0 0 / .35);
+  pointer-events: none;
+}
+/* ribbon bookmark + heart charm: comes out from under the book and hangs below it */
+.pb-ribbon {
+  position: absolute;
+  left: calc(50% + 1.3rem);
+  top: calc(100% - 2.3rem);
+  width: 2.2rem;
+  height: auto;
+  overflow: visible;
+  filter: drop-shadow(0 4px 4px rgb(0 0 0 / .35));
+  pointer-events: none;
+}
+
+.pb-book {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+}
+
+/* ---- one page (leaf) ---- */
+.pb-leaf {
+  --n: 0;
+  --tx: 0px;
+  --tz: 0px;
+  --ry: 0deg;
+  position: absolute;
+  top: 0;
+  left: 50%;                 /* left edge of the leaf = the spine */
+  width: min(44%, 27rem);
+  height: 100%;
+  transform-origin: left center;
+  transform-style: preserve-3d;
+  transform: translateX(var(--tx)) translateZ(var(--tz)) rotateY(var(--ry));
+  transition: transform 1000ms cubic-bezier(.645,.045,.355,1);
+  will-change: transform;
+}
+/* page on the right of the open spread (not yet turned) */
+.pb-leaf.is-right { --tx: 0px; --tz: 0px; --ry: 0deg; }
+/* page on the left of the open spread (already turned over the spine) */
+.pb-leaf.is-left { --tx: 0px; --tz: 0px; --ry: -180deg; }
+/* pages waiting on the right — lie flat under the open page, only their edges peek out */
+.pb-leaf.is-stack-right {
+  --tx: calc(var(--n) * 3px + 3px);
+  --tz: calc(var(--n) * -2px - 2px);
+  --ry: 0deg;
+}
+/* pages already read — lie flat under the left page, only their edges peek out */
+.pb-leaf.is-stack-left {
+  --tx: calc(var(--n) * -3px - 3px);
+  --tz: calc(var(--n) * -2px - 2px);
+  --ry: -180deg;
+}
+.pb-leaf.is-far .pb-face,
+.pb-leaf.is-far .pb-hit { opacity: 0; pointer-events: none; }
+
+/* ---- the two sides of a page ---- */
+.pb-face {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  background: #fffaf0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  transition: opacity 500ms ease;
+  box-shadow: 0 10px 24px -14px color-mix(in oklab, var(--foreground) 40%, transparent);
+}
+.pb-face-front { border-radius: 0 .35rem .35rem 0; }
+.pb-face-back {
+  transform: rotateY(180deg);
+  border-radius: .35rem 0 0 .35rem;
+  background: #fffdf8;
+}
+/* paper curl towards the spine */
+.pb-face::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+}
+.pb-face-front::before { background: linear-gradient(to right, color-mix(in oklab, var(--foreground) 20%, transparent), transparent 16%); }
+.pb-face-back::before { background: linear-gradient(to left, color-mix(in oklab, var(--foreground) 22%, transparent), transparent 16%); }
+
+/* dims pages that are not part of the open spread */
+.pb-dim {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  pointer-events: none;
+  background: color-mix(in oklab, var(--wine) 55%, transparent);
+  opacity: 0;
+  transition: opacity 700ms ease;
+}
+.pb-leaf.is-stack-left .pb-dim,
+.pb-leaf.is-stack-right .pb-dim { opacity: .25; }
+
+/* photo spread — ONE picture runs across the left page + the right page */
+.pb-spread { position: absolute; inset: 0; overflow: hidden; background: #2a0507; }
+.pb-spread-img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
+  width: 200%;             /* the picture is as wide as BOTH pages together */
+  max-width: none;         /* (Tailwind would otherwise shrink it to 100% and the right page stays empty) */
+  height: 100%;
+  object-fit: cover;       /* fills the whole book edge to edge */
+}
+.pb-spread-right .pb-spread-img { left: -100%; }  /* right page shows the right half */
+.pb-blank { position: absolute; inset: 0; }
+
+/* title box on the photo (right page, bottom-left) */
+.pb-text {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 1.1rem 1.1rem 1.25rem 1.6rem;
+  pointer-events: none;
+}
+.pb-caption {
+  max-width: 22rem;
+  padding: .85rem 1.1rem 1rem;
+  border-left: 2px solid var(--gold);
+  background: rgb(20 4 6 / .62);
+  backdrop-filter: blur(4px);
+}
+.pb-caption h3 { color: #fff !important; text-shadow: 0 2px 10px rgb(0 0 0 / .5); }
+.pb-caption p { color: rgb(255 255 255 / .86) !important; }
+.photo-book-folio {
+  color: var(--gold);
+  font-family: var(--ui-font);
+  font-size: .65rem;
+  font-weight: 700;
+  letter-spacing: .2em;
+}
+
+/* cover leaf (always hidden behind the first photo — only a stand-in) */
+.pb-cover {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  text-align: center;
+  background: linear-gradient(180deg, #6b0f16 0%, #2a0507 100%);
+  color: var(--gold);
+  font-family: var(--ui-font);
+  font-size: .8rem;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+
+/* shown when an Event Types photo is missing / fails to load */
+.photo-book-placeholder {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  text-align: center;
+  background: linear-gradient(180deg, #6b0f16 0%, #2a0507 100%);
+  color: rgb(255 255 255 / .6);
+  font-family: var(--ui-font);
+  font-size: .8rem;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+/* click a side / previous page to turn to it */
+.pb-hit {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  border: 0;
+  cursor: pointer;
+  background: transparent;
+}
+
+/* ---- mobile: pages are stacked top / bottom, the hinge is horizontal ---- */
+@media (max-width: 639px) {
+  /* stage height follows its width. The SAME photo runs across both pages (top half + bottom half),
+     so after the page turns you see the whole picture. Make the ratio taller (e.g. 5 / 6) to see less
+     of the sides, or shorter (e.g. 1 / 1) to see more of the sides. */
+  .photo-book-stage { height: auto; aspect-ratio: 10 / 11; }
+  .pb-leaf {
+    --ty: 0px;
+    --rx: 0deg;
+    left: 7%;
+    top: 50%;
+    width: 86%;
+    height: 47.6%;
+    transform-origin: center top;
+    transform: translateY(var(--ty)) translateZ(var(--tz)) rotateX(var(--rx));
+  }
+  .pb-leaf.is-right { --ty: 0px; --tz: 0px; --rx: 0deg; }
+  .pb-leaf.is-left { --ty: 0px; --tz: 0px; --rx: 180deg; }
+  .pb-leaf.is-stack-right {
+    --ty: calc(var(--n) * 3px + 3px);
+    --tz: calc(var(--n) * -2px - 2px);
+    --rx: 0deg;
+  }
+  .pb-leaf.is-stack-left {
+    --ty: calc(var(--n) * -3px - 3px);
+    --tz: calc(var(--n) * -2px - 2px);
+    --rx: 180deg;
+  }
+  .pb-leaf.is-far-m .pb-face,
+  .pb-leaf.is-far-m .pb-hit { opacity: 0; pointer-events: none; }
+
+  /* mobile: the pages are stacked top / bottom, so the cover is a tall panel behind both */
+  .pb-cover-base { top: calc(2.4% - 1rem); bottom: calc(2.4% - 1.2rem); width: calc(86% + 2.2rem); }
+  .pb-cover-base::before { display: none; }
+  .pb-page-block { top: calc(2.4% - .35rem); bottom: calc(2.4% - .5rem); width: calc(86% + .8rem); }
+  .pb-ribbon { left: calc(50% + .6rem); top: calc(100% - 2.8rem); width: 1.9rem; }
+
+  .pb-face-front { border-radius: 0 0 .35rem .35rem; }
+  .pb-face-back { transform: rotateX(180deg); border-radius: .35rem .35rem 0 0; }
+  .pb-face-front::before { background: linear-gradient(to bottom, color-mix(in oklab, var(--foreground) 20%, transparent), transparent 16%); }
+  .pb-face-back::before { background: linear-gradient(to top, color-mix(in oklab, var(--foreground) 22%, transparent), transparent 16%); }
+
+  /* top page = upper half of the picture, bottom page = lower half of the SAME picture */
+  .pb-spread-img { width: 100%; height: 200%; left: 0; top: 0; }
+  .pb-spread-right .pb-spread-img { left: 0; top: -100%; }
+
+  .pb-text { padding: .8rem; }
+  .pb-caption { max-width: none; padding: .7rem .9rem .8rem; }
+}
+
+.photo-book-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 6rem;            /* room for the ribbon hanging under the book */
+}
+
+/* ---- tablet / desktop ----
+   The open-book picture (event-book-cover: maroon cardboard cover + cream page + ribbon with heart charm, TRANSPARENT
+   background) is the backdrop and the pages turn on top of it. No black box, no clipping: the section pattern shows around the book. */
+.pb-stage-bg { display: none; }
+@media (min-width: 640px) {
+  .photo-book-stage {
+    height: auto;
+    aspect-ratio: 1536 / 783;          /* same shape as the picture (1536 x 783) */
+    overflow: visible;                 /* nothing is clipped, no black background */
+    background: none;
+    box-shadow: none;
+  }
+  .photo-book-stage::after { display: none; }
+  .pb-stage-bg {
+    display: block;
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    pointer-events: none;
+    user-select: none;
+    filter: drop-shadow(0 22px 20px rgb(40 0 8 / .32));   /* soft shadow that follows the book shape */
+  }
+  /* pages sit inside the cover in the picture: spine at 49.74%, each page 44.6% wide, top 3.3%, height 76.5%.
+     (a thin strip of the maroon cover stays visible around the pages, like a real hard-cover book) */
+  .pb-book { inset: 3.3% 0 auto 0; height: 76.5%; }
+  .pb-leaf { left: 49.74%; width: 44.6%; }
+  /* the picture already has the cover, page edges and ribbon */
+  .pb-cover-base, .pb-page-block, .pb-ribbon { display: none; }
+  .photo-book-controls { margin-top: 1.75rem; }
+
+  /* picture file not found -> the same kind of cover is built with CSS instead */
+  .photo-book-stage.no-bg .pb-cover-base { display: block; left: 3.7%; top: 1.7%; bottom: auto; width: 93%; height: 81%; transform: none; }
+  .photo-book-stage.no-bg .pb-page-block { display: block; left: 4.3%; top: 2.6%; bottom: auto; width: 91.4%; height: 79.5%; transform: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .photo-book,
+  .pb-leaf,
+  .pb-face,
+  .pb-dim,
+  .legacy-photo-img { transition-duration: .01ms !important; transition-delay: 0ms !important; }
+}
+
+/* ------------------------------------------------------------------ */
+/* Venue highlights — tall photo strips (staggered filmstrip)          */
+/* ------------------------------------------------------------------ */
+/* desktop / tablet: all strips in one row, every second strip sits lower */
+.venue-film {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: clamp(.15rem, .4vw, .35rem);        /* small space between the pictures */
+}
+
+.venue-card {
+  flex: 1 1 0;
+  min-width: 0;
+  max-width: 16rem;
+  margin: 0;
+  opacity: 0;
+  transform: translateY(40px);
+  transition:
+    opacity 700ms ease var(--d, 0ms),
+    transform 800ms cubic-bezier(.2,.75,.25,1) var(--d, 0ms);
+}
+.venue-card:nth-child(even) { margin-top: clamp(.75rem, 2vw, 1.5rem); }
+.venue-film.is-visible .venue-card {
+  opacity: 1;
+  transform: none;
+}
+
+.venue-card-hit {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  text-align: left;
+  -webkit-tap-highlight-color: transparent;
+}
+.venue-card-hit:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 4px;
+}
+
+.venue-card-frame {
+  position: relative;
+  display: block;
+  width: 100%;
+  aspect-ratio: 2 / 5;
+  overflow: hidden;
+  border: 0;                                /* no outer border */
+  border-radius: .2rem;
+  background: var(--wine);
+  box-shadow: 0 12px 24px color-mix(in oklab, var(--foreground) 18%, transparent);
+  transition:
+    border-color 500ms ease,
+    box-shadow 500ms ease,
+    transform 600ms cubic-bezier(.2,.75,.25,1);
+}
+/* soft shade at the bottom so the label stays readable */
+.venue-card-frame::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(to top, rgb(0 0 0 / .68), transparent 40%);
+}
+
+/* image always fills the whole strip (no crop / offset) */
+.venue-card-image {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transform: scale(1);
+  filter: brightness(.88) saturate(.95);
+  transition:
+    transform 1000ms cubic-bezier(.2,.75,.25,1),
+    filter 600ms ease;
+}
+
+/* shown when the image is missing / fails to load — no broken alt text */
+.venue-card-placeholder {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  text-align: center;
+  background: linear-gradient(180deg, #6b0f16 0%, #2a0507 100%);
+}
+.venue-card-placeholder-text {
+  color: rgb(255 255 255 / .55);
+  font-family: var(--ui-font);
+  font-size: .8rem;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+/* label chip inside the strip */
+.venue-card-chip {
+  position: absolute;
+  z-index: 2;
+  left: 50%;
+  bottom: .7rem;
+  transform: translateX(-50%);
+  max-width: calc(100% - 1.5rem);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: .28rem .75rem;
+  border: 1px solid color-mix(in oklab, var(--gold) 70%, transparent);
+  background: rgb(0 0 0 / .5);
+  backdrop-filter: blur(3px);
+  color: var(--primary-foreground);
+  font-family: var(--heading-font);
+  font-size: .8rem;
+  letter-spacing: .04em;
+  white-space: nowrap;
+  transition: background-color 400ms ease, color 400ms ease, border-color 400ms ease;
+}
+
+/* name + short note under each strip */
+.venue-card-caption {
+  display: flex;
+  flex-direction: column;
+  gap: .15rem;
+  margin-top: .75rem;
+}
+.venue-card-title {
+  font-family: var(--ui-font);
+  font-size: .8rem;
+  font-weight: 600;
+  line-height: 1.25;
+  color: var(--primary);
+}
+.venue-card-sub {
+  font-family: var(--body-font);
+  font-size: .7rem;
+  line-height: 1.3;
+  color: var(--muted-foreground);
+}
+
+/* light zoom: mouse hover on desktop, keyboard focus, finger press on touch */
+@media (hover: hover) and (pointer: fine) {
+  .venue-card-hit:hover .venue-card-frame {
+    transform: translateY(-4px);
+    box-shadow: 0 22px 40px color-mix(in oklab, var(--foreground) 28%, transparent);
+  }
+  .venue-card-hit:hover .venue-card-image {
+    transform: scale(1.08);
+    filter: none;
+  }
+  .venue-card-hit:hover .venue-card-chip {
+    background: var(--gold);
+    border-color: var(--gold);
+    color: oklch(0.2 0.02 24);
+  }
+}
+.venue-card-hit:focus-visible .venue-card-frame {
+  box-shadow: 0 22px 40px color-mix(in oklab, var(--foreground) 28%, transparent);
+}
+.venue-card-hit:focus-visible .venue-card-image,
+.venue-card-hit:active .venue-card-image {
+  transform: scale(1.07);
+  filter: none;
+}
+
+/* mobile: same strips, swipe sideways */
+@media (max-width: 767px) {
+  .venue-film {
+    justify-content: flex-start;
+    gap: .3rem;
+    margin-inline: -1.25rem;
+    padding: .75rem 1.25rem .5rem;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: 1.25rem;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+  .venue-film::-webkit-scrollbar { display: none; }
+  .venue-card {
+    flex: 0 0 44vw;
+    max-width: 12.5rem;
+    scroll-snap-align: start;
+  }
+  .venue-card:nth-child(even) { margin-top: 1rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .venue-card,
+  .venue-card-frame,
+  .venue-card-image,
+  .venue-card-chip { transition-duration: .01ms; transition-delay: 0ms !important; }
+}
+
+/* ------------------------------------------------------------------ */
+/* BLOG — hero banner, blog cards, single blog post                    */
+/* ------------------------------------------------------------------ */
+/* hero banner: wedding-hall photo + maroon shade; padding-top keeps the text clear of the fixed nav bar */
+.blog-hero {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  box-sizing: border-box;
+  min-height: 21rem;
+  padding: 8rem 1.25rem 3rem;
+  background: var(--primary);
+  color: var(--primary-foreground);
+  text-align: center;
+}
+@media (min-width: 640px)  { .blog-hero { min-height: 25rem; padding: 9rem 2rem 4rem; } }
+@media (min-width: 1024px) { .blog-hero { min-height: 32rem; padding: 11.5rem 2rem 5rem; } }   /* change these numbers to make the banner taller / shorter */
+.blog-hero-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: cover;
+  object-position: 50% 25%;
+}
+.blog-hero-shade {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(180deg,
+    color-mix(in oklab, var(--primary) 78%, transparent) 0%,
+    color-mix(in oklab, var(--primary) 58%, transparent) 45%,
+    color-mix(in oklab, var(--primary) 94%, transparent) 100%);
+}
+.blog-hero-inner {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 54rem;
+  margin-inline: auto;
+}
+.blog-eyebrow {
+  margin-bottom: .9rem;
+  color: var(--gold);
+  font-family: var(--ui-font);
+  font-size: .72rem;
+  font-weight: 700;
+  letter-spacing: .26em;
+  text-transform: uppercase;
+  text-shadow: 0 1px 4px rgb(0 0 0 / .7);
+}
+.blog-hero-title {
+  font-size: clamp(2rem, 5.2vw, 4.4rem);
+  line-height: 1.12;
+  text-wrap: balance;
+}
+.blog-hero-sub {
+  max-width: 40rem;
+  margin: 1.1rem auto 0;
+  color: rgb(255 255 255 / .9);
+  font-size: clamp(.9rem, 1.6vw, 1.1rem);
+  line-height: 1.75;
+  text-shadow: 0 1px 6px rgb(0 0 0 / .7);
+}
+.blog-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: .4rem .9rem;
+  margin-top: 1.3rem;
+  color: rgb(255 255 255 / .9);
+  font-family: var(--ui-font);
+  font-size: .8rem;
+  text-shadow: 0 1px 4px rgb(0 0 0 / .7);
+}
+.blog-meta span { display: inline-flex; align-items: center; gap: .4rem; }
+.blog-meta svg { color: var(--gold); }
+
+/* photo that fills its frame (cards + post cover) */
+.blog-fill {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: cover;
+  object-position: center;
+  transition: transform 800ms cubic-bezier(.2,.75,.25,1);
+}
+
+/* blog card */
+.blog-card {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid color-mix(in oklab, var(--gold) 65%, transparent);
+  background: var(--background);
+  box-shadow: 0 10px 26px color-mix(in oklab, var(--foreground) 12%, transparent);
+  transition: transform 500ms cubic-bezier(.2,.75,.25,1), box-shadow 500ms ease;
+}
+.blog-card-media {
+  position: relative;
+  display: block;
+  flex-shrink: 0;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  background: var(--wine);
+}
+.blog-card-media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(to top, rgb(0 0 0 / .35), transparent 45%);
+}
+.blog-card-tag {
+  position: absolute;
+  z-index: 2;
+  top: .8rem;
+  left: .8rem;
+  padding: .28rem .7rem;
+  background: var(--gold);
+  color: oklch(0.2 0.02 24);
+  font-family: var(--ui-font);
+  font-size: .68rem;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+.blog-card-body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: .6rem;
+  padding: 1.25rem 1.3rem 1.4rem;
+}
+.blog-card-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: .4rem;
+  color: var(--muted-foreground);
+  font-family: var(--ui-font);
+  font-size: .75rem;
+}
+.blog-card-meta svg { color: var(--accent); }
+.blog-card-title {
+  font-family: var(--heading-font);
+  font-size: 1.55rem;
+  font-weight: 400;
+  line-height: 1.2;
+  color: var(--primary);
+}
+.blog-card-title a { transition: color 300ms ease; }
+.blog-card-title a:hover { color: var(--wine); }
+.blog-card-excerpt {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  color: var(--muted-foreground);
+  font-size: .92rem;
+  line-height: 1.7;
+}
+@media (hover: hover) and (pointer: fine) {
+  .blog-card:hover { transform: translateY(-5px); box-shadow: 0 22px 40px color-mix(in oklab, var(--foreground) 22%, transparent); }
+  .blog-card:hover .blog-fill { transform: scale(1.06); }
+}
+
+/* the first (featured) card: photo left, text right on desktop */
+@media (min-width: 1024px) {
+  .blog-card-featured { display: grid; grid-template-columns: 1.15fr 1fr; }
+  .blog-card-featured .blog-card-media { aspect-ratio: auto; min-height: 26rem; }
+  .blog-card-featured .blog-card-body { justify-content: center; gap: .9rem; padding: 2.5rem 2.75rem; }
+  .blog-card-featured .blog-card-title { font-size: clamp(2.1rem, 3.2vw, 3rem); }
+  .blog-card-featured .blog-card-excerpt { font-size: 1.02rem; -webkit-line-clamp: 4; line-clamp: 4; }
+}
+@media (min-width: 640px) and (max-width: 1023px) {
+  .blog-card-featured .blog-card-media { aspect-ratio: 16 / 9; }
+  .blog-card-featured .blog-card-title { font-size: 2rem; }
+}
+
+/* single blog post */
+.blog-back {
+  display: inline-flex;
+  align-items: center;
+  gap: .35rem;
+  color: var(--primary);
+  font-family: var(--ui-font);
+  font-size: .85rem;
+  font-weight: 600;
+  border-bottom: 1px solid transparent;
+  transition: color 300ms ease, border-color 300ms ease;
+}
+.blog-back:hover { color: var(--wine); border-color: var(--gold); }
+.blog-cover-wrap {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  margin-top: 1.25rem;
+  overflow: hidden;
+  border: 1px solid color-mix(in oklab, var(--gold) 65%, transparent);
+  background: var(--wine);
+  box-shadow: 0 16px 36px color-mix(in oklab, var(--foreground) 18%, transparent);
+}
+@media (max-width: 639px) { .blog-cover-wrap { aspect-ratio: 4 / 3; } }
+.blog-prose {
+  max-width: 46rem;
+  margin: 2.5rem auto 0;
+  font-family: var(--body-font);
+  color: color-mix(in oklab, var(--foreground) 82%, transparent);
+}
+.blog-prose p {
+  margin-top: 1.1rem;
+  font-size: 1.05rem;
+  line-height: 1.9;
+}
+.blog-prose .blog-lead {
+  margin-top: 0;
+  padding-left: 1.1rem;
+  border-left: 2px solid var(--gold);
+  color: var(--primary);
+  font-size: clamp(1.1rem, 2vw, 1.3rem);
+  line-height: 1.8;
+}
+.blog-h2 {
+  margin-top: 2.6rem;
+  color: var(--primary);
+  font-size: clamp(1.8rem, 3.6vw, 2.6rem);
+  line-height: 1.15;
+}
+@media (max-width: 639px) {
+  .blog-prose p { font-size: 1rem; line-height: 1.85; }
+}
+
+/* call-to-action box at the end of the blog pages */
+.blog-cta {
+  padding: 2.5rem 1.5rem;
+  border: 1px solid var(--gold);
+  background:
+    radial-gradient(circle at 15% 0%, color-mix(in oklab, var(--gold) 22%, transparent), transparent 55%),
+    var(--primary);
+  color: var(--primary-foreground);
+  text-align: center;
+  box-shadow: 0 16px 36px color-mix(in oklab, var(--foreground) 22%, transparent);
+}
+@media (min-width: 768px) { .blog-cta { padding: 3.25rem 3rem; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .blog-card,
+  .blog-fill { transition-duration: .01ms; }
+}
+
+/* ------------------------------------------------------------------ */
+/* Dark theme                                                          */
+/* ------------------------------------------------------------------ */
 .dark {
   --background: oklch(0.129 0.042 264.695);
   --foreground: oklch(0.984 0.003 247.858);
